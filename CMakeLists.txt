@@ -8,7 +8,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # project name
-project(CSFML)
+project(CSFML C D)
 
 # include the configuration file
 include(${CMAKE_SOURCE_DIR}/cmake/Config.cmake)
@@ -18,11 +18,11 @@ set(VERSION_MAJOR 2)
 set(VERSION_MINOR 0)
 set(VERSION_PATCH 0)
 
-# add the CSFML header path
-# include_directories(${CMAKE_SOURCE_DIR}/include)
+# add the DSFML source path
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # force dynamic build (static build is not supported)
-set(BUILD_SHARED_LIBS TRUE)
+set(BUILD_SHARED_LIBS FALSE)
 
 # add an option for building the API documentation
 set(BUILD_DOC FALSE CACHE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
@@ -47,7 +47,7 @@ if(WINDOWS)
 endif()
 
 # add the subdirectories
-add_subdirectory(include)
+add_subdirectory(include/sfml)
 if(BUILD_DOC)
     add_subdirectory(doc)
 endif()

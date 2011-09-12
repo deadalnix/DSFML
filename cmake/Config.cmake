@@ -36,8 +36,9 @@ elseif(MSVC_VERSION EQUAL 1600)
     set(COMPILER_MSVC 1)
     set(MSVC_VERSION 2010)
 else()
-    message(WARNING "Unsupported compiler")
-    return()
+    message(WARNING "TODO : Detect D compiler instead of C")
+    # message(WARNING "Unsupported compiler")
+    # return()
 endif()
 
 # define the install directory for miscellaneous files
