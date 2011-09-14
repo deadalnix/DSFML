@@ -1,4 +1,4 @@
-module csfml.system.Clock;
+module csfml.system.clock;
 
 public import csfml.system.types;
 
