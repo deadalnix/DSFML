@@ -20,6 +20,7 @@ set(VERSION_PATCH 0)
 
 # add the DSFML source path
 include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 # force dynamic build (static build is not supported)
 set(BUILD_SHARED_LIBS FALSE)

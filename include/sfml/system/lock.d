@@ -2,7 +2,7 @@ module sfml.system.lock;
 
 import sfml.system.mutex;
 
-class Lock {
+scope class Lock {
 	private Mutex mutex;
 	
 	public this(Mutex mutex) {

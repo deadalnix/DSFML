@@ -1,0 +1,11 @@
+set(INCROOT ${CMAKE_SOURCE_DIR}/include/sfml/window)
+set(SRCROOT ${CMAKE_SOURCE_DIR}/src/sfml/window)
+
+# all source files
+set(SRC
+    ${INCROOT}/context.d)
+
+# define the dsfml-window target
+dsfml_add_library(dsfml-window
+                  SOURCES ${SRC}
+                  DEPENDS ${CSFML_WINDOW_LIBRARY})
