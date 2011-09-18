@@ -6,7 +6,8 @@ set(SRC
     ${INCROOT}/clock.d
     ${INCROOT}/mutex.d
     ${INCROOT}/lock.d
-    ${INCROOT}/sleep.d)
+    ${INCROOT}/sleep.d
+    ${INCROOT}/thread.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-system

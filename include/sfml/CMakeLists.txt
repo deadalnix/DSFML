@@ -1,4 +1,3 @@
-
 # include the SFML specific macros
 include(${CMAKE_SOURCE_DIR}/cmake/Macros.cmake)
 

@@ -9,12 +9,12 @@ class Context {
 		context = sfContext_Create();
 	}
 	
-	public ~this() {
-		sfContext_Destroy(context);
-	}
-	
 	public void setActive(bool active) {
 		sfContext_SetActive(context, active);
+	}
+	
+	~this() {
+		sfContext_Destroy(context);
 	}
 }
 

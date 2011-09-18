@@ -11,7 +11,7 @@ scope class Lock {
 		mutex.lock();
 	}
 	
-	public ~this() {
+	~this() {
 		mutex.unlock();
 	}
 }

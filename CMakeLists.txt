@@ -10,6 +10,9 @@ endif()
 # project name
 project(CSFML C D)
 
+# Prepare Cmake for D unit tests
+include(UseDUnittest)
+
 # include the configuration file
 include(${CMAKE_SOURCE_DIR}/cmake/Config.cmake)
 
