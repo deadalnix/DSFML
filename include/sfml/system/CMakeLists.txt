@@ -4,10 +4,10 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/sfml/system)
 # all source files
 set(SRC
     ${INCROOT}/clock.d
+    ${INCROOT}/inputstream.d
     ${INCROOT}/mutex.d
     ${INCROOT}/lock.d
-    ${INCROOT}/sleep.d
-    ${INCROOT}/thread.d)
+    ${INCROOT}/sleep.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-system
