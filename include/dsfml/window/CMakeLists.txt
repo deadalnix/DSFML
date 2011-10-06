@@ -1,5 +1,5 @@
-set(INCROOT ${CMAKE_SOURCE_DIR}/include/sfml/window)
-set(SRCROOT ${CMAKE_SOURCE_DIR}/src/sfml/window)
+set(INCROOT ${CMAKE_SOURCE_DIR}/include/dsfml/window)
+set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/window)
 
 # all source files
 set(SRC

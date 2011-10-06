@@ -1,4 +1,4 @@
-module sfml.window.context;
+module dsfml.window.context;
 
 import csfml.window.context;
 

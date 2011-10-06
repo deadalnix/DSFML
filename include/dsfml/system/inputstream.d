@@ -1,4 +1,4 @@
-module sfml.system.inputstream;
+module dsfml.system.inputstream;
 
 import csfml.system.inputstream;
 

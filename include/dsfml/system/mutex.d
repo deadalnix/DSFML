@@ -1,4 +1,4 @@
-module sfml.system.mutex;
+module dsfml.system.mutex;
 
 import csfml.system.mutex;
 

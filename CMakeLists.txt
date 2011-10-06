@@ -51,7 +51,7 @@ if(WINDOWS)
 endif()
 
 # add the subdirectories
-add_subdirectory(include/sfml)
+add_subdirectory(include/dsfml)
 if(BUILD_DOC)
     add_subdirectory(doc)
 endif()

@@ -1,6 +1,6 @@
-module sfml.system.lock;
+module dsfml.system.lock;
 
-import sfml.system.mutex;
+import dsfml.system.mutex;
 
 scope class Lock {
 	private Mutex mutex;

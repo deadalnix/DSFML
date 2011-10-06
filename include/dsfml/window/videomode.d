@@ -1,4 +1,4 @@
-module sfml.window.videomode;
+module dsfml.window.videomode;
 
 import csfml.window.videomode;
 

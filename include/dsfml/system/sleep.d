@@ -1,4 +1,4 @@
-module sfml.system.sleep;
+module dsfml.system.sleep;
 
 import csfml.system.sleep;
 

@@ -1,4 +1,4 @@
-module sfml.system.clock;
+module dsfml.system.clock;
 
 import csfml.system.clock;
 
