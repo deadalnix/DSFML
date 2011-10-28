@@ -1,0 +1,3 @@
+module csfml.audio.music;
+
+

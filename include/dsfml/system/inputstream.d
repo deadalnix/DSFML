@@ -2,6 +2,24 @@ module dsfml.system.inputstream;
 
 import csfml.system.inputstream;
 
+abstract class InputStream {
+	private sfInputStream cis = {
+		read		: &inputStreamRead,
+		seek		: &inputStreamSeek,
+		tell		: &inputStreamTell,
+		getSize		: &inputStreamGetSize,
+	};
+	
+	protected this() {
+		cis.userData = cast(void*) this;
+	}
+	
+	abstract long read(byte[] data);
+	abstract long seek(long position);
+	abstract long tell();
+	abstract long getSize();
+}
+
 private {
 	extern(C) {
 		long inputStreamRead(byte* data, long size, void* userData) {
@@ -24,23 +42,5 @@ private {
 			return istream.getSize();
 		};
 	}
-}
-
-abstract class InputStream {
-	private sfInputStream cis = {
-		read		: &inputStreamRead,
-		seek		: &inputStreamSeek,
-		tell		: &inputStreamTell,
-		getSize		: &inputStreamGetSize,
-	};
-	
-	protected this() {
-		cis.userData = cast(void*)this;
-	}
-	
-	abstract long read(byte[] data);
-	abstract long seek(long position);
-	abstract long tell();
-	abstract long getSize();
 }
 
