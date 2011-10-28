@@ -5,12 +5,16 @@ import csfml.audio.soundstream;
 abstract class SoundStream {
 	private sfSoundStream* soundStream;
 	
-	public ~this() {
-		sfSoundStream_Destroy(soundStream);
-	}
-	
 	public this(uint channelsCount, uint sampleRate) {
 		soundStream = sfSoundStream_Create(&soundStreamOnGetData, &soundStreamOnSeek, channelsCount, sampleRate, cast(void*) this);
+	}
+	
+	protected this() {
+		soundStream = null;
+	}
+	
+	public ~this() {
+		sfSoundStream_Destroy(soundStream);
 	}
 	
 	public void play() {

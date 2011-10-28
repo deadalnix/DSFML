@@ -3,7 +3,7 @@ module dsfml.system.inputstream;
 import csfml.system.inputstream;
 
 abstract class InputStream {
-	private sfInputStream cis = {
+	private sfInputStream inputStream = {
 		read		: &inputStreamRead,
 		seek		: &inputStreamSeek,
 		tell		: &inputStreamTell,
@@ -11,13 +11,18 @@ abstract class InputStream {
 	};
 	
 	protected this() {
-		cis.userData = cast(void*) this;
+		inputStream.userData = cast(void*) this;
 	}
 	
 	abstract long read(byte[] data);
 	abstract long seek(long position);
 	abstract long tell();
 	abstract long getSize();
+	
+	// deprecated
+	public sfInputStream* getCInputStream() {
+		return &inputStream;
+	}
 }
 
 private {
