@@ -127,8 +127,8 @@ class Music : SoundStream {
 	}
 	
 	// Dummy function to handle compatibility with soundStream.
-	protected final void onSeek(uint timeOffset) {}
-	protected final bool onGetData(const short[] data) {
+	deprecated protected final void onSeek(uint timeOffset) {}
+	deprecated protected final bool onGetData(const short[] data) {
 		return false;
 	}
 }

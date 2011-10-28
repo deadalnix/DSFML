@@ -1,8 +1,9 @@
 module dsfml.audio.soundstream;
 
 import csfml.audio.soundstream;
+import dsfml.audio.soundsource;
 
-abstract class SoundStream {
+abstract class SoundStream : SoundSource {
 	private sfSoundStream* soundStream;
 	
 	public this(uint channelsCount, uint sampleRate) {

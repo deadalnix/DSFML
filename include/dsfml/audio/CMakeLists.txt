@@ -5,6 +5,9 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/audio)
 set(SRC
     ${INCROOT}/listener.d
     ${INCROOT}/music.d
+    ${INCROOT}/sound.d
+    ${INCROOT}/soundbuffer.d
+    ${INCROOT}/soundsource.d
     ${INCROOT}/soundstream.d)
 
 # define the dsfml-system target
