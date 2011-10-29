@@ -17,6 +17,14 @@ class Sound : SoundSource {
 		setBuffer(buffer);
 	}
 	
+	public Sound clone() {
+		return new Sound(this);
+	}
+	
+	private this(Sound s) {
+		sound = sfSound_Copy(s.sound);
+	}
+	
 	public ~this() {
 		sfSound_Destroy(sound);
 	}
@@ -34,6 +42,8 @@ class Sound : SoundSource {
 	}
 	
 	public void setBuffer(SoundBuffer buffer) {
+		if(buffer is null) throw new Exception("NullParameterException : SoundBuffer is null."); 
+		
 		sfSound_SetBuffer(sound, buffer.getCSoundBuffer());
 	}
 	
@@ -83,7 +93,7 @@ class Sound : SoundSource {
 		sfSound_SetPosition(sound, position[0], position[1], position[2]);
 	}
 	
-	public void setPosition(int x, int y, int z) {
+	public void setPosition(float x, float y, float z) {
 		sfSound_SetPosition(sound, x, y, z);
 	}
 	

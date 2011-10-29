@@ -18,11 +18,13 @@ class Music : SoundStream {
 	
 	public this(const byte[] data) {
 		if(data is null || data.length == 0) throw new Exception("LoadingException : Memory stream is invalid.");
+		
 		music = sfMusic_CreateFromMemory(data.ptr, data.length);
 	}
 	
 	public this(InputStream inputStream) {
 		if(inputStream is null) throw new Exception("LoadingException : InputStream is invalid.");
+		
 		music = sfMusic_CreateFromStream(inputStream.getCInputStream());
 	}
 	
