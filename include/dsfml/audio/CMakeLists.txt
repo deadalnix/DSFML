@@ -7,6 +7,8 @@ set(SRC
     ${INCROOT}/music.d
     ${INCROOT}/sound.d
     ${INCROOT}/soundbuffer.d
+    ${INCROOT}/soundbufferrecorder.d
+    ${INCROOT}/soundrecorder.d
     ${INCROOT}/soundsource.d
     ${INCROOT}/soundstream.d)
 

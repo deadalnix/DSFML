@@ -47,7 +47,7 @@ class Sound : SoundSource {
 		sfSound_SetBuffer(sound, buffer.getCSoundBuffer());
 	}
 	
-	public SoundBuffer getBuffer() {
+	public const(SoundBuffer) getBuffer() const {
 		return new SoundBuffer(sfSound_GetBuffer(sound));
 	}
 	

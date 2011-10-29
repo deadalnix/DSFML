@@ -115,7 +115,7 @@ abstract class SoundStream : SoundSource {
 	}
 	
 	protected abstract void onSeek(uint timeOffset);
-	protected abstract bool onGetData(const short[] data);
+	protected abstract bool onGetData(short[] data);
 }
 
 private {
