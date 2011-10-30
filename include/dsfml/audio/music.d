@@ -44,15 +44,15 @@ class Music : SoundStream {
 		sfMusic_Stop(music);
 	}
 	
-	public uint getChannelsCount() {
+	public uint getChannelsCount() const {
 		return sfMusic_GetChannelsCount(music);
 	}
 	
-	public uint getSampleRate() {
+	public uint getSampleRate() const {
 		return sfMusic_GetSampleRate(music);
 	}
 	
-	public sfSoundStatus getStatus() {
+	public sfSoundStatus getStatus() const {
 		return sfMusic_GetStatus(music);
 	}
 	
@@ -60,7 +60,7 @@ class Music : SoundStream {
 		sfMusic_SetPlayingOffset(music, timeOffset);
 	}
 	
-	public uint getPlayingOffset() {
+	public uint getPlayingOffset() const {
 		return sfMusic_GetPlayingOffset(music);
 	}
 	
@@ -68,7 +68,7 @@ class Music : SoundStream {
 		sfMusic_SetLoop(music, loop);
 	}
 	
-	public void getLoop() {
+	public void getLoop() const {
 		return sfMusic_GetLoop(music);
 	}
 	
@@ -76,7 +76,7 @@ class Music : SoundStream {
 		sfMusic_SetPitch(music, pitch);
 	}
 	
-	public float getPitch() {
+	public float getPitch() const {
 		return sfMusic_GetPitch(music);
 	}
 	
@@ -86,7 +86,7 @@ class Music : SoundStream {
 		sfMusic_SetVolume(music, volume);
 	}
 	
-	public float getVolume() {
+	public float getVolume() const {
 		return sfMusic_GetVolume(music);
 	}
 	
@@ -98,7 +98,7 @@ class Music : SoundStream {
 		sfMusic_SetPosition(music, x, y, z);
 	}
 	
-	public float[3] getPosition() {
+	public float[3] getPosition() const {
 		float[3] position;
 		sfMusic_GetPosition(music, position.ptr, position.ptr + 1, position.ptr + 2);
 		return position;
@@ -108,7 +108,7 @@ class Music : SoundStream {
 		sfMusic_SetRelativeToListener(music, relative);
 	}
 	
-	public bool isRelativeToListener() {
+	public bool isRelativeToListener() const {
 		return sfMusic_IsRelativeToListener(music);
 	}
 	
@@ -116,7 +116,7 @@ class Music : SoundStream {
 		sfMusic_SetMinDistance(music, distance);
 	}
 	
-	public float getMinDistance() {
+	public float getMinDistance() const {
 		return sfMusic_GetMinDistance(music);
 	}
 	
@@ -124,7 +124,7 @@ class Music : SoundStream {
 		sfMusic_SetAttenuation(music, attenuation);
 	}
 	
-	public float getAttenuation() {
+	public float getAttenuation() const {
 		return sfMusic_GetAttenuation(music);
 	}
 	

@@ -34,6 +34,10 @@ class SoundBuffer {
 		soundBuffer = sfSoundBuffer_CreateFromSamples(samples.ptr, samples.length, channelsCount, sampleRate);
 	}
 	
+	public this(const(sfSoundBuffer*) soundBuffer) const {
+		this.soundBuffer = soundBuffer;
+	}
+	
 	public SoundBuffer clone() {
 		return new SoundBuffer(this);
 	}
@@ -46,10 +50,6 @@ class SoundBuffer {
 		return other.soundBuffer == soundBuffer;
 	}
 	
-	public this(sfSoundBuffer* soundBuffer) {
-		this.soundBuffer = soundBuffer;
-	}
-	
 	public sfSoundBuffer* getCSoundBuffer() {
 		return soundBuffer;
 	}
@@ -58,27 +58,27 @@ class SoundBuffer {
 		sfSoundBuffer_Destroy(soundBuffer);
 	}
 	
-	public bool saveToFile(string filename) {
+	public bool saveToFile(string filename) const {
 		if(filename is null || filename.length == 0) throw new Exception("LoadingException : Filename is invalid.");
 		
 		return sfSoundBuffer_SaveToFile(soundBuffer, toStringz(filename));
 	}
 	
-	public const(short)[] getSamples() {
+	public const(short)[] getSamples() const {
 		const(short)* samples = sfSoundBuffer_GetSamples(soundBuffer);
 		
 		return samples[0 .. sfSoundBuffer_GetSamplesCount(soundBuffer)];
 	}
 	
-	public uint getSampleRate() {
+	public uint getSampleRate() const {
 		return sfSoundBuffer_GetSampleRate(soundBuffer);
 	}
 	
-	public uint getChannelsCount() {
+	public uint getChannelsCount() const {
 		return sfSoundBuffer_GetChannelsCount(soundBuffer);
 	}
 	
-	public uint getDuration() {
+	public uint getDuration() const {
 		return sfSoundBuffer_GetDuration(soundBuffer);
 	}
 }

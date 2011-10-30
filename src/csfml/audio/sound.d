@@ -11,7 +11,7 @@ extern(C) {
 	void sfSound_Pause(sfSound* sound);
 	void sfSound_Stop(sfSound* sound);
 	void sfSound_SetBuffer(sfSound* sound, const sfSoundBuffer* buffer);
-	sfSoundBuffer* sfSound_GetBuffer(const sfSound* sound);
+	const(sfSoundBuffer*) sfSound_GetBuffer(const sfSound* sound);
 	void sfSound_SetLoop(sfSound* sound, bool loop);
 	bool sfSound_GetLoop(const sfSound* sound);
 	sfSoundStatus sfSound_GetStatus(const sfSound* sound);

@@ -55,7 +55,7 @@ class Sound : SoundSource {
 		sfSound_SetLoop(sound, loop);
 	}
 	
-	public void getLoop() {
+	public void getLoop() const {
 		return sfSound_GetLoop(sound);
 	}
 	
@@ -63,11 +63,11 @@ class Sound : SoundSource {
 		sfSound_SetPlayingOffset(sound, timeOffset);
 	}
 	
-	public uint getPlayingOffset() {
+	public uint getPlayingOffset() const {
 		return sfSound_GetPlayingOffset(sound);
 	}
 	
-	public sfSoundStatus getStatus() {
+	public sfSoundStatus getStatus() const {
 		return sfSound_GetStatus(sound);
 	}
 	
@@ -75,7 +75,7 @@ class Sound : SoundSource {
 		sfSound_SetPitch(sound, pitch);
 	}
 	
-	public float getPitch() {
+	public float getPitch() const {
 		return sfSound_GetPitch(sound);
 	}
 	
@@ -85,7 +85,7 @@ class Sound : SoundSource {
 		sfSound_SetVolume(sound, volume);
 	}
 	
-	public float getVolume() {
+	public float getVolume() const {
 		return sfSound_GetVolume(sound);
 	}
 	
@@ -97,7 +97,7 @@ class Sound : SoundSource {
 		sfSound_SetPosition(sound, x, y, z);
 	}
 	
-	public float[3] getPosition() {
+	public float[3] getPosition() const {
 		float[3] position;
 		sfSound_GetPosition(sound, position.ptr, position.ptr + 1, position.ptr + 2);
 		return position;
@@ -107,7 +107,7 @@ class Sound : SoundSource {
 		sfSound_SetRelativeToListener(sound, relative);
 	}
 	
-	public bool isRelativeToListener() {
+	public bool isRelativeToListener() const {
 		return sfSound_IsRelativeToListener(sound);
 	}
 	
@@ -115,7 +115,7 @@ class Sound : SoundSource {
 		sfSound_SetMinDistance(sound, distance);
 	}
 	
-	public float getMinDistance() {
+	public float getMinDistance() const {
 		return sfSound_GetMinDistance(sound);
 	}
 	
@@ -123,7 +123,7 @@ class Sound : SoundSource {
 		sfSound_SetAttenuation(sound, attenuation);
 	}
 	
-	public float getAttenuation() {
+	public float getAttenuation() const {
 		return sfSound_GetAttenuation(sound);
 	}
 }

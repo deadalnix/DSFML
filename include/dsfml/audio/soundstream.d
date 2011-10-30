@@ -30,15 +30,15 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_Stop(soundStream);
 	}
 	
-	public uint getChannelsCount() {
+	public uint getChannelsCount() const {
 		return sfSoundStream_GetChannelsCount(soundStream);
 	}
 	
-	public uint getSampleRate() {
+	public uint getSampleRate() const {
 		return sfSoundStream_GetSampleRate(soundStream);
 	}
 	
-	public sfSoundStatus getStatus() {
+	public sfSoundStatus getStatus() const {
 		return sfSoundStream_GetStatus(soundStream);
 	}
 	
@@ -46,7 +46,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetPlayingOffset(soundStream, timeOffset);
 	}
 	
-	public uint getPlayingOffset() {
+	public uint getPlayingOffset() const {
 		return sfSoundStream_GetPlayingOffset(soundStream);
 	}
 	
@@ -54,7 +54,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetLoop(soundStream, loop);
 	}
 	
-	public void getLoop() {
+	public void getLoop() const {
 		return sfSoundStream_GetLoop(soundStream);
 	}
 	
@@ -62,7 +62,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetPitch(soundStream, pitch);
 	}
 	
-	public float getPitch() {
+	public float getPitch() const {
 		return sfSoundStream_GetPitch(soundStream);
 	}
 	
@@ -72,7 +72,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetVolume(soundStream, volume);
 	}
 	
-	public float getVolume() {
+	public float getVolume() const {
 		return sfSoundStream_GetVolume(soundStream);
 	}
 	
@@ -84,7 +84,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetPosition(soundStream, x, y, z);
 	}
 	
-	public float[3] getPosition() {
+	public float[3] getPosition() const {
 		float[3] position;
 		sfSoundStream_GetPosition(soundStream, position.ptr, position.ptr + 1, position.ptr + 2);
 		return position;
@@ -94,7 +94,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetRelativeToListener(soundStream, relative);
 	}
 	
-	public bool isRelativeToListener() {
+	public bool isRelativeToListener() const {
 		return sfSoundStream_IsRelativeToListener(soundStream);
 	}
 	
@@ -102,7 +102,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetMinDistance(soundStream, distance);
 	}
 	
-	public float getMinDistance() {
+	public float getMinDistance() const {
 		return sfSoundStream_GetMinDistance(soundStream);
 	}
 	
@@ -110,7 +110,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_SetAttenuation(soundStream, attenuation);
 	}
 	
-	public float getAttenuation() {
+	public float getAttenuation() const {
 		return sfSoundStream_GetAttenuation(soundStream);
 	}
 	

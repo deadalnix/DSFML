@@ -8,6 +8,6 @@ extern(C) {
 	void sfSoundBufferRecorder_Start(sfSoundBufferRecorder* soundBufferRecorder, uint sampleRate);
 	void sfSoundBufferRecorder_Stop(sfSoundBufferRecorder* soundBufferRecorder);
 	uint sfSoundBufferRecorder_GetSampleRate(const sfSoundBufferRecorder* soundBufferRecorder);
-	sfSoundBuffer* sfSoundBufferRecorder_GetBuffer(const sfSoundBufferRecorder* soundBufferRecorder);
+	const(sfSoundBuffer*) sfSoundBufferRecorder_GetBuffer(const sfSoundBufferRecorder* soundBufferRecorder);
 }
 

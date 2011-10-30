@@ -24,7 +24,7 @@ include_directories(${CSFML_INCLUDE_DIR})
 # add the modules subdirectories
 add_subdirectory(system)
 add_subdirectory(window)
-# add_subdirectory(Network)
+add_subdirectory(network)
 # add_subdirectory(Graphics)
 add_subdirectory(audio)
 if(WINDOWS)
