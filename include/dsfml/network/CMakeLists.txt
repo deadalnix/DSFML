@@ -6,7 +6,9 @@ set(SRC
     ${INCROOT}/ftp.d
     ${INCROOT}/http.d
     ${INCROOT}/ipaddress.d
-    ${INCROOT}/packet.d)
+    ${INCROOT}/packet.d
+    ${INCROOT}/socket.d
+    ${INCROOT}/socketselector.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-network
