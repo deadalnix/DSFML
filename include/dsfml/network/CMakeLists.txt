@@ -5,7 +5,8 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/network)
 set(SRC
     ${INCROOT}/ftp.d
     ${INCROOT}/http.d
-    ${INCROOT}/ipaddress.d)
+    ${INCROOT}/ipaddress.d
+    ${INCROOT}/packet.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-network
