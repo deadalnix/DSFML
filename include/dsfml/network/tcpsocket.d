@@ -1,10 +1,12 @@
 module dsfml.network.tcpsocket;
 
+import csfml.network.socketselector;
 import csfml.network.tcpsocket;
 
 import dsfml.network.ipaddress;
 import dsfml.network.packet;
 import dsfml.network.socket;
+import dsfml.network.socketselector;
 
 class TcpSocket : Socket {
 	private sfTcpSocket* socket;
@@ -68,6 +70,18 @@ class TcpSocket : Socket {
 	
 	public sfSocketStatus recieve(Packet packet) {
 		return sfTcpSocket_ReceivePacket(socket, packet.getCPacket());
+	}
+	
+	public void addSocketSelector(SocketSelector selector) {
+		sfSocketSelector_AddTcpSocket(selector.getCSocketSelector(), socket);
+	}
+	
+	public void removeSocketSelector(SocketSelector selector) {
+		sfSocketSelector_RemoveTcpSocket(selector.getCSocketSelector(), socket);
+	}
+	
+	public bool isReadySocketSelector(const SocketSelector selector) {
+		return sfSocketSelector_IsTcpSocketReady(selector.getCSocketSelector(), socket);
 	}
 }
 

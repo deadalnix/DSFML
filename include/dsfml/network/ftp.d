@@ -30,7 +30,6 @@ class Ftp {
 		return new Response(sfFtp_LoginAnonymous(ftp));
 	}
 	
-	// XXX: Is it really secure ? Does the GC could free C strings too soon ?
 	public Response login(string userName, string password) {
 		return new Response(sfFtp_Login(ftp, toStringz(userName), toStringz(password)));
 	}

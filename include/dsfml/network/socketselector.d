@@ -23,22 +23,20 @@ class SocketSelector {
 		sfSocketSelector_Destroy(selector);
 	}
 	
+	public sfSocketSelector* getCSocketSelector() {
+		return selector;
+	}
+	
+	public const(sfSocketSelector*) getCSocketSelector() const {
+		return selector;
+	}
+	
 	public void add(Socket socket) {
-		// TODO:
-		/*
-		void sfSocketSelector_AddTcpListener(selector, sfTcpListener* socket);
-		void sfSocketSelector_AddTcpSocket(selector, sfTcpSocket* socket);
-		void sfSocketSelector_AddUdpSocket(selector, sfUdpSocket* socket);
-		*/
+		socket.addSocketSelector(this);
 	}
 	
 	public void remove(Socket socket) {
-		// TODO:
-		/*
-		void sfSocketSelector_RemoveTcpListener(selector, sfTcpListener* socket);
-		void sfSocketSelector_RemoveTcpSocket(selector, sfTcpSocket* socket);
-		void sfSocketSelector_RemoveUdpSocket(selector, sfUdpSocket* socket);
-		*/
+		socket.removeSocketSelector(this);
 	}
 	
 	public void clear() {
@@ -50,13 +48,7 @@ class SocketSelector {
 	}
 	
 	public bool isReady(Socket socket) const {
-		// TODO:
-		/*
-		bool sfSocketSelector_IsTcpListenerReady(const selector, sfTcpListener* socket);
-		bool sfSocketSelector_IsTcpSocketReady(const selector, sfTcpSocket* socket);
-		bool sfSocketSelector_IsUdpSocketReady(const selector, sfUdpSocket* socket);
-		*/
-		return false;
+		return socket.isReadySocketSelector(this);
 	}
 }
 

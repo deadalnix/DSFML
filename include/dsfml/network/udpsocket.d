@@ -1,12 +1,14 @@
 module dsfml.network.udpsocket;
 
+import csfml.network.socketselector;
 import csfml.network.udpsocket;
 
 import dsfml.network.ipaddress;
 import dsfml.network.packet;
 import dsfml.network.socket;
+import dsfml.network.socketselector;
 
-public static immutable uint MAX_DATAGRAM_SIZE;
+public immutable uint MAX_DATAGRAM_SIZE;
 
 static this() {
 	MAX_DATAGRAM_SIZE = sfUdpSocket_MaxDatagramSize();
@@ -59,9 +61,20 @@ class UdpSocket : Socket {
 		return sfUdpSocket_SendPacket(socket, packet.getCPacket(), remoteAddress.getCIpAddress(), remotePort);
 	}
 	
-	
 	public sfSocketStatus recieve(Packet packet, IpAddress remoteAddress, ref ushort remotePort) {
 		return sfUdpSocket_ReceivePacket(socket, packet.getCPacket(), remoteAddress.getCIpAddressPtr(), &remotePort);
+	}
+	
+	public void addSocketSelector(SocketSelector selector) {
+		sfSocketSelector_AddUdpSocket(selector.getCSocketSelector(), socket);
+	}
+	
+	public void removeSocketSelector(SocketSelector selector) {
+		sfSocketSelector_RemoveUdpSocket(selector.getCSocketSelector(), socket);
+	}
+	
+	public bool isReadySocketSelector(const SocketSelector selector) {
+		return sfSocketSelector_IsUdpSocketReady(selector.getCSocketSelector(), socket);
 	}
 }
 

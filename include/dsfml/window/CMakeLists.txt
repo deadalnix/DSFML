@@ -4,6 +4,9 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/window)
 # all source files
 set(SRC
     ${INCROOT}/context.d
+    ${INCROOT}/event.d
+    ${INCROOT}/joystick.d
+    ${INCROOT}/keyboard.d
     ${INCROOT}/videomode.d)
 
 # define the dsfml-window target
