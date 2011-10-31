@@ -3,11 +3,15 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/window)
 
 # all source files
 set(SRC
+    ${INCROOT}/all.d
     ${INCROOT}/context.d
     ${INCROOT}/event.d
     ${INCROOT}/joystick.d
     ${INCROOT}/keyboard.d
-    ${INCROOT}/videomode.d)
+    ${INCROOT}/mouse.d
+    ${INCROOT}/videomode.d
+    ${INCROOT}/window.d
+    ${INCROOT}/windowhandle.d)
 
 # define the dsfml-window target
 dsfml_add_library(dsfml-window
