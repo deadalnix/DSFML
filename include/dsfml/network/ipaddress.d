@@ -36,6 +36,10 @@ struct IpAddress {
 		return ipAddress;
 	}
 	
+	public sfIpAddress* getCIpAddressPtr() {
+		return &ipAddress;
+	}
+	
 	static IpAddress getLocalAddress() {
 		return IpAddress(sfIpAddress_GetLocalAddress());
 	}
@@ -49,7 +53,7 @@ struct IpAddress {
 	}
 	
 	static IpAddress getNone() {
-	return IpAddress(sfIpAddress_None());
+		return IpAddress(sfIpAddress_None());
 	}
 }
 

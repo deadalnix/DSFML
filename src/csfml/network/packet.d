@@ -1,4 +1,4 @@
-module csfml.network.http;
+module csfml.network.packet;
 
 public import csfml.network.types;
 
