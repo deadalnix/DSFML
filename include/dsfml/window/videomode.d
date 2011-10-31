@@ -2,11 +2,10 @@ module dsfml.window.videomode;
 
 import csfml.window.videomode;
 
-// FIXME: this is so fucked up.
 struct VideoMode {
-	ulong width;
-	ulong height;
-	ulong bitsPerPixel;
+	uint width;
+	uint height;
+	uint bitsPerPixel;
 	
 	public this(uint width, uint height, uint bitsPerPixel = 32) {
 		this.width			= width;
@@ -22,9 +21,11 @@ struct VideoMode {
 		return cast(VideoMode) sfVideoMode_GetDesktopMode();
 	}
 	
-	public static VideoMode[] getFullscreenModes() {
-		// TODO: implement that.
-		return null;
+	public static immutable(VideoMode[]) getFullscreenModes() {
+        size_t count;
+        VideoMode* cmodes = cast(VideoMode*) sfVideoMode_GetFullscreenModes(&count);
+        
+		return cmodes[0 .. count].idup;
 	}
 }
 

@@ -1,9 +1,9 @@
 module csfml.window.videomode;
 
 struct sfVideoMode {
-	ulong Width;
-	ulong Height;
-	ulong BitsPerPixel;
+	uint Width;
+	uint Height;
+	uint BitsPerPixel;
 }
 
 extern(C) {
