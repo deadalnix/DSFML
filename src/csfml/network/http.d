@@ -5,30 +5,30 @@ public import csfml.network.types;
 import csfml.network.ipaddress;
 
 enum sfHttpMethod {
-    sfHttpGet,
-    sfHttpPost,
-    sfHttpHead,
+	sfHttpGet,
+	sfHttpPost,
+	sfHttpHead,
 }
 
 enum sfHttpStatus {
-    sfHttpOk = 200,
-    sfHttpCreated = 201,
-    sfHttpAccepted = 202,
-    sfHttpNoContent = 204,
-    sfHttpMultipleChoices = 300,
-    sfHttpMovedPermanently = 301,
-    sfHttpMovedTemporarily = 302,
-    sfHttpNotModified = 304,
-    sfHttpBadRequest = 400,
-    sfHttpUnauthorized = 401,
-    sfHttpForbidden = 403,
-    sfHttpNotFound = 404,
-    sfHttpInternalServerError = 500,
-    sfHttpNotImplemented = 501,
-    sfHttpBadGateway = 502,
-    sfHttpServiceNotAvailable = 503,
-    sfHttpInvalidResponse = 1000,
-    sfHttpConnectionFailed = 1001,
+	sfHttpOk = 200,
+	sfHttpCreated = 201,
+	sfHttpAccepted = 202,
+	sfHttpNoContent = 204,
+	sfHttpMultipleChoices = 300,
+	sfHttpMovedPermanently = 301,
+	sfHttpMovedTemporarily = 302,
+	sfHttpNotModified = 304,
+	sfHttpBadRequest = 400,
+	sfHttpUnauthorized = 401,
+	sfHttpForbidden = 403,
+	sfHttpNotFound = 404,
+	sfHttpInternalServerError = 500,
+	sfHttpNotImplemented = 501,
+	sfHttpBadGateway = 502,
+	sfHttpServiceNotAvailable = 503,
+	sfHttpInvalidResponse = 1000,
+	sfHttpConnectionFailed = 1001,
 }
 
 extern(C) {

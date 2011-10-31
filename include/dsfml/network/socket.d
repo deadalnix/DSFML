@@ -1,6 +1,7 @@
 module dsfml.network.socket;
 
-class Socket {
-	
+abstract class Socket {
+	abstract void setBlocking(bool blocking);
+	abstract bool isBlocking() const;
 }
 

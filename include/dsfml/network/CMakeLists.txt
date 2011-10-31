@@ -8,7 +8,9 @@ set(SRC
     ${INCROOT}/ipaddress.d
     ${INCROOT}/packet.d
     ${INCROOT}/socket.d
-    ${INCROOT}/socketselector.d)
+    ${INCROOT}/socketselector.d
+    ${INCROOT}/tcplistener.d
+    ${INCROOT}/tcpsocket.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-network

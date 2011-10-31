@@ -26,6 +26,10 @@ class Packet {
 		sfPacket_Destroy(packet);
 	}
 	
+	public sfPacket* getCPacket() {
+		return packet;
+	}
+	
 	public void append(const(byte)[] data) {
 		sfPacket_Append(packet, data.ptr, data.length);
 	}

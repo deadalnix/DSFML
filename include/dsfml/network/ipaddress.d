@@ -20,7 +20,7 @@ struct IpAddress {
 		sfIpAddress_FromInteger(address);
 	}
 	
-	private this(sfIpAddress ipAddress) {
+	public this(sfIpAddress ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 	
