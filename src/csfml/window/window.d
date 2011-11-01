@@ -22,7 +22,14 @@ struct sfContextSettings {
 }
 
 extern(C) {
-	sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, ulong style, const sfContextSettings* settings);
+	version(X86) {
+		sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, uint style, const sfContextSettings* settings);
+	} else version(X86_64) {
+		sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, ulong style, const sfContextSettings* settings);
+	} else {
+		static assert(false, "Architecture not supported");
+	}
+	
 	sfWindow* sfWindow_CreateFromHandle(sfWindowHandle handle, const sfContextSettings* settings);
 	void sfWindow_Destroy(sfWindow* window);
 	void sfWindow_Close(sfWindow* window);
