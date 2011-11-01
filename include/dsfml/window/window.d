@@ -1,8 +1,10 @@
 module dsfml.window.window;
 
+import csfml.window.event;
 import csfml.window.window;
 import csfml.window.videomode;
 
+import dsfml.window.event;
 import dsfml.window.videomode;
 import dsfml.window.windowhandle;
 
@@ -12,11 +14,11 @@ class Window {
 	private sfWindow* window;
 	
 	public this(VideoMode mode, string title, uint style = sfDefaultStyle, ref const sfContextSettings settings = sfContextSettings()) {
-		window = sfWindow_Create(cast(sfVideoMode) mode, toStringz(title), style, &settings);
+		create(mode, title, style, settings);
 	}
 	
 	public this(WindowHandle handle, ref const sfContextSettings settings = sfContextSettings()) {
-		window = sfWindow_CreateFromHandle(handle, &settings);
+		create(handle, settings);
 	}
 	
 	public ~this() {
@@ -31,28 +33,100 @@ class Window {
 		return window;
 	}
 	
-	/*
-	void sfWindow_Close(window);
-	bool sfWindow_IsOpened(const window);
-	uint sfWindow_GetWidth(const window);
-	uint sfWindow_GetHeight(const window);
-	sfContextSettings sfWindow_GetSettings(const window);
-	bool sfWindow_PollEvent(window, sfEvent* event);
-	bool sfWindow_WaitEvent(window, sfEvent* event);
-	void sfWindow_EnableVerticalSync(window, bool enabled);
-	void sfWindow_ShowMouseCursor(window, bool show);
-	void sfWindow_SetPosition(window, int left, int top);
-	void sfWindow_SetSize(window, uint width, uint height);
-	void sfWindow_SetTitle(window, const char* title);
-	void sfWindow_Show(window, bool show);
-	void sfWindow_EnableKeyRepeat(window, bool enabled);
-	void sfWindow_SetIcon(window, uint width, uint height, const sfUint8* pixels);
-	bool sfWindow_SetActive(window, bool active);
-	void sfWindow_Display(window);
-	void sfWindow_SetFramerateLimit(window, uint limit);
-	sfUint32 sfWindow_GetFrameTime(const window);
-	void sfWindow_SetJoystickThreshold(window, float threshold);
-	sfWindowHandle sfWindow_GetSystemHandle(const window);
-	*/
+	public void create(VideoMode mode, string title, uint style = sfDefaultStyle, ref const sfContextSettings settings = sfContextSettings()) {
+		if(window != null) sfWindow_Destroy(window);
+		
+		window = sfWindow_Create(cast(sfVideoMode) mode, toStringz(title), style, &settings);
+	}
+	
+	public void create(WindowHandle handle, ref const sfContextSettings settings = sfContextSettings()) {
+		if(window != null) sfWindow_Destroy(window);
+		
+		window = sfWindow_CreateFromHandle(handle, &settings);
+	}
+	
+	public void close() {
+		sfWindow_Close(window);
+	}
+	
+	public bool isOpened() const {
+		return sfWindow_IsOpened(window);
+	}
+	
+	public uint getWidth() const {
+		return sfWindow_GetWidth(window);
+	}
+	
+	public uint getHeight() const {
+		return sfWindow_GetHeight(window);
+	}
+	
+	public sfContextSettings getSettings() const {
+		return sfWindow_GetSettings(window);
+	}
+	
+	public bool pollEvet(ref Event event) {
+		return sfWindow_PollEvent(window, cast(sfEvent*) &event);
+	}
+	
+	public bool waitEvet(ref Event event) {
+		return sfWindow_WaitEvent(window, cast(sfEvent*) &event);
+	}
+	
+	public void enableVerticalSync(bool enabled) {
+		sfWindow_EnableVerticalSync(window, enabled);
+	}
+	
+	public void showMouseCursor(bool show) {
+		sfWindow_ShowMouseCursor(window, show);
+	}
+	
+	public void setPosition(int x, int y) {
+		sfWindow_SetPosition(window, x, y);
+	}
+	
+	public void setSize(uint width, uint height) {
+		sfWindow_SetSize(window, width, height);
+	}
+	
+	public void setTitle(string title) {
+		sfWindow_SetTitle(window, toStringz(title));
+	}
+	
+	public void show(bool show) {
+		sfWindow_Show(window, show);
+	}
+	
+	public void enableKeyRepeat(bool enabled) {
+		sfWindow_EnableKeyRepeat(window, enabled);
+	}
+	
+	public void setIcon(uint width, uint height, const ubyte[] pixels) {
+		sfWindow_SetIcon(window, width, height, pixels.ptr);
+	}
+	
+	public bool setActive(bool active) {
+		return sfWindow_SetActive(window, active);
+	}
+	
+	public void display() {
+		sfWindow_Display(window);
+	}
+	
+	public void setFrameRateLimit(uint limit) {
+		sfWindow_SetFramerateLimit(window, limit);
+	}
+	
+	public uint getFrameTime() const {
+		return sfWindow_GetFrameTime(window);
+	}
+	
+	public void setJoystickThreshold(float threshold) {
+		sfWindow_SetJoystickThreshold(window, threshold);
+	}
+	
+	public WindowHandle getWindowHandle() const {
+		return sfWindow_GetSystemHandle(window);
+	}
 }
 

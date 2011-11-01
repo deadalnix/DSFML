@@ -39,7 +39,7 @@ extern(C) {
 	void sfWindow_SetTitle(sfWindow* window, const char* title);
 	void sfWindow_Show(sfWindow* window, bool show);
 	void sfWindow_EnableKeyRepeat(sfWindow* window, bool enabled);
-	void sfWindow_SetIcon(sfWindow* window, uint width, uint height, const byte* pixels);
+	void sfWindow_SetIcon(sfWindow* window, uint width, uint height, const ubyte* pixels);
 	bool sfWindow_SetActive(sfWindow* window, bool active);
 	void sfWindow_Display(sfWindow* window);
 	void sfWindow_SetFramerateLimit(sfWindow* window, uint limit);
