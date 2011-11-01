@@ -12,7 +12,7 @@ struct Rect(T) if(isNumeric!(T)) {
 	
 	public this(T left, T top, T width, T height) {
 		this.left	= left;
-		this.top	= right;
+		this.top	= top;
 		this.width	= width;
 		this.height	= height;
 	}
@@ -23,7 +23,8 @@ struct Rect(T) if(isNumeric!(T)) {
 		this.width	= size[0];
 		this.height	= size[1];
 	}
-	
-	
 }
+
+alias Rect!(int) IntRect;
+alias Rect!(float) FloatRect;
 
