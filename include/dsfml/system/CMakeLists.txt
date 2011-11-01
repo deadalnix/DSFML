@@ -8,7 +8,8 @@ set(SRC
     ${INCROOT}/inputstream.d
     ${INCROOT}/mutex.d
     ${INCROOT}/lock.d
-    ${INCROOT}/sleep.d)
+    ${INCROOT}/sleep.d
+    ${INCROOT}/utils.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-system
