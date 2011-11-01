@@ -3,7 +3,8 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/graphics)
 
 # all source files
 set(SRC
-    ${INCROOT}/color.d)
+    ${INCROOT}/color.d
+    ${INCROOT}/rect.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-graphics
