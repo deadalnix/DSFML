@@ -13,8 +13,9 @@ immutable Color yellow	= Color(255, 255, 0);
 immutable Color magenta	= Color(255, 0, 255);
 immutable Color cyan	= Color(0, 255, 255);
 
+immutable bool sseAvailable = is(typeof({void* foo; asm { mov EAX, foo; movups XMM0, [EAX]; } }));
+
 struct Color {
-align(1):
 	ubyte r;
 	ubyte g;
 	ubyte b;
@@ -32,20 +33,35 @@ align(1):
 	}
 	
 	public Color opAdd(const Color other) const {
-		// Consider use of PADDSB on x86
-		return Color(sadd(r, other.r), sadd(g, other.g), sadd(b, other.b), sadd(a, other.a));
+		auto thisptr	= &this;
+		auto ret		= Color();
+		
+		asm {
+			mov RAX, thisptr;
+			movss XMM0, [RAX];
+			movss XMM1, other;
+			paddusb XMM0, XMM1;
+			movss ret, XMM0;
+		}
+		
+		return ret;
 	}
 	
 	public ref Color opAddAssign(const Color other) {
-		// Consider use of PADDSB on x86
-		r = sadd(r, other.r);
-		g = sadd(g, other.g);
-		b = sadd(b, other.b);
-		a = sadd(a, other.a);
+		auto thisptr	= &this;
+		
+		asm {
+			mov RAX, thisptr;
+			movss XMM0, [RAX];
+			movss XMM1, other;
+			paddusb XMM0, XMM1;
+			movss [RAX], XMM0;
+		}
 		
 		return this;
 	}
 	
+	// TODO: consider how to do this with MMX/SSE instructions
 	public Color opMul(const Color other) const {
 		return Color(modulate(r, other.r), modulate(g, other.g), modulate(b, other.b), modulate(a, other.a));
 	}
@@ -59,4 +75,19 @@ align(1):
 		return this;
 	}
 }
+
+unittest {
+	import std.stdio;
+	
+	Color c = black;
+	assert((c += white) == white);
+	c= magenta;
+	assert((c += cyan) == white);
+	
+	assert((black + white) == white);
+	assert((magenta + cyan) == white);
+	
+	writeln("OK");
+}
+
 
