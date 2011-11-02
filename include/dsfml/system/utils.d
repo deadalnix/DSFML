@@ -51,6 +51,7 @@ unittest {
 	testFor!(ulong)();
 }
 
+// TODO: use CommonType.
 T modulate(T, U)(const T n1, const U n2) @safe pure nothrow if(isNumeric!(T) && is(Unqual!(T) == Unqual!(U))) {
 	return (n1 * n2) / T.max;
 }

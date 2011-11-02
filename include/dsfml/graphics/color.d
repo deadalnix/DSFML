@@ -36,18 +36,16 @@ struct Color {
 			version(D_InlineAsm_X86) {
 				asm {
 					mov EAX, thisptr;
-					movss XMM0, [EAX];	// XMM0 is this
-					movss XMM1, other;	// XMM1 is other
-					paddusb XMM0, XMM1;	// Saturated addition
-					movss ret, XMM0;	// Save result to ret
+					movss XMM0, [EAX];		// XMM0 is this
+					paddusb XMM0, other;	// Saturated addition
+					movss ret, XMM0;		// Save result to ret
 				}
 			} else version(D_InlineAsm_X86_64) {
 				asm {
 					mov RAX, thisptr;
-					movss XMM0, [RAX];	// XMM0 is this
-					movss XMM1, other;	// XMM1 is other
-					paddusb XMM0, XMM1;	// Saturated addition
-					movss ret, XMM0;	// Save result to ret
+					movss XMM0, [RAX];		// XMM0 is this
+					paddusb XMM0, other;	// Saturated addition
+					movss ret, XMM0;		// Save result to ret
 				}
 			}
 			
@@ -64,18 +62,16 @@ struct Color {
 			version(D_InlineAsm_X86) {
 				asm {
 					mov EAX, thisptr;
-					movss XMM0, [EAX];	// XMM0 is this
-					movss XMM1, other;	// XMM1 is other
-					paddusb XMM0, XMM1;	// Saturated addition
-					movss [EAX], XMM0;	// Save result to this
+					movss XMM0, [EAX];		// XMM0 is this
+					paddusb XMM0, other;	// Saturated addition
+					movss [EAX], XMM0;		// Save result to this
 				}
 			} else version(D_InlineAsm_X86_64) {
 				asm {
 					mov RAX, thisptr;
-					movss XMM0, [RAX];	// XMM0 is this
-					movss XMM1, other;	// XMM1 is other
-					paddusb XMM0, XMM1;	// Saturated addition
-					movss [RAX], XMM0;	// Save result to this
+					movss XMM0, [RAX];		// XMM0 is this
+					paddusb XMM0, other;	// Saturated addition
+					movss [RAX], XMM0;		// Save result to this
 				}
 			}
 		} else {
@@ -88,8 +84,7 @@ struct Color {
 		return this;
 	}
 	
-	// TODO: consider how to do this with MMX/SSE instructions
-	// PUNPCKLBW can probably help here
+	// SSE usage is probably not optimal here
 	public Color opMul(const Color other) const {
 		static if(sseAvailable) {
 			auto thisptr	= &this;
@@ -102,7 +97,7 @@ struct Color {
 					movss XMM1, other;		// XMM1 is other
 					xorps XMM2, XMM2;		// XMM2 is 0
 					punpcklbw XMM0, XMM2;	// XMM0 contains this packed as ushort[4]
-					punpcklbw XMM1, XMM2;	// XMM1 other this packed as ushort[4]
+					punpcklbw XMM1, XMM2;	// XMM1 constains other packed as ushort[4]
 					pmullw XMM0, XMM1;		// XMM0 contains the multiplication of the two colors.
 					movq ret, XMM0;
 				}
@@ -113,7 +108,7 @@ struct Color {
 					movss XMM1, other;		// XMM1 is other
 					xorps XMM2, XMM2;		// XMM2 is 0
 					punpcklbw XMM0, XMM2;	// XMM0 contains this packed as ushort[4]
-					punpcklbw XMM1, XMM2;	// XMM1 other this packed as ushort[4]
+					punpcklbw XMM1, XMM2;	// XMM1 constains other packed as ushort[4]
 					pmullw XMM0, XMM1;		// XMM0 contains the multiplication of the two colors.
 					movq ret, XMM0;
 				}
@@ -137,7 +132,7 @@ struct Color {
 					movss XMM1, other;		// XMM1 is other
 					xorps XMM2, XMM2;		// XMM2 is 0
 					punpcklbw XMM0, XMM2;	// XMM0 contains this packed as ushort[4]
-					punpcklbw XMM1, XMM2;	// XMM1 other this packed as ushort[4]
+					punpcklbw XMM1, XMM2;	// XMM1 constains other packed as ushort[4]
 					pmullw XMM0, XMM1;		// XMM0 contains the multiplication of the two colors.
 					movq ret, XMM0;
 				}
@@ -148,7 +143,7 @@ struct Color {
 					movss XMM1, other;		// XMM1 is other
 					xorps XMM2, XMM2;		// XMM2 is 0
 					punpcklbw XMM0, XMM2;	// XMM0 contains this packed as ushort[4]
-					punpcklbw XMM1, XMM2;	// XMM1 other this packed as ushort[4]
+					punpcklbw XMM1, XMM2;	// XMM1 constains other packed as ushort[4]
 					pmullw XMM0, XMM1;		// XMM0 contains the multiplication of the two colors.
 					movq ret, XMM0;
 				}
