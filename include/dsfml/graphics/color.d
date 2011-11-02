@@ -91,8 +91,33 @@ struct Color {
 	}
 	
 	// TODO: consider how to do this with MMX/SSE instructions
+	// PUNPCKLBW can probably help here
 	public Color opMul(const Color other) const {
-		return Color(modulate(r, other.r), modulate(g, other.g), modulate(b, other.b), modulate(a, other.a));
+		static if(sseAvailable && false) {
+			auto thisptr	= &this;
+			auto ret		= Color();
+			
+			version(D_InlineAsm_X86) {
+				static assert(false, "fail badly !");
+			} else version(D_InlineAsm_X86_64) {
+				asm {
+					mov RAX, thisptr;
+					movss XMM0, [RAX];
+					movss XMM1, other;
+					xorps XMM2, XMM2;		// Set XMM2 to 0
+					packsswb XMM0, XMM2;	// XMM0 contains this packed as ushort[4]
+					packsswb XMM1, XMM2;	// XMM1 other this packed as ushort[4]
+					pmullw XMM0, XMM1;		// XMM0 contains the multiplication of the two colors.
+					andnps XMM2, XMM2;		// XMM2 to [255, 255, 255, 255]
+					
+					// What to do now ?
+				}
+			}
+			
+			return ret;
+		} else {
+			return Color(modulate(r, other.r), modulate(g, other.g), modulate(b, other.b), modulate(a, other.a));
+		}
 	}
 	
 	public ref Color opMulAssign(const Color other) {
@@ -108,6 +133,7 @@ struct Color {
 unittest {
 	import std.stdio;
 	
+	// TODO: add unitests
 	Color c = black;
 	assert((c += white) == white);
 	c= magenta;
@@ -118,5 +144,4 @@ unittest {
 	
 	writeln("OK");
 }
-
 
