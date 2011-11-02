@@ -13,8 +13,6 @@ immutable Color yellow	= Color(255, 255, 0);
 immutable Color magenta	= Color(255, 0, 255);
 immutable Color cyan	= Color(0, 255, 255);
 
-immutable bool sseAvailable = is(typeof({void* foo; asm { mov EAX, foo; movups XMM0, [EAX]; } }));
-
 struct Color {
 	ubyte r;
 	ubyte g;
@@ -33,29 +31,60 @@ struct Color {
 	}
 	
 	public Color opAdd(const Color other) const {
-		auto thisptr	= &this;
-		auto ret		= Color();
-		
-		asm {
-			mov RAX, thisptr;
-			movss XMM0, [RAX];
-			movss XMM1, other;
-			paddusb XMM0, XMM1;
-			movss ret, XMM0;
+		static if(sseAvailable) {
+			auto thisptr	= &this;
+			auto ret		= Color();
+			
+			version(D_InlineAsm_X86) {
+				asm {
+					mov EAX, thisptr;
+					movss XMM0, [EAX];
+					movss XMM1, other;
+					paddusb XMM0, XMM1;
+					movss ret, XMM0;
+				}
+			} else version(D_InlineAsm_X86_64) {
+				asm {
+					mov RAX, thisptr;
+					movss XMM0, [RAX];
+					movss XMM1, other;
+					paddusb XMM0, XMM1;
+					movss ret, XMM0;
+				}
+			}
+			
+			return ret;
+		} else {
+			return Color(sadd(r, other.r), sadd(g, other.g), sadd(b, other.b), sadd(a, other.a));
 		}
-		
-		return ret;
 	}
 	
 	public ref Color opAddAssign(const Color other) {
-		auto thisptr	= &this;
-		
-		asm {
-			mov RAX, thisptr;
-			movss XMM0, [RAX];
-			movss XMM1, other;
-			paddusb XMM0, XMM1;
-			movss [RAX], XMM0;
+		static if(sseAvailable) {
+			auto thisptr	= &this;
+			
+			version(D_InlineAsm_X86) {
+				asm {
+					mov EAX, thisptr;
+					movss XMM0, [EAX];
+					movss XMM1, other;
+					paddusb XMM0, XMM1;
+					movss [EAX], XMM0;
+				}
+			} else version(D_InlineAsm_X86_64) {
+				asm {
+					mov RAX, thisptr;
+					movss XMM0, [RAX];
+					movss XMM1, other;
+					paddusb XMM0, XMM1;
+					movss [RAX], XMM0;
+				}
+			}
+		} else {
+			r = sadd(r, other.r);
+			g = sadd(g, other.g);
+			b = sadd(b, other.b);
+			a = sadd(a, other.a);
 		}
 		
 		return this;

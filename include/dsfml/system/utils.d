@@ -2,6 +2,12 @@ module dsfml.utils;
 
 import std.traits;
 
+version(D_InlineAsm_X86) {
+	immutable bool sseAvailable = is(typeof({void* foo; asm { mov EAX, foo; movups XMM0, [EAX]; } }));
+} else version(D_InlineAsm_X86_64) {
+	immutable bool sseAvailable = is(typeof({void* foo; asm { mov RAX, foo; movups XMM0, [RAX]; } }));
+}
+
 T sadd(T, U)(const T n1, const U n2) @safe pure nothrow if(isIntegral!(T) && isUnsigned!(T) && is(Unqual!(T) == Unqual!(U))) {
 	return (n1 >= (T.max - n2))?T.max:(cast(T) (n1 + n2));
 }
