@@ -1,7 +1,6 @@
 module dsfml.graphics.rect;
 
 import std.traits;
-
 import std.algorithm;
 
 struct Rect(T) if(isNumeric!(T)) {
