@@ -4,7 +4,7 @@ import dsfml.graphics.rect;
 
 struct Glyph {
 	int advance = 0;
-    Rect!(int) bounds;
-    Rect!(int) subRect;
+    IntRect bounds;
+    IntRect subRect;
 }
 
