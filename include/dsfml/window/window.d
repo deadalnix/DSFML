@@ -13,11 +13,11 @@ import std.string;
 class Window {
 	private sfWindow* window;
 	
-	public this(VideoMode mode, string title, uint style = sfDefaultStyle, ref const sfContextSettings settings = sfContextSettings()) {
+	public this(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {
 		create(mode, title, style, settings);
 	}
 	
-	public this(WindowHandle handle, ref const sfContextSettings settings = sfContextSettings()) {
+	public this(WindowHandle handle, const ref sfContextSettings settings = sfContextSettings()) {
 		create(handle, settings);
 	}
 	
@@ -33,13 +33,13 @@ class Window {
 		return window;
 	}
 	
-	public void create(VideoMode mode, string title, uint style = sfDefaultStyle, ref const sfContextSettings settings = sfContextSettings()) {
+	public void create(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {
 		if(window != null) sfWindow_Destroy(window);
 		
 		window = sfWindow_Create(cast(sfVideoMode) mode, toStringz(title), style, &settings);
 	}
 	
-	public void create(WindowHandle handle, ref const sfContextSettings settings = sfContextSettings()) {
+	public void create(WindowHandle handle, const ref sfContextSettings settings = sfContextSettings()) {
 		if(window != null) sfWindow_Destroy(window);
 		
 		window = sfWindow_CreateFromHandle(handle, &settings);
