@@ -3,6 +3,7 @@ module dsfml.graphics.font;
 import csfml.graphics.font;
 
 import dsfml.graphics.glyph;
+import dsfml.graphics.texture;
 import dsfml.system.inputstream;
 
 import std.string;
@@ -30,7 +31,7 @@ class Font {
 		font = sfFont_Copy(f.font);
 	}
 	
-	private this(immutable sfFont* f) immutable {
+	private this(const sfFont* f) const {
 		font = f;
 	}
 	
@@ -51,9 +52,19 @@ class Font {
 		return sfFont_GetLineSpacing(font, characterSize);
 	}
 	
-	/*
-	const(sfTexture*) sfFont_GetTexture(font, uint characterSize);
-	const(sfFont*) sfFont_GetDefaultFont();
-	*/
+	public ref const(Texture) getTexture(uint characterSize) {
+		return Texture(sfFont_GetTexture(font, characterSize));
+	}
+}
+
+// TODO: this should be immutable
+const Font defaultFont;
+
+static this() {
+	defaultFont = new Font(sfFont_GetDefaultFont());
+}
+
+const(Font) getDefaultFont() {
+	return defaultFont;
 }
 
