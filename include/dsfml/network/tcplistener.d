@@ -35,10 +35,11 @@ class TcpListener : Socket {
 		return sfTcpListener_Listen(listener, port);
 	}
 	
-	public sfSocketStatus accept(TcpSocket socket) {
+	public sfSocketStatus accept(TcpSocket socket) in {
+		assert(socket.getCTcpSocket() != null, "Socket is invalid.");
+	} body {
 		sfTcpSocket* connected = socket.getCTcpSocket();
 		
-		assert(connected != null, "Connected shouldn't be null.");
 		// Avoid memory leak
 		sfTcpSocket_Destroy(connected);
 		

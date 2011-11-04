@@ -15,5 +15,5 @@ version(Windows) {
 	alias void* sfWindowHandle;
 }
 
-static assert(is(sfWindowHandle), "Platefrom not supported");
+static assert(is(sfWindowHandle), "Plateform not supported");
 

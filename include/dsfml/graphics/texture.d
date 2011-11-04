@@ -6,6 +6,7 @@ import csfml.graphics.rect;
 import dsfml.graphics.image;
 import dsfml.graphics.rect;
 import dsfml.system.inputstream;
+import dsfml.window.window;
 
 import std.string;
 
@@ -32,23 +33,58 @@ struct Texture {
 		texture = sfTexture_CreateFromImage(image.getCImage(), cast(const sfIntRect*) &area);
 	}
 	
+	private this(this) {
+		texture = sfTexture_Copy(texture);
+	}
+	
 	public ~this() {
 		sfTexture_Destroy(texture);
 	}
 	
+	public uint getWidth() const {
+		return sfTexture_GetWidth(texture);
+	}
+	
+	public uint getHeight() const {
+		return sfTexture_GetHeight(texture);
+	}
+	
+	public ref Image copyToImage() const {
+		return Image(sfTexture_CopyToImage(texture));
+	}
+	
+	public void update(const ubyte[] pixels, uint width = getWidth(), uint height = getHeight(), uint x = 0, uint y = 0) in {
+		assert(pixels.length == (width * height * 4), "Pixels size is inconsistent with width and height");
+	} body {
+		sfTexture_UpdateFromPixels(texture, pixels.ptr, width, height, x, y);
+	}
+	
+	public void update(const ref Image image, uint x = 0, uint y = 0) {
+		sfTexture_UpdateFromImage(texture, image.getCImage(), x, y);
+	}
+	
+	public void update(const ref Window window, uint x = 0, uint y = 0) {
+		sfTexture_UpdateFromWindow(texture, window.getCWindow(), x, y);
+	}
+	
+	public void bind() const {
+		sfTexture_Bind(texture);
+	}
+	
+	public void setSmooth(bool smooth) {
+		sfTexture_SetSmooth(texture, smooth);
+	}
+	
+	public bool getSmooth() const {
+		return sfTexture_IsSmooth(texture);
+	}
+	
+	public FloatRect getTexCoords(const ref IntRect rectangle) const {
+		return cast(FloatRect) sfTexture_GetTexCoords(texture, cast(sfIntRect) rectangle);
+	}
+	
 	/*
-	sfTexture_Copy(texture);
-	uint sfTexture_GetWidth(const texture);
-	uint sfTexture_GetHeight(const texture);
-	sfImage* sfTexture_CopyToImage(const texture);
-	void sfTexture_UpdateFromPixels(texture, const sfUint8* pixels, uint width, uint height, uint x, uint y);
-	void sfTexture_UpdateFromImage(texture, const sfImage* image, uint x, uint y);
-	void sfTexture_UpdateFromWindow(texture, const sfWindow* window, uint x, uint y);
 	void sfTexture_UpdateFromRenderWindow(texture, const sfRenderWindow* renderWindow, uint x, uint y);
-	void sfTexture_Bind(const texture);
-	void sfTexture_SetSmooth(texture, bool smooth);
-	bool sfTexture_IsSmooth(const texture);
-	sfFloatRect sfTexture_GetTexCoords(const texture, sfIntRect rectangle);
 	*/
 }
 

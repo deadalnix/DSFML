@@ -17,9 +17,9 @@ struct Image {
 		image = sfImage_CreateFromColor(width, height, cast(sfColor) color);
 	}
 	
-	public this(uint width, uint height, const ubyte[] data) {
-		if(data.length != width * height * 4) throw new Exception("Data size is inconsistent with width and height");
-		
+	public this(uint width, uint height, const ubyte[] data) in {
+		assert(data.length == (width * height * 4), "Data size is inconsistent with width and height");
+	} body {
 		sfImage_CreateFromPixels(width, height, data.ptr);
 	}
 	
@@ -35,12 +35,12 @@ struct Image {
 		image = sfImage_CreateFromStream(istream.getCInputStream());
 	}
 	
-	public ref Image clone() {
-		return Image(this);
+	public this(this) {
+		image = sfImage_Copy(image);
 	}
 	
-	private this(ref Image source) {
-		image = sfImage_Copy(source.image);
+	public this(sfImage* image) {
+		this.image = image;
 	}
 	
 	public ~this() {

@@ -23,7 +23,7 @@ struct Rect(T) if(isNumeric!(T)) {
 		this.height	= size[1];
 	}
 	
-	public bool contains(const ref T[2] position) const {
+	public bool contains(const T[2] position) const {
 		return this.contains(position[0], position[1]);
 	}
 	
