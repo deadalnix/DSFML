@@ -14,7 +14,7 @@ class Font {
 		font = sfFont_CreateFromFile(toStringz(filename));
 	}
 	
-	public this(const ubyte[] data) {
+	public this(const void[] data) {
 		font = sfFont_CreateFromMemory(data.ptr, data.length);
 	}
 	

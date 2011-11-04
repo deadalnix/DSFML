@@ -27,7 +27,7 @@ struct Image {
 		image = sfImage_CreateFromFile(toStringz(filename));
 	}
 	
-	public this(const byte[] data) {
+	public this(const void[] data) {
 		image = sfImage_CreateFromMemory(data.ptr, data.length);
 	}
 	
@@ -45,6 +45,10 @@ struct Image {
 	
 	public ~this() {
 		sfImage_Destroy(image);
+	}
+	
+	public const(sfImage*) getCImage() const {
+		return image;
 	}
 	
 	public bool saveToFile(string filename) const {

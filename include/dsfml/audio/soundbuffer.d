@@ -15,7 +15,7 @@ class SoundBuffer {
 		soundBuffer = sfSoundBuffer_CreateFromFile(toStringz(filename));
 	}
 	
-	public this(const(byte)[] data) {
+	public this(const void[] data) {
 		if(data is null || data.length == 0) throw new Exception("LoadingException : Memory stream is invalid.");
 		
 		soundBuffer = sfSoundBuffer_CreateFromMemory(data.ptr, data.length);

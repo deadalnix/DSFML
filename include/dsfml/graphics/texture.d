@@ -3,7 +3,9 @@ module dsfml.graphics.texture;
 import csfml.graphics.texture;
 import csfml.graphics.rect;
 
+import dsfml.graphics.image;
 import dsfml.graphics.rect;
+import dsfml.system.inputstream;
 
 import std.string;
 
@@ -15,18 +17,27 @@ struct Texture {
 	}
 	
 	public this(string filename, const ref IntRect area = IntRect()) {
-		texture = sfTexture_CreateFromFile(toStringz(filename), cast(sfIntRect*) &area);
+		texture = sfTexture_CreateFromFile(toStringz(filename), cast(const sfIntRect*) &area);
+	}
+	
+	public this(const void[] data, const ref IntRect area = IntRect()) {
+		texture = sfTexture_CreateFromMemory(data.ptr, data.length, cast(const sfIntRect*) &area);
+	}
+	
+	public this(InputStream istream, const ref IntRect area = IntRect()) {
+		texture = sfTexture_CreateFromStream(istream.getCInputStream(), cast(const sfIntRect*) &area);
+	}
+	
+	public this(const ref Image image, const ref IntRect area = IntRect()) {
+		texture = sfTexture_CreateFromImage(image.getCImage(), cast(const sfIntRect*) &area);
 	}
 	
 	public ~this() {
-		sfTexture_Copy(texture);
+		sfTexture_Destroy(texture);
 	}
 	
 	/*
-	sfTexture_CreateFromMemory(const void* data, size_t sizeInBytes, const sfIntRect* area);
-	sfTexture_CreateFromStream(sfInputStream* stream, const sfIntRect* area);
-	sfTexture_CreateFromImage(const sfImage* image, const sfIntRect* area);
-	void sfTexture_Destroy(texture);
+	sfTexture_Copy(texture);
 	uint sfTexture_GetWidth(const texture);
 	uint sfTexture_GetHeight(const texture);
 	sfImage* sfTexture_CopyToImage(const texture);
