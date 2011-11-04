@@ -7,7 +7,8 @@ set(SRC
     ${INCROOT}/font.d
     ${INCROOT}/glyph.d
     ${INCROOT}/image.d
-    ${INCROOT}/rect.d)
+    ${INCROOT}/rect.d
+    ${INCROOT}/texture.d)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-graphics
