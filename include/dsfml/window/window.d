@@ -25,11 +25,15 @@ class Window {
 		sfWindow_Destroy(window);
 	}
 	
-	public sfWindow* getCWindow() {
+	public const(sfWindow*) getCWindow() const {
 		return window;
 	}
 	
-	public const(sfWindow*) getCWindow() const {
+	public immutable(sfWindow*) getCWindow() immutable {
+		return window;
+	}
+	
+	public sfWindow* getCWindow() {
 		return window;
 	}
 	

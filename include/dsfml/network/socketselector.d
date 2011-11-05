@@ -23,11 +23,15 @@ class SocketSelector {
 		sfSocketSelector_Destroy(selector);
 	}
 	
-	public sfSocketSelector* getCSocketSelector() {
+	public const(sfSocketSelector*) getCSocketSelector() const {
 		return selector;
 	}
 	
-	public const(sfSocketSelector*) getCSocketSelector() const {
+	public immutable(sfSocketSelector*) getCSocketSelector() immutable {
+		return selector;
+	}
+	
+	public sfSocketSelector* getCSocketSelector() {
 		return selector;
 	}
 	

@@ -34,7 +34,7 @@ class SoundBuffer {
 		soundBuffer = sfSoundBuffer_CreateFromSamples(samples.ptr, samples.length, channelsCount, sampleRate);
 	}
 	
-	public this(const(sfSoundBuffer*) soundBuffer) const {
+	public this(inout sfSoundBuffer* soundBuffer) inout {
 		this.soundBuffer = soundBuffer;
 	}
 	
@@ -48,6 +48,14 @@ class SoundBuffer {
 	
 	public bool opEqual(const SoundBuffer other) const {
 		return other.soundBuffer == soundBuffer;
+	}
+	
+	public const(sfSoundBuffer*) getCSoundBuffer() const {
+		return soundBuffer;
+	}
+	
+	public immutable(sfSoundBuffer*) getCSoundBuffer() immutable {
+		return soundBuffer;
 	}
 	
 	public sfSoundBuffer* getCSoundBuffer() {

@@ -20,6 +20,14 @@ abstract class InputStream {
 	abstract long getSize();
 	
 	// deprecated
+	public const(sfInputStream*) getCInputStream() const {
+		return &inputStream;
+	}
+	
+	public immutable(sfInputStream*) getCInputStream() immutable {
+		return &inputStream;
+	}
+	
 	public sfInputStream* getCInputStream() {
 		return &inputStream;
 	}

@@ -26,6 +26,14 @@ class Packet {
 		sfPacket_Destroy(packet);
 	}
 	
+	public const(sfPacket*) getCPacket() const {
+		return packet;
+	}
+	
+	public immutable(sfPacket*) getCPacket() immutable {
+		return packet;
+	}
+	
 	public sfPacket* getCPacket() {
 		return packet;
 	}

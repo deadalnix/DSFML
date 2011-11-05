@@ -34,7 +34,7 @@ class Ftp {
 		return new Response(sfFtp_Login(ftp, toStringz(userName), toStringz(password)));
 	}
 	
-	public Response KeepAlive() {
+	public Response keepAlive() {
 		return new Response(sfFtp_KeepAlive(ftp));
 	}
 	

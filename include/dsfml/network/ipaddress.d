@@ -20,7 +20,7 @@ struct IpAddress {
 		sfIpAddress_FromInteger(address);
 	}
 	
-	public this(sfIpAddress ipAddress) {
+	public this(inout sfIpAddress ipAddress) inout {
 		this.ipAddress = ipAddress;
 	}
 	
@@ -32,8 +32,24 @@ struct IpAddress {
 		return sfIpAddress_ToInteger(ipAddress);
 	}
 	
+	public const(sfIpAddress) getCIpAddress() const {
+		return ipAddress;
+	}
+	
+	public immutable(sfIpAddress) getCIpAddress() immutable {
+		return ipAddress;
+	}
+	
 	public sfIpAddress getCIpAddress() {
 		return ipAddress;
+	}
+	
+	public const(sfIpAddress*) getCIpAddressPtr() const {
+		return &ipAddress;
+	}
+	
+	public immutable(sfIpAddress*) getCIpAddressPtr() immutable {
+		return &ipAddress;
 	}
 	
 	public sfIpAddress* getCIpAddressPtr() {

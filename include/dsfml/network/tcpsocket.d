@@ -19,6 +19,14 @@ class TcpSocket : Socket {
 		sfTcpSocket_Destroy(socket);
 	}
 	
+	public const(sfTcpSocket*) getCTcpSocket() const {
+		return socket;
+	}
+	
+	public immutable(sfTcpSocket*) getCTcpSocket() immutable {
+		return socket;
+	}
+	
 	public sfTcpSocket* getCTcpSocket() {
 		return socket;
 	}
@@ -66,7 +74,6 @@ class TcpSocket : Socket {
 	public sfSocketStatus send(Packet packet) {
 		return sfTcpSocket_SendPacket(socket, packet.getCPacket());
 	}
-	
 	
 	public sfSocketStatus recieve(Packet packet) {
 		return sfTcpSocket_ReceivePacket(socket, packet.getCPacket());

@@ -33,7 +33,7 @@ struct Texture {
 		texture = sfTexture_CreateFromImage(image.getCImage(), cast(const sfIntRect*) &area);
 	}
 	
-	public this(const sfTexture* texture) const {
+	public this(inout sfTexture* texture) inout {
 		this.texture = texture;
 	}
 	

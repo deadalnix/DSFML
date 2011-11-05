@@ -31,7 +31,7 @@ class Font {
 		font = sfFont_Copy(f.font);
 	}
 	
-	private this(const sfFont* f) const {
+	private this(inout sfFont* f) inout {
 		font = f;
 	}
 	

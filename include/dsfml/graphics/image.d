@@ -39,7 +39,7 @@ struct Image {
 		image = sfImage_Copy(image);
 	}
 	
-	public this(sfImage* image) {
+	public this(inout sfImage* image) inout {
 		this.image = image;
 	}
 	
@@ -48,6 +48,14 @@ struct Image {
 	}
 	
 	public const(sfImage*) getCImage() const {
+		return image;
+	}
+	
+	public immutable(sfImage*) getCImage() immutable {
+		return image;
+	}
+	
+	public sfImage* getCImage() {
 		return image;
 	}
 	
