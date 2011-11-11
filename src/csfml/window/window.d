@@ -6,6 +6,8 @@ import csfml.window.event;
 import csfml.window.videomode;
 import csfml.window.windowhandle;
 
+import core.stdc.config;
+
 immutable uint sfNone = 0;
 immutable uint sfTitlebar = 1 << 0;
 immutable uint sfResize = 1 << 1;
@@ -22,14 +24,7 @@ struct sfContextSettings {
 }
 
 extern(C) {
-	version(X86) {
-		sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, uint style, const sfContextSettings* settings);
-	} else version(X86_64) {
-		sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, ulong style, const sfContextSettings* settings);
-	} else {
-		static assert(false, "Architecture not supported");
-	}
-	
+	sfWindow* sfWindow_Create(sfVideoMode mode, const char* title, c_ulong style, const sfContextSettings* settings);
 	sfWindow* sfWindow_CreateFromHandle(sfWindowHandle handle, const sfContextSettings* settings);
 	void sfWindow_Destroy(sfWindow* window);
 	void sfWindow_Close(sfWindow* window);

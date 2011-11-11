@@ -8,6 +8,7 @@ set(SRC
     ${INCROOT}/glyph.d
     ${INCROOT}/image.d
     ${INCROOT}/rect.d
+    ${INCROOT}/renderwindow.d
     ${INCROOT}/texture.d)
 
 # define the dsfml-system target

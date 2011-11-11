@@ -21,10 +21,15 @@ class Window {
 		create(handle, settings);
 	}
 	
+	protected this() {
+		window = null;
+	}
+	
 	public ~this() {
 		sfWindow_Destroy(window);
 	}
 	
+	// TODO: use inout as of D2.056
 	public const(sfWindow*) getCWindow() const {
 		return window;
 	}
