@@ -9,6 +9,7 @@ set(SRC
     ${INCROOT}/mutex.d
     ${INCROOT}/lock.d
     ${INCROOT}/sleep.d
+    ${SRCROOT}/thread.d
     ${INCROOT}/utils.d)
 
 # define the dsfml-system target

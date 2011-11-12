@@ -1,0 +1,20 @@
+diff -crB SFML.orig/CMakeLists.txt SFML/CMakeLists.txt
+*** SFML.orig/CMakeLists.txt	2011-11-12 11:43:33.617894061 +0100
+--- SFML/CMakeLists.txt	2011-11-12 11:49:30.567664117 +0100
+***************
+*** 22,28 ****
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+  
+  # add an option for choosing the build type (shared or static)
+! set(BUILD_SHARED_LIBS TRUE CACHE BOOL "TRUE to build SFML as shared libraries, FALSE to build it as static libraries")
+  
+  # add an option for building the examples
+  set(BUILD_EXAMPLES FALSE CACHE BOOL "TRUE to build the SFML examples, FALSE to ignore them")
+--- 22,28 ----
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+  
+  # add an option for choosing the build type (shared or static)
+! set(BUILD_SHARED_LIBS FALSE CACHE BOOL "TRUE to build SFML as shared libraries, FALSE to build it as static libraries")
+  
+  # add an option for building the examples
+  set(BUILD_EXAMPLES FALSE CACHE BOOL "TRUE to build the SFML examples, FALSE to ignore them")
