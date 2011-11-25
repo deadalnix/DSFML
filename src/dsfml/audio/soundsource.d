@@ -2,10 +2,18 @@ module dsfml.audio.soundsource;
 
 import csfml.audio.soundstatus;
 
-// XXX: This is mostly an interface for now, but will ends up being a real class.
+private immutable size = @Audio/SoundSource@;
+
 abstract class SoundSource {
-	abstract void setPitch(float pitch);
-	abstract float getPitch() const;
+	protected ubyte[size] data = void;
+	
+	final void setPitch(float pitch) {
+		SetPitch(data.ptr, pitch);
+	}
+	
+	final float getPitch() const {
+		return GetPitch(data.ptr);
+	}
 	
 	abstract void setVolume(float volume);
 	abstract float getVolume() const;
@@ -24,5 +32,10 @@ abstract class SoundSource {
 	abstract float getAttenuation() const;
 	
 	abstract sfSoundStatus getStatus() const;
+}
+
+private extern(C++) {
+	void SetPitch(ubyte* soundSource, float pitch);
+	float GetPitch(const ubyte* soundSource)
 }
 

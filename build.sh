@@ -7,6 +7,7 @@ if [ -d SFML ]
 then
 	cd SFML
 	git reset --hard HEAD
+	git pull
 	cd ..
 else
 	git clone git://github.com/deadalnix/SFML.git
@@ -26,6 +27,10 @@ cd ../../..
 
 mkdir -p build
 cd build
+
+cmake .. && make
+
+cd ../..
 
 cmake .. && make
 

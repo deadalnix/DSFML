@@ -10,7 +10,8 @@ set(SRC
     ${INCROOT}/soundbuffer.d
     ${INCROOT}/soundbufferrecorder.d
     ${INCROOT}/soundrecorder.d
-    ${INCROOT}/soundsource.d
+    ${SRCROOT}/soundsource.d
+    ${SRCROOT}/SoundSource.cpp
     ${INCROOT}/soundstream.d)
 
 # define the dsfml-system target

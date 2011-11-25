@@ -2,13 +2,13 @@ module dsfml.system.thread;
 
 import std.concurrency;
 
+alias extern(C++) void* function(void*) EntryPoint;
+
 extern(C++) {
-	alias void* function(shared void*) EntryPoint;
-	
-	void* __dsfml_start_thread(EntryPoint entryPoint, shared void* userData) {
+	void* __dsfml_start_thread(EntryPoint entryPoint, void* userData) {
 		Tid tid = spawn(function void(EntryPoint entryPoint, shared void* userData) {
-			entryPoint(userData);
-		}, entryPoint, userData);
+			entryPoint(cast(void*) userData);
+		}, entryPoint, cast(shared void*) userData);
 		
 		return cast(void*) [tid].ptr;
 	}

@@ -27,8 +27,6 @@
 ////////////////////////////////////////////////////////////
 #include <SFML/System/D/ThreadImpl.hpp>
 #include <SFML/System/Thread.hpp>
-#include <iostream>
-#include <cassert>
 
 // Thoses are not supposed to be used on C++ side. Anyway, they require to be in the global scope to be linked with D.
 void* __dsfml_start_thread(void* (*entryPoint)(void*), void* userData);
