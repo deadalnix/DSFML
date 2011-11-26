@@ -1,6 +1,20 @@
 #include<SFML/Audio/SoundSource.hpp>
+#include<new>
 
 typedef sf::SoundSource sfSoundSource;
+
+// Trick to construct SoundSource.
+struct sfSoundSource_CreateSoundSource : sfSoundSource {
+	sfSoundSource_CreateSoundSource() : sfSoundSource() {}
+};
+
+void sfSoundSource_Create(sfSoundSource* soundSource) {
+	new(soundSource) sfSoundSource_CreateSoundSource();
+}
+
+void sfSoundSource_Copy(const sfSoundSource* soundSource, sfSoundSource* destination) {
+	new(destination) sfSoundSource(*soundSource);
+}
 
 void sfSoundSource_Destroy(sfSoundSource* soundSource) {
 	soundSource->~sfSoundSource();

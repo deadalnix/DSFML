@@ -12,7 +12,8 @@ set(SRC
     ${INCROOT}/soundrecorder.d
     ${SRCROOT}/soundsource.d
     ${SRCROOT}/SoundSource.cpp
-    ${INCROOT}/soundstream.d)
+    ${SRCROOT}/soundstream.d
+    ${SRCROOT}/SoundStream.cpp)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-audio

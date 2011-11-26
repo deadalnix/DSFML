@@ -16,7 +16,7 @@ class Sound : SoundSource {
 		sound = sfSound_Create();
 		setBuffer(buffer);
 	}
-	
+	/*
 	public Sound clone() {
 		return new Sound(this);
 	}
@@ -24,7 +24,7 @@ class Sound : SoundSource {
 	private this(Sound s) {
 		sound = sfSound_Copy(s.sound);
 	}
-	
+	*/
 	public ~this() {
 		sfSound_Destroy(sound);
 	}

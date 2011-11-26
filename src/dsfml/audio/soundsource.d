@@ -10,8 +10,15 @@ enum Status {
 	Playing, ///< Sound is playing
 };
 
-abstract class SoundSource {
+package T getSoundSource(T)(void* soundSource) if(is(T : SoundSource)) {
+	return cast(T)(soundSource - SoundSource.dataOffset);
+}
+
+class SoundSource {
 	private void[soundSourceSize] data = void;
+	
+	// Usefull to get back the SoundSource object from C pointer to data.
+	static private immutable size_t dataOffset = data.offsetof;
 	
 	// TODO: Go inout for D2.056
 	@property
@@ -24,8 +31,20 @@ abstract class SoundSource {
 		return cast(const(sfSoundSource)*) data.ptr;
 	}
 	
+	protected this() {
+		sfSoundSource_Create(soundSource);
+	}
+	
+	private this(const SoundSource s) {
+		sfSoundSource_Copy(s.soundSource, soundSource);
+	}
+	
 	~this() {
 		sfSoundSource_Destroy(soundSource);
+	}
+	
+	SoundSource clone() const {
+		return new SoundSource(this);
 	}
 	
 	@property
@@ -97,9 +116,11 @@ abstract class SoundSource {
 }
 
 private extern(C++) {
-	// Scarry, right ? Where is my opaque struct ?
+	// Scary, right ? Where is my opaque struct ?
 	struct sfSoundSource {}
 	
+	void sfSoundSource_Create(sfSoundSource* soundSource);
+	void sfSoundSource_Copy(const sfSoundSource* soundSource, sfSoundSource* destination);
 	void sfSoundSource_Destroy(sfSoundSource* soundSource);
 	
 	void sfSoundSource_SetPitch(sfSoundSource* soundSource, float pitch);
