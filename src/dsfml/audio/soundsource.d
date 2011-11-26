@@ -2,40 +2,124 @@ module dsfml.audio.soundsource;
 
 import csfml.audio.soundstatus;
 
-private immutable size = @Audio/SoundSource@;
+import dsfml.sizes;
+
+enum Status {
+	Stopped, ///< Sound is not playing
+	Paused, ///< Sound is paused
+	Playing, ///< Sound is playing
+};
 
 abstract class SoundSource {
-	protected ubyte[size] data = void;
+	private void[soundSourceSize] data = void;
 	
-	final void setPitch(float pitch) {
-		SetPitch(data.ptr, pitch);
+	// TODO: Go inout for D2.056
+	@property
+	protected final sfSoundSource* soundSource() {
+		return cast(sfSoundSource*) data.ptr;
 	}
 	
-	final float getPitch() const {
-		return GetPitch(data.ptr);
+	@property
+	protected final const(sfSoundSource)* soundSource() const {
+		return cast(const(sfSoundSource)*) data.ptr;
 	}
 	
-	abstract void setVolume(float volume);
-	abstract float getVolume() const;
+	~this() {
+		sfSoundSource_Destroy(soundSource);
+	}
 	
-	abstract void setPosition(float[3] position);
-	abstract void setPosition(float x, float y, float z);
-	abstract float[3] getPosition() const;
+	@property
+	final void pitch(float pitch) {
+		sfSoundSource_SetPitch(soundSource, pitch);
+	}
 	
-	abstract void setRelativeToListener(bool relative);
-	abstract bool isRelativeToListener() const;
+	@property
+	final float pitch() const {
+		return sfSoundSource_GetPitch(soundSource);
+	}
 	
-	abstract void setMinDistance(float distance);
-	abstract float getMinDistance() const;
+	@property
+	final void volume(float volume) in {
+		assert(volume >= 0.f && volume <= 100.f);
+	} body {
+		sfSoundSource_SetVolume(soundSource, volume);
+	}
 	
-	abstract void setAttenuation(float attenuation);
-	abstract float getAttenuation() const;
+	@property
+	final float volume() const {
+		return sfSoundSource_GetVolume(soundSource);
+	}
 	
-	abstract sfSoundStatus getStatus() const;
+	@property
+	final void position(const ref float[3] position) {
+		sfSoundSource_SetPosition(soundSource, position.ptr);
+	}
+	
+	@property
+	final float[3] position() const {
+		return sfSoundSource_GetPosition(soundSource);
+	}
+	
+	@property
+	final void relativeToListener(bool relative) {
+		sfSoundSource_SetRelativeToListener(soundSource, relative);
+	}
+	
+	@property
+	final bool relativeToListener() const {
+		return sfSoundSource_IsRelativeToListener(soundSource);
+	}
+	
+	@property
+	final void minDistance(float distance) {
+		sfSoundSource_SetMinDistance(soundSource, distance);
+	}
+	
+	@property
+	final float minDistance() const {
+		return sfSoundSource_GetMinDistance(soundSource);
+	}
+	
+	@property
+	final void attenuation(float attenuation) {
+		return sfSoundSource_SetAttenuation(soundSource, attenuation);
+	}
+	
+	@property
+	final float attenuation() const {
+		return sfSoundSource_GetAttenuation(soundSource);
+	}
+	
+	@property
+	protected Status status() const {
+		return sfSoundSource_GetStatus(soundSource);
+	}
 }
 
 private extern(C++) {
-	void SetPitch(ubyte* soundSource, float pitch);
-	float GetPitch(const ubyte* soundSource)
+	// Scarry, right ? Where is my opaque struct ?
+	struct sfSoundSource {}
+	
+	void sfSoundSource_Destroy(sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetPitch(sfSoundSource* soundSource, float pitch);
+	float sfSoundSource_GetPitch(const sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetVolume(sfSoundSource* soundSource, float volume);
+	float sfSoundSource_GetVolume(const sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetPosition(sfSoundSource* soundSource, const float* position);
+	float[3] sfSoundSource_GetPosition(const sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetRelativeToListener(sfSoundSource* soundSource, bool relative);
+	bool sfSoundSource_IsRelativeToListener(const sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetMinDistance(sfSoundSource* soundSource, float distance);
+	float sfSoundSource_GetMinDistance(const sfSoundSource* soundSource);
+	
+	void sfSoundSource_SetAttenuation(sfSoundSource* soundSource, float attenuation);
+	float sfSoundSource_GetAttenuation(const sfSoundSource* soundSource);
+	
+	Status sfSoundSource_GetStatus(const sfSoundSource* soundSource);
 }
 

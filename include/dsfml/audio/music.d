@@ -72,46 +72,6 @@ class Music : SoundStream {
 		return sfMusic_GetLoop(music);
 	}
 	
-	public void setPitch(float pitch) {
-		sfMusic_SetPitch(music, pitch);
-	}
-	
-	public float getPitch() const {
-		return sfMusic_GetPitch(music);
-	}
-	
-	public void setVolume(float volume) in {
-		assert(volume >= 0.f && volume <= 100.f);
-	} body {
-		sfMusic_SetVolume(music, volume);
-	}
-	
-	public float getVolume() const {
-		return sfMusic_GetVolume(music);
-	}
-	
-	public void setPosition(float[3] position) {
-		sfMusic_SetPosition(music, position[0], position[1], position[2]);
-	}
-	
-	public void setPosition(int x, int y, int z) {
-		sfMusic_SetPosition(music, x, y, z);
-	}
-	
-	public float[3] getPosition() const {
-		float[3] position;
-		sfMusic_GetPosition(music, position.ptr, position.ptr + 1, position.ptr + 2);
-		return position;
-	}
-	
-	public void setRelativeToListener(bool relative) {
-		sfMusic_SetRelativeToListener(music, relative);
-	}
-	
-	public bool isRelativeToListener() const {
-		return sfMusic_IsRelativeToListener(music);
-	}
-	
 	public void setMinDistance(float distance) {
 		sfMusic_SetMinDistance(music, distance);
 	}

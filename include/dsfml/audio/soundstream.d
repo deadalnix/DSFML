@@ -58,62 +58,6 @@ abstract class SoundStream : SoundSource {
 		return sfSoundStream_GetLoop(soundStream);
 	}
 	
-	public void setPitch(float pitch) {
-		sfSoundStream_SetPitch(soundStream, pitch);
-	}
-	
-	public float getPitch() const {
-		return sfSoundStream_GetPitch(soundStream);
-	}
-	
-	public void setVolume(float volume) in {
-		assert(volume >= 0.f && volume <= 100.f);
-	} body {
-		sfSoundStream_SetVolume(soundStream, volume);
-	}
-	
-	public float getVolume() const {
-		return sfSoundStream_GetVolume(soundStream);
-	}
-	
-	public void setPosition(float[3] position) {
-		sfSoundStream_SetPosition(soundStream, position[0], position[1], position[2]);
-	}
-	
-	public void setPosition(int x, int y, int z) {
-		sfSoundStream_SetPosition(soundStream, x, y, z);
-	}
-	
-	public float[3] getPosition() const {
-		float[3] position;
-		sfSoundStream_GetPosition(soundStream, position.ptr, position.ptr + 1, position.ptr + 2);
-		return position;
-	}
-	
-	public void setRelativeToListener(bool relative) {
-		sfSoundStream_SetRelativeToListener(soundStream, relative);
-	}
-	
-	public bool isRelativeToListener() const {
-		return sfSoundStream_IsRelativeToListener(soundStream);
-	}
-	
-	public void setMinDistance(float distance) {
-		sfSoundStream_SetMinDistance(soundStream, distance);
-	}
-	
-	public float getMinDistance() const {
-		return sfSoundStream_GetMinDistance(soundStream);
-	}
-	
-	public void setAttenuation(float attenuation) {
-		sfSoundStream_SetAttenuation(soundStream, attenuation);
-	}
-	
-	public float getAttenuation() const {
-		return sfSoundStream_GetAttenuation(soundStream);
-	}
-	
 	protected abstract void onSeek(uint timeOffset);
 	protected abstract bool onGetData(short[] data);
 }

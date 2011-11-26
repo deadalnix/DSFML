@@ -8,7 +8,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # project name
-project(CSFML C D)
+project(DSFML C CXX D)
 
 # Prepare Cmake for D unit tests
 include(UseDUnittest)
@@ -24,6 +24,7 @@ set(VERSION_PATCH 0)
 # add the DSFML source path
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/build/src)
 
 # force dynamic build (static build is not supported)
 set(BUILD_SHARED_LIBS FALSE)

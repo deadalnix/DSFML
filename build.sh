@@ -29,8 +29,13 @@ mkdir -p build
 cd build
 
 cmake .. && make
-
 cd ../..
 
+# SFML compiled, now process D files to fill C++ object size.
+cd ../tools
+rm -rf ../build/src
+find ../src -type f | grep '\.cpp$' | sed 's/.*\/\([a-z]*\)\/\([A-Z][a-zA-Z]*\)\.cpp$/.\/sizeof.sh \1 \2/g' | /bin/sh
+
+cd ../build
 cmake .. && make
 

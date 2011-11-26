@@ -71,46 +71,6 @@ class Sound : SoundSource {
 		return sfSound_GetStatus(sound);
 	}
 	
-	public void setPitch(float pitch) {
-		sfSound_SetPitch(sound, pitch);
-	}
-	
-	public float getPitch() const {
-		return sfSound_GetPitch(sound);
-	}
-	
-	public void setVolume(float volume) in {
-		assert(volume >= 0.f && volume <= 100.f);
-	} body {
-		sfSound_SetVolume(sound, volume);
-	}
-	
-	public float getVolume() const {
-		return sfSound_GetVolume(sound);
-	}
-	
-	public void setPosition(float[3] position) {
-		sfSound_SetPosition(sound, position[0], position[1], position[2]);
-	}
-	
-	public void setPosition(float x, float y, float z) {
-		sfSound_SetPosition(sound, x, y, z);
-	}
-	
-	public float[3] getPosition() const {
-		float[3] position;
-		sfSound_GetPosition(sound, position.ptr, position.ptr + 1, position.ptr + 2);
-		return position;
-	}
-	
-	public void setRelativeToListener(bool relative) {
-		sfSound_SetRelativeToListener(sound, relative);
-	}
-	
-	public bool isRelativeToListener() const {
-		return sfSound_IsRelativeToListener(sound);
-	}
-	
 	public void setMinDistance(float distance) {
 		sfSound_SetMinDistance(sound, distance);
 	}
