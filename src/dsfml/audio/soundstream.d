@@ -1,35 +1,31 @@
 module dsfml.audio.soundstream;
 
 import dsfml.audio.soundsource;
-
 import dsfml.sizes;
+
+import std.conv;
 
 abstract class SoundStream : SoundSource {
 	private void[soundStreamSize - soundSourceSize] data = void;
 	
 	// TODO: Go inout for D2.056
 	@property
-	protected final sfSoundStream* soundStream() {
+	package final sfSoundStream* soundStream() {
 		return cast(sfSoundStream*) soundSource;
 	}
 	
 	@property
-	protected final const(sfSoundStream)* soundStream() const {
+	package final const(sfSoundStream)* soundStream() const {
 		return cast(const(sfSoundStream)*) soundSource;
-	}
-	/*
-	public this(uint channelsCount, uint sampleRate) {
-		soundStream = sfSoundStream_Create(&soundStreamOnGetData, &soundStreamOnSeek, channelsCount, sampleRate, cast(void*) this);
 	}
 	
 	protected this() {
-		soundStream = null;
+		sfSoundStream_Create(soundStream);
 	}
 	
-	public ~this() {
-		sfSoundStream_Destroy(soundStream);
+	protected void initialize(uint channelsCount, uint sampleRate) {
+		sfSoundStream_Initialize(soundStream, channelsCount, sampleRate);
 	}
-	*/
 	
 	final void play() {
 		sfSoundStream_Play(soundStream);
@@ -78,24 +74,34 @@ abstract class SoundStream : SoundSource {
 		return sfSoundStream_GetLoop(soundStream);
 	}
 	
-	protected abstract bool onGetData(short[] data);
+	protected abstract bool onGetData(ref short[] data);
 	protected abstract void onSeek(uint timeOffset);
 }
 
 private extern(C++) {
+	// Opaque struct ?
 	struct sfSoundStream {}
+	
 	struct sfSoundStreamChunk {
 		short* samples;
 		uint nbSamples;
 	};
 	
 	bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream) {
-		return getSoundSource!(SoundStream)(soundStream).onGetData(data.samples[0 .. data.nbSamples]);
+		short[] samples;
+		return getSoundSource!(SoundStream)(soundStream).onGetData(samples);
+		data.samples	= samples.ptr;
+		
+		assert(samples.length < uint.max, "Cannot read more than " ~ to!string(uint.max) ~ " bytes in once.");
+		data.nbSamples	= cast(uint) samples.length;
 	}
 	
 	void __dsfml_sfSoundStream_seekCallback(uint timeOffset, sfSoundStream* soundStream) {
 		getSoundSource!(SoundStream)(soundStream).onSeek(timeOffset);
 	}
+	
+	void sfSoundStream_Create(sfSoundStream* soundStream);
+	void sfSoundStream_Initialize(sfSoundStream* soundStream, uint channelsCount, uint sampleRate);
 	
 	void sfSoundStream_Play(sfSoundStream* soundStream);
 	void sfSoundStream_Pause(sfSoundStream* soundStream);
@@ -111,20 +117,4 @@ private extern(C++) {
 	void sfSoundStream_SetLoop(sfSoundStream* soundStream, bool loop);
 	bool sfSoundStream_GetLoop(const sfSoundStream* soundStream,);
 }
-
-/*
-private {
-	extern(C) {
-		bool soundStreamOnGetData(sfSoundStreamChunk* chunck, void* userData) {
-			SoundStream soundStream = cast(SoundStream) userData;
-			return soundStream.onGetData(chunck.samples[0 .. chunck.nbSamples]);
-		};
-		
-		void soundStreamOnSeek(uint position, void* userData) {
-			SoundStream soundStream = cast(SoundStream) userData;
-			return soundStream.onSeek(position);
-		};
-	}
-}
-*/
 

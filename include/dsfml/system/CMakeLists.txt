@@ -5,9 +5,10 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/system)
 set(SRC
     ${INCROOT}/all.d
     ${INCROOT}/clock.d
-    ${INCROOT}/inputstream.d
-    ${INCROOT}/mutex.d
-    ${INCROOT}/lock.d
+    ${SRCROOT}/inputstream.d
+    ${SRCROOT}/mutex.d
+    ${SRCROOT}/Mutex.cpp
+    ${SRCROOT}/lock.d
     ${INCROOT}/sleep.d
     ${SRCROOT}/thread.d
     ${INCROOT}/utils.d)

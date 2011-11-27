@@ -9,6 +9,11 @@ bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStre
 void __dsfml_sfSoundStream_seekCallback(sf::Uint32 timeOffset, sfSoundStream* soundStream);
 
 class sfSoundStream : public sf::SoundStream {
+public:
+	sfSoundStream() : SoundStream() {}
+	void Initialize(unsigned int channelsCount, unsigned int sampleRate) {
+		sf::SoundStream::Initialize(channelsCount, sampleRate);
+	}
 private :
 	virtual bool OnGetData(Chunk& Data) {
 		return __dsfml_sfSoundStream_getDataCallback(&Data, this);
@@ -18,6 +23,14 @@ private :
 		__dsfml_sfSoundStream_seekCallback(TimeOffset, this);
 	}
 };
+
+void sfSoundStream_Create(sfSoundStream* soundStream) {
+	new(soundStream) sfSoundStream();
+}
+
+void sfSoundStream_Initialize(sfSoundStream* soundStream, unsigned int channelsCount, unsigned int sampleRate) {
+	soundStream->Initialize(channelsCount, sampleRate);
+}
 
 void sfSoundStream_Play(sfSoundStream* soundStream) {
 	soundStream->Play();

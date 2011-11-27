@@ -2,7 +2,7 @@ module dsfml.system.lock;
 
 import dsfml.system.mutex;
 
-scope class Lock {
+struct Lock {
 	private Mutex mutex;
 	
 	public this(Mutex mutex) {
@@ -15,6 +15,10 @@ scope class Lock {
 	
 	~this() {
 		mutex.unlock();
+	}
+	
+	// Private postblit to disallow copy. Maybe ?
+	private this(this) {
 	}
 }
 

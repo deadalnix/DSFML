@@ -1,7 +1,5 @@
 module dsfml.audio.soundsource;
 
-import csfml.audio.soundstatus;
-
 import dsfml.sizes;
 
 enum Status {
@@ -22,12 +20,12 @@ class SoundSource {
 	
 	// TODO: Go inout for D2.056
 	@property
-	protected final sfSoundSource* soundSource() {
+	package final sfSoundSource* soundSource() {
 		return cast(sfSoundSource*) data.ptr;
 	}
 	
 	@property
-	protected final const(sfSoundSource)* soundSource() const {
+	package final const(sfSoundSource)* soundSource() const {
 		return cast(const(sfSoundSource)*) data.ptr;
 	}
 	
