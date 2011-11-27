@@ -89,11 +89,13 @@ private extern(C++) {
 	
 	bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream) {
 		short[] samples;
-		return getSoundSource!(SoundStream)(soundStream).onGetData(samples);
+		bool ret = getSoundSource!(SoundStream)(soundStream).onGetData(samples);
 		data.samples	= samples.ptr;
 		
 		assert(samples.length < uint.max, "Cannot read more than " ~ to!string(uint.max) ~ " bytes in once.");
 		data.nbSamples	= cast(uint) samples.length;
+		
+		return ret;
 	}
 	
 	void __dsfml_sfSoundStream_seekCallback(uint timeOffset, sfSoundStream* soundStream) {
