@@ -33,10 +33,14 @@ final class Music : SoundStream {
 	}
 	
 	bool openFromMemory(const void[] data) {
+		assert(data.length > 0);
+		
 		return sfMusic_OpenFromMemory(music, data.ptr, data.length);
 	}
 	
 	bool openFromStream(InputStream stream) {
+		assert(stream);
+		
 		return sfMusic_OpenFromStream(music, stream);
 	}
 	
@@ -46,10 +50,10 @@ final class Music : SoundStream {
 	}
 	
 	// Dummy function to handle compatibility with soundStream.
-	private final void onSeek(uint timeOffset) {}
-	private final bool onGetData(ref short[] data) {
+	protected override final bool onGetData(ref short[] data) {
 		return false;
 	}
+	protected override final void onSeek(uint timeOffset) {}
 }
 
 extern(C++) {

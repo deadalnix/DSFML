@@ -12,7 +12,7 @@ void sfMusic_Destroy(sfMusic* music) {
 }
 
 bool sfMusic_OpenFromFile(sfMusic* music, const char* filename) {
-	music->OpenFromFile(filename);
+	return music->OpenFromFile(filename);
 }
 
 bool sfMusic_OpenFromMemory(sfMusic* music, const void* data, size_t sizeInBytes) {
@@ -22,10 +22,10 @@ bool sfMusic_OpenFromMemory(sfMusic* music, const void* data, size_t sizeInBytes
 typedef sf::InputStream InputStream;
 
 bool sfMusic_OpenFromStream(sfMusic* music, InputStream* stream) {
-	music->OpenFromStream(*stream);
+	return music->OpenFromStream(*stream);
 }
 
 sf::Uint32 sfMusic_GetDuration(const sfMusic* music) {
-	music->GetDuration();
+	return music->GetDuration();
 }
 

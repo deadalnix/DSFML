@@ -23,7 +23,7 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_Create(soundStream);
 	}
 	
-	protected void initialize(uint channelsCount, uint sampleRate) {
+	protected final void initialize(uint channelsCount, uint sampleRate) {
 		sfSoundStream_Initialize(soundStream, channelsCount, sampleRate);
 	}
 	
@@ -50,7 +50,7 @@ abstract class SoundStream : SoundSource {
 	}
 	
 	@property
-	final Status status() const {
+	override final Status status() const {
 		return sfSoundStream_GetStatus(soundStream);
 	}
 	
@@ -89,13 +89,15 @@ private extern(C++) {
 	
 	bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream) {
 		short[] samples;
-		bool ret = getSoundSource!(SoundStream)(soundStream).onGetData(samples);
-		data.samples	= samples.ptr;
 		
-		assert(samples.length < uint.max, "Cannot read more than " ~ to!string(uint.max) ~ " bytes in once.");
-		data.nbSamples	= cast(uint) samples.length;
+		scope(exit) {
+			data.samples	= samples.ptr;
+			
+			assert(samples.length < uint.max, "Cannot read more than " ~ to!string(uint.max) ~ " bytes in once.");
+			data.nbSamples	= cast(uint) samples.length;
+		}
 		
-		return ret;
+		return getSoundSource!(SoundStream)(soundStream).onGetData(samples);
 	}
 	
 	void __dsfml_sfSoundStream_seekCallback(uint timeOffset, sfSoundStream* soundStream) {

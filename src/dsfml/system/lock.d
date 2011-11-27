@@ -17,8 +17,8 @@ struct Lock {
 		mutex.unlock();
 	}
 	
-	// Private postblit to disallow copy. Maybe ?
-	private this(this) {
-	}
+	// This cannot be constructed without a mutex and is not copyable (but movable).
+	@disable this();
+	@disable this(this);
 }
 

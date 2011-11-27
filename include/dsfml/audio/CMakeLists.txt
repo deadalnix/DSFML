@@ -8,7 +8,8 @@ set(SRC
     ${SRCROOT}/music.d
     ${SRCROOT}/Music.cpp
     ${INCROOT}/sound.d
-    ${INCROOT}/soundbuffer.d
+    ${SRCROOT}/soundbuffer.d
+    ${SRCROOT}/SoundBuffer.cpp
     ${INCROOT}/soundbufferrecorder.d
     ${INCROOT}/soundrecorder.d
     ${SRCROOT}/soundsource.d

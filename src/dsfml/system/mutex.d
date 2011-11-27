@@ -2,6 +2,7 @@ module dsfml.system.mutex;
 
 import dsfml.sizes;
 
+// If one day D support default constructor for structs, this should be changed to struct.
 final class Mutex {
 	private void[mutexSize] data = void;
 	

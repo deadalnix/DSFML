@@ -41,6 +41,7 @@ class SoundSource {
 		sfSoundSource_Destroy(soundSource);
 	}
 	
+	// Not sure this is usefull
 	SoundSource clone() const {
 		return new SoundSource(this);
 	}
