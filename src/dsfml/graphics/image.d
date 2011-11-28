@@ -1,18 +1,36 @@
 module dsfml.graphics.image;
 
-import csfml.graphics.color;
-import csfml.graphics.rect;
-import csfml.graphics.image;
-
 import dsfml.graphics.color;
 import dsfml.graphics.rect;
 import dsfml.system.inputstream;
 
+import dsfml.sizes;
+
 import std.string;
 
-struct Image {
-	private sfImage* image;
+final class Image {
+	private void[imageSize] data = void;
 	
+	// TODO: Go inout for D2.056
+	@property
+	package final sfImage* image() {
+		return cast(sfImage*) data.ptr;
+	}
+	
+	@property
+	package final const(sfImage)* image() const {
+		return cast(const(sfImage)*) data.ptr;
+	}
+	
+	this() {
+		sfImage_Create(image);
+	}
+	
+	~this() {
+		sfImage_Destroy(image);
+	}
+	
+	/*
 	public this(uint width, uint height, const Color color = black) {
 		image = sfImage_CreateFromColor(width, height, cast(sfColor) color);
 	}
@@ -98,5 +116,13 @@ struct Image {
 	public void flipVertically() {
 		sfImage_FlipVertically(image);
 	}
+	*/
+}
+
+extern(C++) {
+	struct sfImage {}
+	
+	void sfImage_Create(sfImage* image);
+	void sfImage_Destroy(sfImage* image);
 }
 

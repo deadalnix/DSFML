@@ -7,7 +7,8 @@ set(SRC
     ${SRCROOT}/font.d
     ${SRCROOT}/Font.cpp
     ${INCROOT}/glyph.d
-    ${INCROOT}/image.d
+    ${SRCROOT}/image.d
+    ${SRCROOT}/Image.cpp
     ${INCROOT}/rect.d
     ${INCROOT}/renderwindow.d
     ${INCROOT}/texture.d)
