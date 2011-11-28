@@ -23,9 +23,9 @@ bool sfSoundBuffer_LoadFromMemory(sfSoundBuffer* soundBuffer, const void* data, 
 	return soundBuffer->LoadFromMemory(data, sizeInBytes);
 }
 
-typedef sf::InputStream InputStream;
+typedef sf::InputStream sfInputStream;
 
-bool sfSoundBuffer_LoadFromStream(sfSoundBuffer* soundBuffer, InputStream* stream) {
+bool sfSoundBuffer_LoadFromStream(sfSoundBuffer* soundBuffer, sfInputStream* stream) {
 	return soundBuffer->LoadFromStream(*stream);
 }
 

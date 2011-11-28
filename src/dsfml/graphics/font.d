@@ -29,6 +29,11 @@ final class Font {
 		sfFont_Copy(f.font, font);
 	}
 	
+	private this(ref const sfFont source) immutable {
+		// Cast away immutable during initialization.
+		sfFont_Copy(&source, cast(sfFont*) font);
+	}
+	
 	~this() {
 		sfFont_Destroy(font);
 	}
@@ -47,39 +52,30 @@ final class Font {
 		return sfFont_LoadFromStream(font, stream);
 	}
 	
-	public ref const(Glyph) getGlyph(uint codePoint, uint characterSize, bool bold) const {
+	final ref const(Glyph) getGlyph(uint codePoint, uint characterSize, bool bold) const {
 		return sfFont_GetGlyph(font, codePoint, characterSize, bold);
 	}
 	
-	public int getKerning(uint first, uint second, uint characterSize) const {
+	final int getKerning(uint first, uint second, uint characterSize) const {
 		return sfFont_GetKerning(font, first, second, characterSize);
 	}
 	
-	public int getLineSpacing(uint characterSize) const {
+	final int getLineSpacing(uint characterSize) const {
 		return sfFont_GetLineSpacing(font, characterSize);
 	}
 	
-	/*
-	public ref const(Texture) getTexture(uint characterSize) const {
-		return Texture(sfFont_GetTexture(font, characterSize));
+	final ref const(Texture) getTexture(uint characterSize) const {
+		return sfFont_GetTexture(font, characterSize);
 	}
-	*/
 }
 
-/*
-// TODO: this should be immutable
-const Font defaultFont;
+immutable Font defaultFont;
 
 static this() {
 	defaultFont = new Font(sfFont_GetDefaultFont());
 }
 
-const(Font) getDefaultFont() {
-	return defaultFont;
-}
-*/
-
-private extern(C++) {
+package extern(C++) {
 	struct sfFont {}
 	
 	void sfFont_Create(sfFont* font);
@@ -93,5 +89,8 @@ private extern(C++) {
 	ref const(Glyph) sfFont_GetGlyph(const sfFont* font, uint codePoint, uint characterSize, bool bold);
 	int sfFont_GetKerning(const sfFont* font, uint first, uint second, uint characterSize);
 	int sfFont_GetLineSpacing(const sfFont* font, uint characterSize);
+	ref const(Texture) sfFont_GetTexture(const sfFont* font, uint characterSize);
+	
+	ref const(sfFont) sfFont_GetDefaultFont();
 }
 

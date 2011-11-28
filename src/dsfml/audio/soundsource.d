@@ -69,7 +69,7 @@ class SoundSource {
 	}
 	
 	@property
-	final void position(const ref float[3] position) {
+	final void position(ref const float[3] position) {
 		sfSoundSource_SetPosition(soundSource, position.ptr);
 	}
 	

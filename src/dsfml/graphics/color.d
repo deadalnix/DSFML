@@ -1,6 +1,7 @@
 module dsfml.graphics.color;
 
 import dsfml.system.utils;
+import dsfml.sizes;
 
 immutable Color black	= Color(0, 0, 0);
 immutable Color white	= Color(255, 255, 255);
@@ -17,15 +18,27 @@ struct Color {
 	ubyte b;
 	ubyte a = 255;
 	
-	public this(ubyte red, ubyte green, ubyte blue) {
+	this(ubyte red, ubyte green, ubyte blue) {
 		r = red;
 		g = green;
 		b = blue;
 	}
 	
-	public this(ubyte red, ubyte green, ubyte blue, ubyte alpha) {
+	this(ubyte red, ubyte green, ubyte blue, ubyte alpha) {
 		this(red, green, blue);
+		
 		a = alpha;
+	}
+	
+	// TODO: Go inout for D2.056
+	@property
+	package final ref sfColor color() {
+		return cast(sfColor) *(cast(sfColor*) &this);
+	}
+	
+	@property
+	package final ref const(sfColor) color() const {
+		return cast(const sfColor) *(cast(const(sfColor)*) &this);
 	}
 	
 	public Color opAdd(const Color other) const {
@@ -162,6 +175,12 @@ struct Color {
 		}
 		
 		return this;
+	}
+}
+
+package extern(C++) {
+	struct sfColor {
+		void[colorSize] data = void;
 	}
 }
 

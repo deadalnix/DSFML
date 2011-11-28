@@ -30,90 +30,66 @@ final class Image {
 		sfImage_Destroy(image);
 	}
 	
-	final void create(uint width, uint height, const ref Color color = black) {
-		sfImage_Create(image, width, height, color);
+	final void create()(uint width, uint height, ref const Color color = black) {
+		sfImage_Create2(image, width, height, color.color);
 	}
 	
-	// This would be nice but fail ATM.
-	/*
 	final void create(uint WIDTH, uint HEIGHT)(const ubyte[HEIGHT][WIDTH] pixels) {
 		sfImage_Create(image, WIDTH, HEIGHT, pixels.ptr);
 	}
-	*/
 	
-	final void create(uint width, uint height, const ubyte[] pixels) {
+	final void create()(uint width, uint height, const ubyte[] pixels) {
 		assert(pixels.length == width * height * 4);
 		
 		sfImage_Create(image, width, height, pixels.ptr);
 	}
 	
-	/*
-	public this(string filename) {
-		image = sfImage_CreateFromFile(toStringz(filename));
+	final bool loadFromFile(string filename) {
+		return sfImage_LoadFromFile(image, toStringz(filename));
 	}
 	
-	public this(const void[] data) {
-		image = sfImage_CreateFromMemory(data.ptr, data.length);
+	final bool loadFromMemory(const void[] data) {
+		return sfImage_LoadFromMemory(image, data.ptr, data.length);
 	}
 	
-	public this(InputStream istream) {
-		image = sfImage_CreateFromStream(istream.getCInputStream());
+	final bool loadFromStream(InputStream stream) {
+		return sfImage_LoadFromStream(image, stream);
 	}
 	
-	public this(this) {
-		image = sfImage_Copy(image);
-	}
-	
-	public this(inout sfImage* image) inout {
-		this.image = image;
-	}
-	
-	public ~this() {
-		sfImage_Destroy(image);
-	}
-	
-	public const(sfImage*) getCImage() const {
-		return image;
-	}
-	
-	public immutable(sfImage*) getCImage() immutable {
-		return image;
-	}
-	
-	public sfImage* getCImage() {
-		return image;
-	}
-	
-	public bool saveToFile(string filename) const {
+	final bool saveToFile(string filename) const {
 		return sfImage_SaveToFile(image, toStringz(filename));
 	}
 	
-	public uint getWidth() const {
+	@property
+	final uint width() const {
 		return sfImage_GetWidth(image);
 	}
 	
-	public uint getHeight() const {
+	@property
+	final uint height() const {
 		return sfImage_GetHeight(image);
 	}
 	
-	public void createMaskFromColor(const Color color, ubyte alpha = 0) {
-		sfImage_CreateMaskFromColor(image, cast(sfColor) color, alpha);
+	public void createMaskFromColor(ref const Color color, ubyte alpha = 0) {
+		sfImage_CreateMaskFromColor(image, color.color, alpha);
 	}
 	
-	public void copy(const ref Image source, uint destX, uint destY, const ref IntRect sourceRect = IntRect(), bool applyAlpha = false) {
-		sfImage_CopyImage(image, source.image, destX, destY, cast(sfIntRect) sourceRect, applyAlpha);
+	/*
+	public void copy(ref const Image source, uint destX, uint destY, ref const IntRect sourceRect = IntRect(), bool applyAlpha = false) {
+		sfImage_Copy(image, source.image, destX, destY, sourceRect, applyAlpha);
 	}
 	
-	public void setPixel(uint x, uint y, const Color color) {
-		sfImage_SetPixel(image, x, y, cast(sfColor) color);
+	/*
+	public void setPixel(uint x, uint y, ref const Color color) {
+		sfImage_SetPixel(image, x, y, color);
 	}
 	
 	public Color getPixel(uint x, uint y) const {
-		return cast(Color) sfImage_GetPixel(image, x, y);
+		return sfImage_GetPixel(image, x, y);
 	}
 	
 	public const(ubyte)[] getPixelsArray() const {
-		return sfImage_GetPixelsPtr(image)[0 .. getHeight() * getWidth() * 4];
+		return sfImage_GetPixelsPtr(image)[0 .. height * width * 4];
 	}
 	
 	public void flipHorizontally() {
@@ -126,14 +102,23 @@ final class Image {
 	*/
 }
 
-private extern(C++) {
+package extern(C++) {
 	struct sfImage {}
-	alias Color sfColor;
 	
 	void sfImage_Create(sfImage* image);
 	void sfImage_Destroy(sfImage* image);
 	
-	void sfImage_Create(sfImage* image, uint width, uint height, const ref sfColor color);
+	void sfImage_Create2(sfImage* image, uint width, uint height, ref const sfColor color);
 	void sfImage_Create(sfImage* image, uint width, uint height, const ubyte* pixels);
+	
+	bool sfImage_LoadFromFile(sfImage* image, const char* filename);
+	bool sfImage_LoadFromMemory(sfImage* image, const void* data, size_t size);
+	bool sfImage_LoadFromStream(sfImage* image, InputStream stream);
+	bool sfImage_SaveToFile(const sfImage* image, const char* filename);
+	
+	uint sfImage_GetWidth(const sfImage* image);
+	uint sfImage_GetHeight(const sfImage* image);
+	
+	void sfImage_CreateMaskFromColor(sfImage* image, ref const sfColor color, ubyte alpha);
 }
 

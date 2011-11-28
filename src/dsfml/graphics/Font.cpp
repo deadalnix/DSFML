@@ -43,3 +43,11 @@ int sfFont_GetLineSpacing(const sfFont* font, unsigned int characterSize) {
 	return font->GetLineSpacing(characterSize);
 }
 
+const sf::Texture& sfFont_GetTexture(const sfFont* font, unsigned int characterSize) {
+	return font->GetTexture(characterSize);
+}
+
+const sfFont& sfFont_GetDefaultFont() {
+	return sfFont::GetDefaultFont();
+}
+

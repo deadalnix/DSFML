@@ -19,9 +19,9 @@ bool sfMusic_OpenFromMemory(sfMusic* music, const void* data, size_t sizeInBytes
 	return music->OpenFromMemory(data, sizeInBytes);
 }
 
-typedef sf::InputStream InputStream;
+typedef sf::InputStream sfInputStream;
 
-bool sfMusic_OpenFromStream(sfMusic* music, InputStream* stream) {
+bool sfMusic_OpenFromStream(sfMusic* music, sfInputStream* stream) {
 	return music->OpenFromStream(*stream);
 }
 
