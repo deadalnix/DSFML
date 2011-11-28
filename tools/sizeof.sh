@@ -12,7 +12,11 @@ TYPE=$2
 mkdir -p build
 cd build
 
-gdc -c ../main.d
+if [ ! -f main.o ]
+then
+	gdc -c ../main.d
+fi
+
 cat ../sizeof.cpp | sed s/@MODULE@/$MODULE/g | sed s/@TYPE@/$TYPE/g > sizeof.cpp
 
 g++ -c sizeof.cpp
@@ -21,7 +25,6 @@ gdc -o a.out sizeof.o main.o -L../../build/SFML/build/lib -L../../build/lib -L/u
 SIZE=`./a.out`
 
 cd ..
-rm -rf build
 
 if [ ! -f ../build/src/dsfml/sizes.d ]
 then
@@ -36,5 +39,6 @@ lcfirst() {
 	return 0;
 }
 
+echo $TYPE size is $SIZE
 echo 'immutable '`lcfirst $TYPE`'Size = '$SIZE';' >> ../build/src/dsfml/sizes.d
 
