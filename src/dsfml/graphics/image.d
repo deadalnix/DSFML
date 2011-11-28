@@ -30,17 +30,24 @@ final class Image {
 		sfImage_Destroy(image);
 	}
 	
+	final void create(uint width, uint height, const ref Color color = black) {
+		sfImage_Create(image, width, height, color);
+	}
+	
+	// This would be nice but fail ATM.
 	/*
-	public this(uint width, uint height, const Color color = black) {
-		image = sfImage_CreateFromColor(width, height, cast(sfColor) color);
+	final void create(uint WIDTH, uint HEIGHT)(const ubyte[HEIGHT][WIDTH] pixels) {
+		sfImage_Create(image, WIDTH, HEIGHT, pixels.ptr);
+	}
+	*/
+	
+	final void create(uint width, uint height, const ubyte[] pixels) {
+		assert(pixels.length == width * height * 4);
+		
+		sfImage_Create(image, width, height, pixels.ptr);
 	}
 	
-	public this(uint width, uint height, const ubyte[] data) in {
-		assert(data.length == (width * height * 4), "Data size is inconsistent with width and height");
-	} body {
-		sfImage_CreateFromPixels(width, height, data.ptr);
-	}
-	
+	/*
 	public this(string filename) {
 		image = sfImage_CreateFromFile(toStringz(filename));
 	}
@@ -119,10 +126,14 @@ final class Image {
 	*/
 }
 
-extern(C++) {
+private extern(C++) {
 	struct sfImage {}
+	alias Color sfColor;
 	
 	void sfImage_Create(sfImage* image);
 	void sfImage_Destroy(sfImage* image);
+	
+	void sfImage_Create(sfImage* image, uint width, uint height, const ref sfColor color);
+	void sfImage_Create(sfImage* image, uint width, uint height, const ubyte* pixels);
 }
 

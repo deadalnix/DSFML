@@ -52,9 +52,7 @@ sf::Uint32 sfSoundStream_GetSampleRate(const sfSoundStream* soundStream) {
 	soundStream->GetSampleRate();
 }
 
-typedef sf::SoundSource::Status Status;
-
-Status sfSoundStream_GetStatus(const sfSoundStream* soundStream) {
+sf::SoundSource::Status sfSoundStream_GetStatus(const sfSoundStream* soundStream) {
 	soundStream->GetStatus();
 }
 

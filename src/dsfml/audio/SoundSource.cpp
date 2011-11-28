@@ -72,16 +72,14 @@ float sfSoundSource_GetAttenuation(const sfSoundSource* soundSource) {
 	return soundSource->GetAttenuation();
 }
 
-typedef sf::SoundSource::Status Status;
-
 // Trick to get The status (GetStatus is protected in SoundSource).
 struct sfSoundSource_GetStatusSoundSource : sfSoundSource {
-	Status GetStatus() const {
+	sf::SoundSource::Status GetStatus() const {
 		return sfSoundSource::GetStatus();
 	}
 };
 
-Status sfSoundSource_GetStatus(const sfSoundSource* soundSource) {
+sf::SoundSource::Status sfSoundSource_GetStatus(const sfSoundSource* soundSource) {
 	return (reinterpret_cast<const sfSoundSource_GetStatusSoundSource*>(soundSource))->GetStatus();
 }
 

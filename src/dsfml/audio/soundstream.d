@@ -91,9 +91,9 @@ private extern(C++) {
 		short[] samples;
 		
 		scope(exit) {
-			data.samples	= samples.ptr;
-			
 			assert(samples.length < uint.max, "Cannot read more than " ~ to!string(uint.max) ~ " bytes in once.");
+			
+			data.samples	= samples.ptr;
 			data.nbSamples	= cast(uint) samples.length;
 		}
 		
