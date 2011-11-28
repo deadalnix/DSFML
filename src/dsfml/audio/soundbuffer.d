@@ -5,7 +5,8 @@ import dsfml.sizes;
 
 import std.string;
 
-struct SoundBuffer {
+// Go struct as soon as default onstructor is available ?
+final class SoundBuffer {
 	private void[soundBufferSize] data = void;
 	
 	// TODO: Go inout for D2.056
@@ -19,70 +20,65 @@ struct SoundBuffer {
 		return cast(const(sfSoundBuffer)*) data.ptr;
 	}
 	
-	// Wonderfull !
-	@disable this();
-	
-	// Default constructor workaround.
-	this(int dummy = 0) {
+	this() {
 		sfSoundBuffer_Create(soundBuffer);
+	}
+	
+	this(const SoundBuffer sb) {
+		sfSoundBuffer_Copy(sb.soundBuffer, soundBuffer);
 	}
 	
 	~this() {
 		sfSoundBuffer_Destroy(soundBuffer);
 	}
 	
-	bool loadFromFile(string filename) {
+	final bool loadFromFile(string filename) {
 		return sfSoundBuffer_LoadFromFile(soundBuffer, toStringz(filename));
 	}
 	
-	bool loadFromMemory(const void[] data) {
-		assert(data.length > 0);
-		
+	final bool loadFromMemory(const void[] data) {
 		return sfSoundBuffer_LoadFromMemory(soundBuffer, data.ptr, data.length);
 	}
 	
-	bool loadFromStream(InputStream stream) {
+	final bool loadFromStream(InputStream stream) {
 		assert(stream);
 		
 		return sfSoundBuffer_LoadFromStream(soundBuffer, stream);
 	}
 	
-	bool LoadFromSamples(const short[] samples, uint channelsCount, uint sampleRate) {
-		assert(samples.length > 0);
-		
+	final bool LoadFromSamples(const short[] samples, uint channelsCount, uint sampleRate) {
 		return sfSoundBuffer_LoadFromSamples(soundBuffer, samples.ptr, samples.length, channelsCount, sampleRate);
 	}
 	
-	bool saveToFile(string filename) const {
+	final bool saveToFile(string filename) const {
 		return sfSoundBuffer_SaveToFile(soundBuffer, toStringz(filename));
 	}
 	
 	@property
-	const(short)[] samples() const {
+	final const(short)[] samples() const {
 		return sfSoundBuffer_GetSamples(soundBuffer)[0 .. sfSoundBuffer_GetSamplesCount(soundBuffer)];
 	}
 	
 	@property
-	uint sampleRate() const {
+	final uint sampleRate() const {
 		return sfSoundBuffer_GetSampleRate(soundBuffer);
 	}
 	
 	@property
-	uint channelsCount() const {
+	final uint channelsCount() const {
 		return sfSoundBuffer_GetChannelsCount(soundBuffer);
 	}
 	
 	@property
-	uint duration() const {
+	final uint duration() const {
 		return sfSoundBuffer_GetDuration(soundBuffer);
 	}
 }
 
-extern(C++) {
+private extern(C++) {
 	struct sfSoundBuffer {}
 	
 	void sfSoundBuffer_Create(sfSoundBuffer* soundBuffer);
-	// Don't know how to call that in D :'(
 	void sfSoundBuffer_Copy(const sfSoundBuffer* soundBuffer, sfSoundBuffer* destination);
 	void sfSoundBuffer_Destroy(sfSoundBuffer* soundBuffer);
 	

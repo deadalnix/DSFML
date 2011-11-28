@@ -4,7 +4,7 @@ import std.concurrency;
 
 alias extern(C++) void* function(void*) EntryPoint;
 
-extern(C++) {
+private extern(C++) {
 	void* __dsfml_start_thread(EntryPoint entryPoint, void* userData) {
 		Tid tid = spawn(function void(EntryPoint entryPoint, shared void* userData) {
 			entryPoint(cast(void*) userData);

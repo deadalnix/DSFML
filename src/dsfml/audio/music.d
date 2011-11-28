@@ -56,7 +56,7 @@ final class Music : SoundStream {
 	protected override final void onSeek(uint timeOffset) {}
 }
 
-extern(C++) {
+private extern(C++) {
 	// Opaque struct ?
 	struct sfMusic {}
 	

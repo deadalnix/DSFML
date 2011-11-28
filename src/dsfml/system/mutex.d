@@ -34,7 +34,7 @@ final class Mutex {
 	}
 }
 
-extern(C++) {
+private extern(C++) {
 	// Opaque struct ?
 	struct sfMutex {}
 	
