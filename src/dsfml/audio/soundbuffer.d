@@ -76,7 +76,10 @@ final class SoundBuffer {
 }
 
 private extern(C++) {
-	struct sfSoundBuffer {}
+	// TODO: Opaque struct
+	struct sfSoundBuffer {
+		void[soundBufferSize] data = void;
+	}
 	
 	void sfSoundBuffer_Create(sfSoundBuffer* soundBuffer);
 	void sfSoundBuffer_Copy(const sfSoundBuffer* soundBuffer, sfSoundBuffer* destination);

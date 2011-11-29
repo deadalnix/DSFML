@@ -51,3 +51,29 @@ void sfImage_CreateMaskFromColor(sfImage* image, const sfColor& color, sf::Uint8
 	image->CreateMaskFromColor(color, alpha);
 }
 
+typedef sf::IntRect sfIntRect;
+
+void sfImage_Copy(sfImage* image, const sfImage& source, unsigned int destX, unsigned int destY, const sfIntRect& sourceRect, bool applyAlpha) {
+	image->Copy(source, destX, destY, sourceRect, applyAlpha);
+}
+
+void sfImage_SetPixel(sfImage* image, unsigned int x, unsigned int y, const sfColor& color) {
+	image->SetPixel(x, y, color);
+}
+
+sfColor sfImage_GetPixel(const sfImage* image, unsigned int x, unsigned int y) {
+	return image->GetPixel(x, y);
+}
+
+const sf::Uint8* sfImage_GetPixelsPtr(const sfImage* image) {
+	return image->GetPixelsPtr();
+}
+
+void sfImage_FlipHorizontally(sfImage* image) {
+	image->FlipHorizontally();
+}
+
+void sfImage_FlipVertically(sfImage* image) {
+	image->FlipVertically();
+}
+

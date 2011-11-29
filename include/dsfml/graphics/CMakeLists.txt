@@ -9,7 +9,7 @@ set(SRC
     ${INCROOT}/glyph.d
     ${SRCROOT}/image.d
     ${SRCROOT}/Image.cpp
-    ${INCROOT}/rect.d
+    ${SRCROOT}/rect.d
     ${INCROOT}/renderwindow.d
     ${INCROOT}/texture.d)
 

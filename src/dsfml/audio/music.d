@@ -58,7 +58,9 @@ final class Music : SoundStream {
 
 private extern(C++) {
 	// Opaque struct ?
-	struct sfMusic {}
+	struct sfMusic {
+		void[musicSize - soundStreamSize] data = void;
+	}
 	
 	void sfMusic_Create(sfMusic* music);
 	void sfMusic_Destroy(sfMusic* music);

@@ -36,7 +36,9 @@ final class Mutex {
 
 private extern(C++) {
 	// Opaque struct ?
-	struct sfMutex {}
+	struct sfMutex {
+		void[mutexSize] data = void;
+	}
 	
 	void sfMutex_Create(sfMutex* mutex);
 	void sfMutex_Destroy(sfMutex* mutex);

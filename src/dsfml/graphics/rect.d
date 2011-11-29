@@ -9,6 +9,30 @@ struct Rect(T) if(isNumeric!(T)) {
 	T width		= 0;
 	T height	= 0;
 	
+	// TODO: Go inout for D2.056
+	static if(is(T == int)) {
+		@property
+		package final ref sfIntRect rect() {
+			return cast(sfIntRect) *(cast(sfIntRect*) &this);
+		}
+	
+		@property
+		package final ref const(sfIntRect) rect() const {
+			return cast(const sfIntRect) *(cast(const(sfIntRect)*) &this);
+		}
+	} else static if(is(T == float)) {
+		// TODO: Go inout for D2.056
+		@property
+		package final ref sfFloatRect rect() {
+			return cast(sfFloatRect) *(cast(sfFloatRect*) &this);
+		}
+	
+		@property
+		package final ref const(sfFloatRect) rect() const {
+			return cast(const sfFloatRect) *(cast(const(sfFloatRect)*) &this);
+		}
+	}
+	
 	public this(T left, T top, T width, T height) {
 		this.left	= left;
 		this.top	= top;
@@ -56,4 +80,14 @@ struct Rect(T) if(isNumeric!(T)) {
 
 alias Rect!(int) IntRect;
 alias Rect!(float) FloatRect;
+
+package extern(C++) {
+	struct sfIntRect {
+		void[IntRect.sizeof] data = void;
+	}
+	
+	struct sfFloatRect {
+		void[IntRect.sizeof] data = void;
+	}
+}
 

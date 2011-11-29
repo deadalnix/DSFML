@@ -74,18 +74,16 @@ final class Image {
 		sfImage_CreateMaskFromColor(image, color.color, alpha);
 	}
 	
-	/*
 	public void copy(ref const Image source, uint destX, uint destY, ref const IntRect sourceRect = IntRect(), bool applyAlpha = false) {
-		sfImage_Copy(image, source.image, destX, destY, sourceRect, applyAlpha);
+		sfImage_Copy(image, *source.image, destX, destY, sourceRect.rect, applyAlpha);
 	}
 	
-	/*
 	public void setPixel(uint x, uint y, ref const Color color) {
-		sfImage_SetPixel(image, x, y, color);
+		sfImage_SetPixel(image, x, y, color.color);
 	}
 	
 	public Color getPixel(uint x, uint y) const {
-		return sfImage_GetPixel(image, x, y);
+		return sfImage_GetPixel(image, x, y).color;
 	}
 	
 	public const(ubyte)[] getPixelsArray() const {
@@ -99,11 +97,12 @@ final class Image {
 	public void flipVertically() {
 		sfImage_FlipVertically(image);
 	}
-	*/
 }
 
 package extern(C++) {
-	struct sfImage {}
+	struct sfImage {
+		void[imageSize] data = void;
+	}
 	
 	void sfImage_Create(sfImage* image);
 	void sfImage_Destroy(sfImage* image);
@@ -120,5 +119,11 @@ package extern(C++) {
 	uint sfImage_GetHeight(const sfImage* image);
 	
 	void sfImage_CreateMaskFromColor(sfImage* image, ref const sfColor color, ubyte alpha);
+	void sfImage_Copy(sfImage* image, ref const sfImage source, uint destX, uint destY, ref const sfIntRect sourceRect, bool applyAlpha);
+	void sfImage_SetPixel(sfImage* image, uint x, uint y, ref const sfColor color);
+	sfColor sfImage_GetPixel(const sfImage* image, uint x, uint y);
+	const(ubyte)* sfImage_GetPixelsPtr(const sfImage* image);
+	void sfImage_FlipHorizontally(sfImage* image);
+	void sfImage_FlipVertically(sfImage* image);
 }
 

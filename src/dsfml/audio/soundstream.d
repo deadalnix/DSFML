@@ -80,7 +80,9 @@ abstract class SoundStream : SoundSource {
 
 private extern(C++) {
 	// Opaque struct ?
-	struct sfSoundStream {}
+	struct sfSoundStream {
+		void[soundStreamSize - soundSourceSize] data = void;
+	}
 	
 	struct sfSoundStreamChunk {
 		short* samples;

@@ -116,7 +116,9 @@ class SoundSource {
 
 private extern(C++) {
 	// Scary, right ? Where is my opaque struct ?
-	struct sfSoundSource {}
+	struct sfSoundSource {
+		void[soundSourceSize] data = void;
+	}
 	
 	void sfSoundSource_Create(sfSoundSource* soundSource);
 	void sfSoundSource_Copy(const sfSoundSource* soundSource, sfSoundSource* destination);

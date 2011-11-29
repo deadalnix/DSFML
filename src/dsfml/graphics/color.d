@@ -18,6 +18,17 @@ struct Color {
 	ubyte b;
 	ubyte a = 255;
 	
+	// TODO: Go inout for D2.056
+	@property
+	package final ref sfColor color() {
+		return cast(sfColor) *(cast(sfColor*) &this);
+	}
+	
+	@property
+	package final ref const(sfColor) color() const {
+		return cast(const sfColor) *(cast(const(sfColor)*) &this);
+	}
+	
 	this(ubyte red, ubyte green, ubyte blue) {
 		r = red;
 		g = green;
@@ -28,17 +39,6 @@ struct Color {
 		this(red, green, blue);
 		
 		a = alpha;
-	}
-	
-	// TODO: Go inout for D2.056
-	@property
-	package final ref sfColor color() {
-		return cast(sfColor) *(cast(sfColor*) &this);
-	}
-	
-	@property
-	package final ref const(sfColor) color() const {
-		return cast(const sfColor) *(cast(const(sfColor)*) &this);
 	}
 	
 	public Color opAdd(const Color other) const {
@@ -180,7 +180,19 @@ struct Color {
 
 package extern(C++) {
 	struct sfColor {
-		void[colorSize] data = void;
+		void[Color.sizeof] data = void;
+		
+		// TODO: Go inout for D2.056
+		@property
+		package final ref Color color() {
+			return cast(Color) *(cast(Color*) &this);
+		}
+		
+		// Workaround mangling issue with constness and extern(C++).
+		@property
+		package final ref const(Color) constColor() const {
+			return cast(const Color) *(cast(const(Color)*) &this);
+		}
 	}
 }
 
