@@ -13,12 +13,12 @@ struct Rect(T) if(isNumeric!(T)) {
 	static if(is(T == int)) {
 		@property
 		package final ref sfIntRect rect() {
-			return cast(sfIntRect) *(cast(sfIntRect*) &this);
+			return *(cast(sfIntRect*) &this);
 		}
 	
 		@property
 		package final ref const(sfIntRect) rect() const {
-			return cast(const sfIntRect) *(cast(const(sfIntRect)*) &this);
+			return *(cast(const(sfIntRect)*) &this);
 		}
 	} else static if(is(T == float)) {
 		// TODO: Go inout for D2.056
