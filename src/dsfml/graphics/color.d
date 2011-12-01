@@ -41,7 +41,7 @@ struct Color {
 		a = alpha;
 	}
 	
-	public Color opAdd(const Color other) const {
+	Color opAdd(const Color other) const {
 		static if(sseAvailable) {
 			auto thisptr	= &this;
 			Color ret		= void;
@@ -68,7 +68,7 @@ struct Color {
 		}
 	}
 	
-	public ref Color opAddAssign(const Color other) {
+	ref Color opAddAssign(const Color other) {
 		static if(sseAvailable) {
 			auto thisptr	= &this;
 			
@@ -98,7 +98,7 @@ struct Color {
 	}
 	
 	// SSE usage is probably not optimal here
-	public Color opMul(const Color other) const {
+	Color opMul(const Color other) const {
 		static if(sseAvailable) {
 			auto thisptr	= &this;
 			ushort[4] ret;
@@ -133,7 +133,7 @@ struct Color {
 		}
 	}
 	
-	public ref Color opMulAssign(const Color other) {
+	ref Color opMulAssign(const Color other) {
 		static if(sseAvailable) {
 			auto thisptr	= &this;
 			ushort[4] ret;

@@ -17,20 +17,20 @@ final class Mutex {
 		return cast(const(sfMutex)*) data.ptr;
 	}
 	
-	public this() {
+	this() {
 		sfMutex_Create(mutex);
-	}
-	
-	public void lock() {
-		return sfMutex_Lock(mutex);
-	}
-	
-	public void unlock() {
-		return sfMutex_Unlock(mutex);
 	}
 	
 	~this() {
 		sfMutex_Destroy(mutex);
+	}
+	
+	void lock() {
+		return sfMutex_Lock(mutex);
+	}
+	
+	void unlock() {
+		return sfMutex_Unlock(mutex);
 	}
 }
 

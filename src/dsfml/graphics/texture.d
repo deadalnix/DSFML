@@ -8,71 +8,82 @@ import dsfml.sizes;
 
 import std.string;
 
-struct Texture {
+final class Texture {
 	private void[textureSize] data = void;
 	
 	// TODO: Go inout for D2.056
 	@property
-	package final ref sfTexture texture() {
-		return *(cast(sfTexture*) &this);
+	package final sfTexture* texture() {
+		return cast(sfTexture*) &this;
 	}
 	
 	@property
-	package final ref const(sfTexture) texture() const {
-		return *(cast(const(sfTexture)*) &this);
+	package final const(sfTexture)* texture() const {
+		return cast(const(sfTexture)*) &this;
 	}
 	
-	/*
-	public this(uint width, uint height) {
-		texture = sfTexture_Create(width, height);
+	this() {
+		sfTexture_Create(texture);
 	}
 	
-	public this(string filename, const ref IntRect area = IntRect()) {
-		texture = sfTexture_CreateFromFile(toStringz(filename), cast(const sfIntRect*) &area);
+	this(const Texture t) {
+		sfTexture_Copy(t.texture, texture);
 	}
 	
-	public this(const void[] data, const ref IntRect area = IntRect()) {
-		texture = sfTexture_CreateFromMemory(data.ptr, data.length, cast(const sfIntRect*) &area);
-	}
-	
-	public this(InputStream istream, const ref IntRect area = IntRect()) {
-		texture = sfTexture_CreateFromStream(istream.getCInputStream(), cast(const sfIntRect*) &area);
-	}
-	
-	public this(const ref Image image, const ref IntRect area = IntRect()) {
-		texture = sfTexture_CreateFromImage(image.getCImage(), cast(const sfIntRect*) &area);
-	}
-	
-	public this(inout sfTexture* texture) inout {
-		this.texture = texture;
-	}
-	
-	public this(this) {
-		texture = sfTexture_Copy(texture);
-	}
-	
-	public ~this() {
+	~this() {
 		sfTexture_Destroy(texture);
 	}
 	
-	public uint getWidth() const {
+	final void create(uint width, uint height) {
+		sfTexture_Create(texture, width, height);
+	}
+	
+	final bool loadFromFile(string filename) {
+		return sfTexture_LoadFromFile(texture, toStringz(filename));
+	}
+	
+	final bool loadFromMemory(const void[] data) {
+		return sfTexture_LoadFromMemory(texture, data.ptr, data.length);
+	}
+	
+	final bool loadFromStream(InputStream stream) {
+		return sfTexture_LoadFromStream(texture, stream);
+	}
+	
+	@property
+	final uint width() const {
 		return sfTexture_GetWidth(texture);
 	}
 	
-	public uint getHeight() const {
+	@property
+	final uint height() const {
 		return sfTexture_GetHeight(texture);
 	}
 	
-	public ref Image copyToImage() const {
-		return Image(sfTexture_CopyToImage(texture));
+	Image copyToImage() const {
+		// 
+		sfImage i = sfTexture_CopyToImage(texture);
+		return new Image(i);
 	}
 	
-	public void update(const ubyte[] pixels, uint width = getWidth(), uint height = getHeight(), uint x = 0, uint y = 0) in {
+	void update(const ubyte[] pixels) in {
 		assert(pixels.length == (width * height * 4), "Pixels size is inconsistent with width and height");
 	} body {
-		sfTexture_UpdateFromPixels(texture, pixels.ptr, width, height, x, y);
+		sfTexture_Update(texture, pixels.ptr);
 	}
 	
+	void update(const ubyte[] pixels, uint width, uint height, uint x, uint y) in {
+		assert(x + width <= this.width);
+		assert(y + height <= this.height);
+		assert(pixels.length == (width * height * 4), "Pixels size is inconsistent with width and height");
+	} body {
+		sfTexture_Update(texture, pixels.ptr, width, height, x, y);
+	}
+	
+	
+	
+	
+	/*
 	public void update(const ref Image image, uint x = 0, uint y = 0) {
 		sfTexture_UpdateFromImage(texture, image.getCImage(), x, y);
 	}
@@ -105,14 +116,32 @@ struct Texture {
 immutable uint maximumSize;
 
 static this() {
-	maximumSize = sfTexture_GetMaximumSize();
+	// maximumSize = sfTexture_GetMaximumSize();
 }
 
 package extern(C++) {
-	struct sfTexture {}
+	struct sfTexture {
+		private void[textureSize] data = void;
+	}
 	
+	void sfTexture_Create(sfTexture* texture);
+	void sfTexture_Copy(const sfTexture* texture, sfTexture* destination);
+	void sfTexture_Destroy(sfTexture* texture);
 	
+	void sfTexture_Create(sfTexture* texture, uint width, uint height);
 	
-	uint sfTexture_GetMaximumSize();
+	bool sfTexture_LoadFromFile(sfTexture* texture, const char* filename);
+	bool sfTexture_LoadFromMemory(sfTexture* texture, const void* data, size_t size);
+	bool sfTexture_LoadFromStream(sfTexture* texture, InputStream stream);
+	
+	uint sfTexture_GetWidth(const sfTexture* texture);
+	uint sfTexture_GetHeight(const sfTexture* texture);
+	
+	sfImage sfTexture_CopyToImage(const sfTexture* texture);
+	
+	void sfTexture_Update(sfTexture* texture, const ubyte* pixels);
+	void sfTexture_Update(sfTexture* texture, const ubyte* pixels, uint width, uint height, uint x, uint y);
+	
+	// uint sfTexture_GetMaximumSize();
 }
 

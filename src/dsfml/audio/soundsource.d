@@ -33,17 +33,12 @@ class SoundSource {
 		sfSoundSource_Create(soundSource);
 	}
 	
-	private this(const SoundSource s) {
+	this(const SoundSource s) {
 		sfSoundSource_Copy(s.soundSource, soundSource);
 	}
 	
 	~this() {
 		sfSoundSource_Destroy(soundSource);
-	}
-	
-	// Not sure this is usefull
-	SoundSource clone() const {
-		return new SoundSource(this);
 	}
 	
 	@property

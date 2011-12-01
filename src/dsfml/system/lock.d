@@ -5,7 +5,7 @@ import dsfml.system.mutex;
 struct Lock {
 	private Mutex mutex;
 	
-	public this(Mutex mutex) {
+	this(Mutex mutex) {
 		if(mutex is null) throw new Exception("NullParameterException : Mutex is null.");
 		
 		this.mutex = mutex;

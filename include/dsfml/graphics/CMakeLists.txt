@@ -11,7 +11,8 @@ set(SRC
     ${SRCROOT}/Image.cpp
     ${SRCROOT}/rect.d
     ${INCROOT}/renderwindow.d
-    ${SRCROOT}/texture.d)
+    ${SRCROOT}/texture.d
+    ${SRCROOT}/Texture.cpp)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-graphics

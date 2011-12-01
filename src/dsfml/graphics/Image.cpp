@@ -7,6 +7,10 @@ void sfImage_Create(sfImage* image) {
 	new(image) sfImage();
 }
 
+void sfImage_Copy(const sfImage* image, sfImage* destination) {
+	new(destination) sfImage(*image);
+}
+
 void sfImage_Destroy(sfImage* image) {
 	image->~sfImage();
 }

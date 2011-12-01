@@ -29,6 +29,7 @@ final class Font {
 		sfFont_Copy(f.font, font);
 	}
 	
+	// Usefull to construct defaultFont
 	private this(ref const sfFont source) immutable {
 		// Cast away immutable during initialization.
 		sfFont_Copy(&source, cast(sfFont*) font);
@@ -38,33 +39,33 @@ final class Font {
 		sfFont_Destroy(font);
 	}
 	
-	final bool loadFromFile(string filename) {
+	bool loadFromFile(string filename) {
 		return sfFont_LoadFromFile(font, toStringz(filename));
 	}
 	
-	final bool loadFromMemory(const void[] data) {
+	bool loadFromMemory(const void[] data) {
 		return sfFont_LoadFromMemory(font, data.ptr, data.length);
 	}
 	
-	final bool loadFromStream(InputStream stream) {
+	bool loadFromStream(InputStream stream) {
 		assert(stream);
 		
 		return sfFont_LoadFromStream(font, stream);
 	}
 	
-	final ref const(Glyph) getGlyph(uint codePoint, uint characterSize, bool bold) const {
+	ref const(Glyph) getGlyph(uint codePoint, uint characterSize, bool bold) const {
 		return sfFont_GetGlyph(font, codePoint, characterSize, bold);
 	}
 	
-	final int getKerning(uint first, uint second, uint characterSize) const {
+	int getKerning(uint first, uint second, uint characterSize) const {
 		return sfFont_GetKerning(font, first, second, characterSize);
 	}
 	
-	final int getLineSpacing(uint characterSize) const {
+	int getLineSpacing(uint characterSize) const {
 		return sfFont_GetLineSpacing(font, characterSize);
 	}
 	
-	final ref const(Texture) getTexture(uint characterSize) const {
+	ref const(Texture) getTexture(uint characterSize) const {
 		return sfFont_GetTexture(font, characterSize);
 	}
 }
@@ -76,7 +77,9 @@ static this() {
 }
 
 package extern(C++) {
-	struct sfFont {}
+	struct sfFont {
+		private void[fontSize] data = void;
+	}
 	
 	void sfFont_Create(sfFont* font);
 	void sfFont_Copy(const sfFont* font, sfFont* destination);
