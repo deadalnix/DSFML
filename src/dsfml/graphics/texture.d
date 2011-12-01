@@ -1,18 +1,28 @@
 module dsfml.graphics.texture;
 
-import csfml.graphics.texture;
-import csfml.graphics.rect;
-
 import dsfml.graphics.image;
 import dsfml.graphics.rect;
 import dsfml.system.inputstream;
 import dsfml.window.window;
+import dsfml.sizes;
 
 import std.string;
 
 struct Texture {
-	private sfTexture* texture;
+	private void[textureSize] data = void;
 	
+	// TODO: Go inout for D2.056
+	@property
+	package final ref sfTexture texture() {
+		return *(cast(sfTexture*) &this);
+	}
+	
+	@property
+	package final ref const(sfTexture) texture() const {
+		return *(cast(const(sfTexture)*) &this);
+	}
+	
+	/*
 	public this(uint width, uint height) {
 		texture = sfTexture_Create(width, height);
 	}
@@ -98,7 +108,11 @@ static this() {
 	maximumSize = sfTexture_GetMaximumSize();
 }
 
-uint getMaximumSize() {
-	return maximumSize;
+package extern(C++) {
+	struct sfTexture {}
+	
+	
+	
+	uint sfTexture_GetMaximumSize();
 }
 
