@@ -94,7 +94,7 @@ package extern(C++) {
 	}
 	
 	struct sfFloatRect {
-		void[IntRect.sizeof] data = void;
+		void[FloatRect.sizeof] data = void;
 		
 		// TODO: Go inout for D2.056
 		// Non const isn't possible due to a compiler mangling bug.

@@ -10,22 +10,28 @@ void __dsfml_sfSoundStream_seekCallback(sf::Uint32 timeOffset, sfSoundStream* so
 
 class sfSoundStream : public sf::SoundStream {
 public:
-	sfSoundStream() : SoundStream() {}
+	sfSoundStream() : sf::SoundStream() {}
+	
 	void Initialize(unsigned int channelsCount, unsigned int sampleRate) {
 		sf::SoundStream::Initialize(channelsCount, sampleRate);
 	}
+	
 private :
-	virtual bool OnGetData(Chunk& Data) {
+	bool OnGetData(Chunk& Data) {
 		return __dsfml_sfSoundStream_getDataCallback(&Data, this);
 	}
 	
-	virtual void OnSeek(sf::Uint32 TimeOffset) {
+	void OnSeek(sf::Uint32 TimeOffset) {
 		__dsfml_sfSoundStream_seekCallback(TimeOffset, this);
 	}
 };
 
 void sfSoundStream_Create(sfSoundStream* soundStream) {
 	new(soundStream) sfSoundStream();
+}
+
+void sfSoundStream_Destroy(sfSoundStream* soundStream) {
+	soundStream->~sfSoundStream();
 }
 
 void sfSoundStream_Initialize(sfSoundStream* soundStream, unsigned int channelsCount, unsigned int sampleRate) {

@@ -11,8 +11,10 @@ set(SRC
     ${SRCROOT}/Sound.cpp
     ${SRCROOT}/soundbuffer.d
     ${SRCROOT}/SoundBuffer.cpp
-    ${INCROOT}/soundbufferrecorder.d
-    ${INCROOT}/soundrecorder.d
+    ${SRCROOT}/soundbufferrecorder.d
+    ${SRCROOT}/SoundBufferRecorder.cpp
+    ${SRCROOT}/soundrecorder.d
+    ${SRCROOT}/SoundRecorder.cpp
     ${SRCROOT}/soundsource.d
     ${SRCROOT}/SoundSource.cpp
     ${SRCROOT}/soundstream.d

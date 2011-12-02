@@ -79,7 +79,7 @@ static this() {
 
 package extern(C++) {
 	struct sfFont {
-		private void[fontSize] data = void;
+		void[fontSize] data = void;
 	}
 	
 	void sfFont_Create(sfFont* font);

@@ -133,7 +133,7 @@ static this() {
 
 package extern(C++) {
 	struct sfTexture {
-		private void[textureSize] data = void;
+		void[textureSize] data = void;
 	}
 	
 	void sfTexture_Create(sfTexture* texture);

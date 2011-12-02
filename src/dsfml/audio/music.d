@@ -49,17 +49,17 @@ final class Music : SoundStream {
 	}
 	
 	// Dummy function to handle compatibility with soundStream.
-	protected override final bool onGetData(ref short[] data) {
+	protected override bool onGetData(ref short[] data) {
 		return false;
 	}
 	
-	protected override final void onSeek(uint timeOffset) {}
+	protected override void onSeek(uint timeOffset) {}
 }
 
 private extern(C++) {
 	// Opaque struct ?
 	struct sfMusic {
-		void[musicSize - soundStreamSize] data = void;
+		void[musicSize] data = void;
 	}
 	
 	void sfMusic_Create(sfMusic* music);

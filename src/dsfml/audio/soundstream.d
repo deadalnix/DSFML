@@ -23,6 +23,10 @@ abstract class SoundStream : SoundSource {
 		sfSoundStream_Create(soundStream);
 	}
 	
+	~this() {
+		sfSoundStream_Destroy(soundStream);
+	}
+	
 	protected final void initialize(uint channelsCount, uint sampleRate) {
 		sfSoundStream_Initialize(soundStream, channelsCount, sampleRate);
 	}
@@ -81,7 +85,7 @@ abstract class SoundStream : SoundSource {
 private extern(C++) {
 	// Opaque struct ?
 	struct sfSoundStream {
-		void[soundStreamSize - soundSourceSize] data = void;
+		void[soundStreamSize] data = void;
 	}
 	
 	struct sfSoundStreamChunk {
@@ -107,6 +111,8 @@ private extern(C++) {
 	}
 	
 	void sfSoundStream_Create(sfSoundStream* soundStream);
+	void sfSoundStream_Destroy(sfSoundStream* soundStream);
+	
 	void sfSoundStream_Initialize(sfSoundStream* soundStream, uint channelsCount, uint sampleRate);
 	
 	void sfSoundStream_Play(sfSoundStream* soundStream);

@@ -2,6 +2,8 @@ module dsfml.audio.soundsource;
 
 import dsfml.sizes;
 
+import std.conv;
+
 enum Status {
 	Stopped, ///< Sound is not playing
 	Paused, ///< Sound is paused
