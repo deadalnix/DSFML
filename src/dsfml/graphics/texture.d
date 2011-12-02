@@ -82,35 +82,45 @@ final class Texture {
 		sfTexture_Update(texture, pixels.ptr, width, height, x, y);
 	}
 	
+	void update(const Image image) {
+		sfTexture_Update(texture, *image.image);
+	}
 	
-	
+	void update(const Image image, uint x, uint y) {
+		sfTexture_Update(texture, *image.image, x, y);
+	}
 	
 	/*
-	public void update(const ref Image image, uint x = 0, uint y = 0) {
-		sfTexture_UpdateFromImage(texture, image.getCImage(), x, y);
+	// TODO: implement window
+	void update(const ref Window window) {
+		sfTexture_Update(texture, window.getCWindow(), x, y);
 	}
 	
-	public void update(const ref Window window, uint x = 0, uint y = 0) {
-		sfTexture_UpdateFromWindow(texture, window.getCWindow(), x, y);
+	void update(const ref Window window, uint x, uint y) {
+		sfTexture_Update(texture, window.getCWindow(), x, y);
 	}
+	*/
 	
-	public void bind() const {
+	void bind() const {
 		sfTexture_Bind(texture);
 	}
 	
-	public void setSmooth(bool smooth) {
+	@property
+	void smooth(bool smooth) {
 		sfTexture_SetSmooth(texture, smooth);
 	}
 	
-	public bool getSmooth() const {
+	@property
+	bool smooth() const {
 		return sfTexture_IsSmooth(texture);
 	}
 	
 	public FloatRect getTexCoords(const ref IntRect rectangle) const {
-		return cast(FloatRect) sfTexture_GetTexCoords(texture, cast(sfIntRect) rectangle);
+		return sfTexture_GetTexCoords(texture, rectangle.rect).rect;
 	}
 	
 	/*
+	// TODO: implement renderWindow
 	void sfTexture_UpdateFromRenderWindow(texture, const sfRenderWindow* renderWindow, uint x, uint y);
 	*/
 }
@@ -118,7 +128,7 @@ final class Texture {
 immutable uint maximumSize;
 
 static this() {
-	// maximumSize = sfTexture_GetMaximumSize();
+	maximumSize = sfTexture_GetMaximumSize();
 }
 
 package extern(C++) {
@@ -143,7 +153,15 @@ package extern(C++) {
 	
 	void sfTexture_Update(sfTexture* texture, const ubyte* pixels);
 	void sfTexture_Update(sfTexture* texture, const ubyte* pixels, uint width, uint height, uint x, uint y);
+	void sfTexture_Update(sfTexture* texture, ref const sfImage image);
+	void sfTexture_Update(sfTexture* texture, ref const sfImage image, uint x, uint y);
 	
-	// uint sfTexture_GetMaximumSize();
+	void sfTexture_Bind(const sfTexture* texture);
+	void sfTexture_SetSmooth(sfTexture* texture, bool smooth);
+	bool sfTexture_IsSmooth(const sfTexture* texture);
+	
+	sfFloatRect sfTexture_GetTexCoords(const sfTexture* texture, ref const sfIntRect rectangle);
+	
+	uint sfTexture_GetMaximumSize();
 }
 

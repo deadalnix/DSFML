@@ -9,8 +9,8 @@ struct Rect(T) if(isNumeric!(T)) {
 	T width		= 0;
 	T height	= 0;
 	
-	// TODO: Go inout for D2.056
 	static if(is(T == int)) {
+		// TODO: Go inout for D2.056
 		@property
 		package final ref sfIntRect rect() {
 			return *(cast(sfIntRect*) &this);
@@ -24,12 +24,12 @@ struct Rect(T) if(isNumeric!(T)) {
 		// TODO: Go inout for D2.056
 		@property
 		package final ref sfFloatRect rect() {
-			return cast(sfFloatRect) *(cast(sfFloatRect*) &this);
+			return *(cast(sfFloatRect*) &this);
 		}
 	
 		@property
 		package final ref const(sfFloatRect) rect() const {
-			return cast(const sfFloatRect) *(cast(const(sfFloatRect)*) &this);
+			return *(cast(const(sfFloatRect)*) &this);
 		}
 	}
 	
@@ -84,10 +84,24 @@ alias Rect!(float) FloatRect;
 package extern(C++) {
 	struct sfIntRect {
 		void[IntRect.sizeof] data = void;
+		
+		// TODO: Go inout for D2.056
+		// Non const isn't possible due to a compiler mangling bug.
+		@property
+		package final ref const(IntRect) rect() const {
+			return *(cast(const(IntRect)*) &this);
+		}
 	}
 	
 	struct sfFloatRect {
 		void[IntRect.sizeof] data = void;
+		
+		// TODO: Go inout for D2.056
+		// Non const isn't possible due to a compiler mangling bug.
+		@property
+		package final ref const(FloatRect) rect() const {
+			return *(cast(const(FloatRect)*) &this);
+		}
 	}
 }
 
