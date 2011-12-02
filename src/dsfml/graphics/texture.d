@@ -6,6 +6,7 @@ import dsfml.system.inputstream;
 import dsfml.window.window;
 import dsfml.sizes;
 
+import std.conv;
 import std.string;
 
 final class Texture {
@@ -34,48 +35,49 @@ final class Texture {
 		sfTexture_Destroy(texture);
 	}
 	
-	final void create(uint width, uint height) {
+	void create(uint width, uint height) {
 		sfTexture_Create(texture, width, height);
 	}
 	
-	final bool loadFromFile(string filename) {
+	bool loadFromFile(string filename) {
 		return sfTexture_LoadFromFile(texture, toStringz(filename));
 	}
 	
-	final bool loadFromMemory(const void[] data) {
+	bool loadFromMemory(const void[] data) {
 		return sfTexture_LoadFromMemory(texture, data.ptr, data.length);
 	}
 	
-	final bool loadFromStream(InputStream stream) {
+	bool loadFromStream(InputStream stream) in {
+		assert(stream, "Inpustream " ~ /* to!string(stream) ~ */ " is not usable.");
+	} body {
 		return sfTexture_LoadFromStream(texture, stream);
 	}
 	
 	@property
-	final uint width() const {
+	uint width() const {
 		return sfTexture_GetWidth(texture);
 	}
 	
 	@property
-	final uint height() const {
+	uint height() const {
 		return sfTexture_GetHeight(texture);
 	}
 	
 	Image copyToImage() const {
-		// 
 		sfImage i = sfTexture_CopyToImage(texture);
 		return new Image(i);
 	}
 	
 	void update(const ubyte[] pixels) in {
-		assert(pixels.length == (width * height * 4), "Pixels size is inconsistent with width and height");
+		assert(pixels.length == (width * height * 4), "pixels length (" ~ to!string(pixels.length) ~ ") isn't what is expected (" ~ to!string(width * height * 4) ~ ").");
 	} body {
 		sfTexture_Update(texture, pixels.ptr);
 	}
 	
 	void update(const ubyte[] pixels, uint width, uint height, uint x, uint y) in {
-		assert(x + width <= this.width);
-		assert(y + height <= this.height);
-		assert(pixels.length == (width * height * 4), "Pixels size is inconsistent with width and height");
+		assert(x + width <= this.width, "Width exeding texture width");
+		assert(y + height <= this.height, "height exeding texture height");
+		assert(pixels.length == (width * height * 4), "pixels length (" ~ to!string(pixels.length) ~ ") isn't what is expected (" ~ to!string(width * height * 4) ~ ").");
 	} body {
 		sfTexture_Update(texture, pixels.ptr, width, height, x, y);
 	}

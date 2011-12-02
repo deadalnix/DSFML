@@ -46,9 +46,9 @@ final class Image {
 		sfImage_Create(image, WIDTH, HEIGHT, pixels.ptr);
 	}
 	
-	void create()(uint width, uint height, const ubyte[] pixels) {
-		assert(pixels.length == width * height * 4);
-		
+	void create()(uint width, uint height, const ubyte[] pixels) in {
+		assert(pixels.length == width * height * 4, "pixels length (" ~ to!string(pixels.length) ~ ") isn't what is expected (" ~ to!string(width * height * 4) ~ ").");
+	} body {
 		sfImage_Create(image, width, height, pixels.ptr);
 	}
 	

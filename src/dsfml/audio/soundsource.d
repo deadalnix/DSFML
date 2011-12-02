@@ -53,7 +53,7 @@ class SoundSource {
 	
 	@property
 	final void volume(float volume) in {
-		assert(volume >= 0.f && volume <= 100.f);
+		assert(volume >= 0.f && volume <= 100.f, "Volume value(" ~ to!string(volume) ~ ") is incorrect.");
 	} body {
 		sfSoundSource_SetVolume(soundSource, volume);
 	}

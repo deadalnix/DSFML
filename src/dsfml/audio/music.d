@@ -4,6 +4,7 @@ import dsfml.audio.soundstream;
 import dsfml.system.inputstream;
 import dsfml.sizes;
 
+import std.conv;
 import std.string;
 
 final class Music : SoundStream {
@@ -33,14 +34,12 @@ final class Music : SoundStream {
 	}
 	
 	bool openFromMemory(const void[] data) {
-		assert(data.length > 0);
-		
 		return sfMusic_OpenFromMemory(music, data.ptr, data.length);
 	}
 	
-	bool openFromStream(InputStream stream) {
-		assert(stream);
-		
+	bool openFromStream(InputStream stream) in {
+		assert(stream, "Inpustream " ~ /* to!string(stream) ~ */ " is not usable.");
+	} body {
 		return sfMusic_OpenFromStream(music, stream);
 	}
 	
@@ -53,6 +52,7 @@ final class Music : SoundStream {
 	protected override final bool onGetData(ref short[] data) {
 		return false;
 	}
+	
 	protected override final void onSeek(uint timeOffset) {}
 }
 

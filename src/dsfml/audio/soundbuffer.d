@@ -3,9 +3,10 @@ module dsfml.audio.soundbuffer;
 import dsfml.system.inputstream;
 import dsfml.sizes;
 
+import std.conv;
 import std.string;
 
-// Go struct as soon as default onstructor is available ?
+// Go struct as soon as default constructor is available ?
 final class SoundBuffer {
 	private void[soundBufferSize] data = void;
 	
@@ -28,6 +29,11 @@ final class SoundBuffer {
 		sfSoundBuffer_Copy(sb.soundBuffer, soundBuffer);
 	}
 	
+	package this(ref const sfSoundBuffer buffer) {
+		// Going struct would avoid the need of this constructor and the copy involved.
+		sfSoundBuffer_Copy(&buffer, soundBuffer);
+	}
+	
 	~this() {
 		sfSoundBuffer_Destroy(soundBuffer);
 	}
@@ -40,9 +46,9 @@ final class SoundBuffer {
 		return sfSoundBuffer_LoadFromMemory(soundBuffer, data.ptr, data.length);
 	}
 	
-	bool loadFromStream(InputStream stream) {
-		assert(stream);
-		
+	bool loadFromStream(InputStream stream) in {
+		assert(stream, "Inpustream " ~ /* to!string(stream) ~ */ " is not usable.");
+	} body {
 		return sfSoundBuffer_LoadFromStream(soundBuffer, stream);
 	}
 	
@@ -75,7 +81,7 @@ final class SoundBuffer {
 	}
 }
 
-private extern(C++) {
+package extern(C++) {
 	// TODO: Opaque struct
 	struct sfSoundBuffer {
 		void[soundBufferSize] data = void;

@@ -7,7 +7,8 @@ set(SRC
     ${INCROOT}/listener.d
     ${SRCROOT}/music.d
     ${SRCROOT}/Music.cpp
-    ${INCROOT}/sound.d
+    ${SRCROOT}/sound.d
+    ${SRCROOT}/Sound.cpp
     ${SRCROOT}/soundbuffer.d
     ${SRCROOT}/SoundBuffer.cpp
     ${INCROOT}/soundbufferrecorder.d

@@ -5,6 +5,7 @@ import dsfml.graphics.texture;
 import dsfml.system.inputstream;
 import dsfml.sizes;
 
+import std.conv;
 import std.string;
 
 final class Font {
@@ -47,9 +48,9 @@ final class Font {
 		return sfFont_LoadFromMemory(font, data.ptr, data.length);
 	}
 	
-	bool loadFromStream(InputStream stream) {
-		assert(stream);
-		
+	bool loadFromStream(InputStream stream) in {
+		assert(stream, "Inpustream " ~ /* to!string(stream) ~ */ " is not usable.");
+	} body {
 		return sfFont_LoadFromStream(font, stream);
 	}
 	
