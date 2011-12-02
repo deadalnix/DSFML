@@ -3,7 +3,7 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/audio)
 
 # all source files
 set(SRC
-    ${INCROOT}/all.d
+    ${SRCROOT}/all.d
     ${INCROOT}/listener.d
     ${SRCROOT}/music.d
     ${SRCROOT}/Music.cpp

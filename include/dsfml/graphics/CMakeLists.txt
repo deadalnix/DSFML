@@ -3,6 +3,7 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/graphics)
 
 # all source files
 set(SRC
+    ${SRCROOT}/all.d
     ${SRCROOT}/color.d
     ${SRCROOT}/font.d
     ${SRCROOT}/Font.cpp

@@ -3,7 +3,7 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/system)
 
 # all source files
 set(SRC
-    ${INCROOT}/all.d
+    ${SRCROOT}/all.d
     ${INCROOT}/clock.d
     ${SRCROOT}/inputstream.d
     ${SRCROOT}/mutex.d
