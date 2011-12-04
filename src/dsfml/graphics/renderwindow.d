@@ -1,19 +1,18 @@
 module dsfml.graphics.renderwindow;
 
-import csfml.graphics.renderwindow;
-import csfml.window.event;
-import csfml.window.videomode;
-import csfml.window.window;
-
 import dsfml.window.event;
 import dsfml.window.videomode;
 import dsfml.window.window;
 import dsfml.window.windowhandle;
+import dsfml.sizes;
 
 import core.stdc.config;
 import std.string;
 
 class RenderWindow : Window {
+	private void[renderWindowSize - windowSize] data = void;
+	
+	/*
 	private sfRenderWindow* renderWindow;
 	
 	public this(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {

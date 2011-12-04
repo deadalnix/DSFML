@@ -5,9 +5,9 @@ import dsfml.sizes;
 import std.conv;
 
 enum Status {
-	Stopped, ///< Sound is not playing
-	Paused, ///< Sound is paused
-	Playing, ///< Sound is playing
+	Stopped,
+	Paused,
+	Playing,
 };
 
 package T getSoundSource(T)(void* soundSource) if(is(T : SoundSource)) {

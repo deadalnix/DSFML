@@ -90,16 +90,17 @@ final class Texture {
 		sfTexture_Update(texture, *image.image, x, y);
 	}
 	
-	/*
-	// TODO: implement window
-	void update(const ref Window window) {
-		sfTexture_Update(texture, window.getCWindow(), x, y);
+	void update(const Window window) in {
+		assert(window, "Window " ~ /* to!string(window) ~ */ " is not usable.");
+	} body {
+		sfTexture_Update(texture, getWindow(window));
 	}
 	
-	void update(const ref Window window, uint x, uint y) {
-		sfTexture_Update(texture, window.getCWindow(), x, y);
+	void update(const Window window, uint x, uint y) in {
+		assert(window, "Window " ~ /* to!string(window) ~ */ " is not usable.");
+	} body {
+		sfTexture_Update(texture, getWindow(window), x, y);
 	}
-	*/
 	
 	void bind() const {
 		sfTexture_Bind(texture);
@@ -136,6 +137,10 @@ package extern(C++) {
 		void[textureSize] data = void;
 	}
 	
+	struct sfWindow {
+		void[windowSize] data = void;
+	}
+	
 	void sfTexture_Create(sfTexture* texture);
 	void sfTexture_Copy(const sfTexture* texture, sfTexture* destination);
 	void sfTexture_Destroy(sfTexture* texture);
@@ -155,6 +160,8 @@ package extern(C++) {
 	void sfTexture_Update(sfTexture* texture, const ubyte* pixels, uint width, uint height, uint x, uint y);
 	void sfTexture_Update(sfTexture* texture, ref const sfImage image);
 	void sfTexture_Update(sfTexture* texture, ref const sfImage image, uint x, uint y);
+	void sfTexture_Update(sfTexture* texture, ref const sfWindow window);
+	void sfTexture_Update(sfTexture* texture, ref const sfWindow window, uint x, uint y);
 	
 	void sfTexture_Bind(const sfTexture* texture);
 	void sfTexture_SetSmooth(sfTexture* texture, bool smooth);
@@ -164,4 +171,10 @@ package extern(C++) {
 	
 	uint sfTexture_GetMaximumSize();
 }
+
+// Dirty hack to get back the SFML window object.
+private ref inout(sfWindow) getWindow(inout Window window) {
+	return *(cast(inout sfWindow*) ((cast(void*) window) + __traits(classInstanceSize, Window) - windowSize));
+}
+
 

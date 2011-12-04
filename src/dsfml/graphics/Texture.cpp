@@ -63,6 +63,16 @@ void sfTexture_Update(sfTexture* texture, const sfImage& image, unsigned int x, 
 	texture->Update(image, x, y);
 }
 
+typedef sf::Window sfWindow;
+
+void sfTexture_Update(sfTexture* texture, const sfWindow& window) {
+	texture->Update(window);
+}
+
+void sfTexture_Update(sfTexture* texture, const sfWindow& window, unsigned int x, unsigned int y) {
+	texture->Update(window, x, y);
+}
+
 void sfTexture_Bind(const sfTexture* texture) {
 	texture->Bind();
 }

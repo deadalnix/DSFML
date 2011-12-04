@@ -4,14 +4,23 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/window)
 # all source files
 set(SRC
     ${SRCROOT}/all.d
-    ${INCROOT}/context.d
-    ${INCROOT}/event.d
-    ${INCROOT}/joystick.d
-    ${INCROOT}/keyboard.d
-    ${INCROOT}/mouse.d
-    ${INCROOT}/videomode.d
-    ${INCROOT}/window.d
-    ${INCROOT}/windowhandle.d)
+    ${SRCROOT}/context.d
+    ${SRCROOT}/Context.cpp
+    ${SRCROOT}/contextsettings.d
+    ${SRCROOT}/event.d
+    ${SRCROOT}/Event.cpp
+    ${SRCROOT}/joystick.d
+    ${SRCROOT}/Joystick.cpp
+    ${SRCROOT}/keyboard.d
+    ${SRCROOT}/Keyboard.cpp
+    ${SRCROOT}/mouse.d
+    ${SRCROOT}/Mouse.cpp
+    ${SRCROOT}/videomode.d
+    ${SRCROOT}/VideoMode.cpp
+    ${SRCROOT}/window.d
+    ${SRCROOT}/Window.cpp
+    ${SRCROOT}/windowhandle.d
+    ${SRCROOT}/windowstyle.d)
 
 # define the dsfml-window target
 dsfml_add_library(dsfml-window

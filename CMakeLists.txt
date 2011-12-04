@@ -25,6 +25,7 @@ set(VERSION_PATCH 0)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/build/src)
+include_directories(${CMAKE_SOURCE_DIR}/patches)
 
 # force dynamic build (static build is not supported)
 set(BUILD_SHARED_LIBS FALSE)

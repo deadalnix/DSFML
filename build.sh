@@ -18,11 +18,10 @@ patch -p0 < ../patches/cmake.patch
 
 cd SFML
 cd src/SFML/System
-if [ -e D ]
+if [ ! -e D ]
 then
-	rm -f D
+	ln -s ../../../../../patches/SFML/System/D D
 fi
-ln -s ../../../../../patches/SFML/System/D D
 cd ../../..
 
 mkdir -p build

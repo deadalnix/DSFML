@@ -11,7 +11,9 @@ set(SRC
     ${SRCROOT}/image.d
     ${SRCROOT}/Image.cpp
     ${SRCROOT}/rect.d
-    ${INCROOT}/renderwindow.d
+    ${SRCROOT}/rendertarget.d
+    ${SRCROOT}/renderwindow.d
+    ${SRCROOT}/RenderWindow.cpp
     ${SRCROOT}/texture.d
     ${SRCROOT}/Texture.cpp)
 

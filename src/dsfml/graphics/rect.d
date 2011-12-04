@@ -55,12 +55,12 @@ struct Rect(T) if(isNumeric!(T)) {
 		return (x >= left) && (x <= (left + width)) && (x >= top) && (x <= (top + height));
 	}
 	
-	bool intersect(const ref Rect!(T) rectangle) const {
+	bool intersect(ref const Rect!(T) rectangle) const {
 		Rect!(T) intersection = void;
 		return intersect(rectangle, intersection);
 	}
 	
-	bool intersect(const ref Rect!(T) rectangle, ref Rect!(T) intersection) const {
+	bool intersect(ref const Rect!(T) rectangle, ref Rect!(T) intersection) const {
 		// Compute the intersection boundaries
 		T ileft		= max(left, rectangle.left);
 		T itop		= max(top, rectangle.top);

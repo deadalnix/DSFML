@@ -40,5 +40,5 @@ lcfirst() {
 }
 
 echo $TYPE size is $SIZE
-echo 'immutable '`lcfirst $TYPE`'Size = '$SIZE';' >> ../build/src/dsfml/sizes.d
+echo 'package immutable '`lcfirst $TYPE`'Size = '$SIZE';' >> ../build/src/dsfml/sizes.d
 
