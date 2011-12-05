@@ -1,4 +1,4 @@
-module csfml.graphics.rendertarget;
+module dsfml.graphics.rendertarget;
 
 import dsfml.graphics.color;
 import dsfml.graphics.drawable;

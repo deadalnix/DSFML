@@ -5,9 +5,10 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/graphics)
 set(SRC
     ${SRCROOT}/all.d
     ${SRCROOT}/color.d
+    ${SRCROOT}/drawable.d
     ${SRCROOT}/font.d
     ${SRCROOT}/Font.cpp
-    ${INCROOT}/glyph.d
+    ${SRCROOT}/glyph.d
     ${SRCROOT}/image.d
     ${SRCROOT}/Image.cpp
     ${SRCROOT}/rect.d

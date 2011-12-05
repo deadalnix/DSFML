@@ -13,8 +13,6 @@ class RenderWindow : Window {
 	private void[renderWindowSize - windowSize] data = void;
 	
 	/*
-	private sfRenderWindow* renderWindow;
-	
 	public this(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {
 		create(mode, title, style, settings);
 	}

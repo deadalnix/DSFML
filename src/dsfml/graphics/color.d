@@ -195,7 +195,7 @@ unittest {
 	// TODO: add moar unitests
 	Color c = black;
 	assert((c += white) == white);
-	c= magenta;
+	c = magenta;
 	assert((c += cyan) == white);
 	
 	assert((black + white) == white);

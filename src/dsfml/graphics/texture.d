@@ -177,4 +177,3 @@ private ref inout(sfWindow) getWindow(inout Window window) {
 	return *(cast(inout sfWindow*) ((cast(void*) window) + __traits(classInstanceSize, Window) - windowSize));
 }
 
-
