@@ -1,9 +1,11 @@
 module dsfml.system.sleep;
 
-import csfml.system.sleep;
-
 void sleep(uint duration) {
 	sfSleep(duration);
+}
+
+package extern(C++) {
+	void sfSleep(uint duration);
 }
 
 unittest {

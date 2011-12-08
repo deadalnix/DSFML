@@ -33,7 +33,7 @@ cd ../..
 # SFML compiled, now process D files to fill C++ object size.
 cd ../tools
 rm -rf ../build/src
-find ../src -type f | grep '\.cpp$' | sed 's/.*\/\([a-z]*\)\/\([A-Z][a-zA-Z]*\)\.cpp$/.\/sizeof.sh \1 \2/g' | /bin/sh
+find ../src -type f | grep '\.cpp$' | grep -v 'Sleep\.cpp$' | sed 's/.*\/\([a-z]*\)\/\([A-Z][a-zA-Z]*\)\.cpp$/.\/sizeof.sh \1 \2/g' | /bin/sh
 rm -rf build
 
 cd ../build
