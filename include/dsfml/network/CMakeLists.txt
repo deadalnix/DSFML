@@ -8,7 +8,8 @@ set(SRC
     ${INCROOT}/http.d
     ${SRCROOT}/ipaddress.d
     ${SRCROOT}/IpAddress.cpp
-    ${INCROOT}/packet.d
+    ${SRCROOT}/packet.d
+    ${SRCROOT}/Packet.cpp
     ${INCROOT}/socket.d
     ${INCROOT}/socketselector.d
     ${INCROOT}/tcplistener.d

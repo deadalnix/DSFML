@@ -42,19 +42,19 @@ class TcpSocket : Socket {
 	public ushort getLocalPort() const {
 		return sfTcpSocket_GetLocalPort(socket);
 	}
-	
+	/*
 	public IpAddress getRemoteAddress() const {
 		return IpAddress(sfTcpSocket_GetRemoteAddress(socket));
 	}
-	
+	*/
 	public ushort getRemotePort() const {
 		return sfTcpSocket_GetRemotePort(socket);
 	}
-	
+	/*
 	public sfSocketStatus connect(IpAddress remoteAddress, ushort remotePort, uint timeout = 0) {
 		return sfTcpSocket_Connect(socket, remoteAddress.getCIpAddress(), remotePort, timeout);
 	}
-	
+	*/
 	public void disconnect() {
 		sfTcpSocket_Disconnect(socket);
 	}
@@ -70,7 +70,7 @@ class TcpSocket : Socket {
 		data = data[0 .. sizeReceived];
 		return ret;
 	}
-	
+	/*
 	public sfSocketStatus send(Packet packet) {
 		return sfTcpSocket_SendPacket(socket, packet.getCPacket());
 	}
@@ -78,7 +78,7 @@ class TcpSocket : Socket {
 	public sfSocketStatus recieve(Packet packet) {
 		return sfTcpSocket_ReceivePacket(socket, packet.getCPacket());
 	}
-	
+	*/
 	public void addSocketSelector(SocketSelector selector) {
 		sfSocketSelector_AddTcpSocket(selector.getCSocketSelector(), socket);
 	}

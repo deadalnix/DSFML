@@ -44,7 +44,7 @@ class UdpSocket : Socket {
 	public void unbind() {
 		sfUdpSocket_Unbind(socket);
 	}
-	
+	/*
 	public sfSocketStatus send(const byte[] data, IpAddress remoteAddress, ushort remotePort) {
 		return sfUdpSocket_Send(socket, data.ptr, data.length, remoteAddress.getCIpAddress(), remotePort);
 	}
@@ -64,7 +64,7 @@ class UdpSocket : Socket {
 	public sfSocketStatus recieve(Packet packet, IpAddress remoteAddress, ref ushort remotePort) {
 		return sfUdpSocket_ReceivePacket(socket, packet.getCPacket(), remoteAddress.getCIpAddressPtr(), &remotePort);
 	}
-	
+	*/
 	public void addSocketSelector(SocketSelector selector) {
 		sfSocketSelector_AddUdpSocket(selector.getCSocketSelector(), socket);
 	}
