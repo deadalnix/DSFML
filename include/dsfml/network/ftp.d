@@ -17,11 +17,11 @@ class Ftp {
 	public ~this() {
 		sfFtp_Destroy(ftp);
 	}
-	
+	/*
 	public Response connect(IpAddress server, ushort port = 21, uint timeout = 0) {
 		return new Response(sfFtp_Connect(ftp, server.getCIpAddress(), port, timeout));
 	}
-	
+	*/
 	public Response disconnect() {
 		return new Response(sfFtp_Disconnect(ftp));
 	}

@@ -6,7 +6,8 @@ set(SRC
     ${SRCROOT}/all.d
     ${INCROOT}/ftp.d
     ${INCROOT}/http.d
-    ${INCROOT}/ipaddress.d
+    ${SRCROOT}/ipaddress.d
+    ${SRCROOT}/IpAddress.cpp
     ${INCROOT}/packet.d
     ${INCROOT}/socket.d
     ${INCROOT}/socketselector.d
