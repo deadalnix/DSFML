@@ -5,7 +5,6 @@ import csfml.network.tcplistener;
 import csfml.network.tcpsocket;
 
 import dsfml.network.socket;
-import dsfml.network.socketselector;
 import dsfml.network.tcpsocket;
 
 class TcpListener : Socket {
@@ -45,7 +44,7 @@ class TcpListener : Socket {
 		
 		return sfTcpListener_Accept(listener, &connected);
 	}
-	
+	/*
 	public void addSocketSelector(SocketSelector selector) {
 		sfSocketSelector_AddTcpListener(selector.getCSocketSelector(), listener);
 	}
@@ -56,6 +55,6 @@ class TcpListener : Socket {
 	
 	public bool isReadySocketSelector(const SocketSelector selector) {
 		return sfSocketSelector_IsTcpListenerReady(selector.getCSocketSelector(), listener);
-	}
+	}*/
 }
 
