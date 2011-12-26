@@ -1,9 +1,9 @@
 diff -crB SFML.orig/src/SFML/System/CMakeLists.txt SFML/src/SFML/System/CMakeLists.txt
-*** SFML.orig/src/SFML/System/CMakeLists.txt	2011-11-11 21:31:45.028344066 +0100
---- SFML/src/SFML/System/CMakeLists.txt	2011-11-11 21:33:57.493000923 +0100
+*** SFML.orig/src/SFML/System/CMakeLists.txt	2011-12-26 12:31:48.558862874 +0100
+--- SFML/src/SFML/System/CMakeLists.txt	2011-12-26 12:32:26.130860981 +0100
 ***************
-*** 23,28 ****
---- 23,30 ----
+*** 22,27 ****
+--- 22,29 ----
       ${INCROOT}/Thread.inl
       ${SRCROOT}/ThreadLocal.cpp
       ${INCROOT}/ThreadLocal.hpp
@@ -13,30 +13,30 @@ diff -crB SFML.orig/src/SFML/System/CMakeLists.txt SFML/src/SFML/System/CMakeLis
       ${INCROOT}/ThreadLocalPtr.inl
       ${INCROOT}/Utf.hpp
 ***************
-*** 41,48 ****
+*** 42,49 ****
           ${SRCROOT}/Win32/MutexImpl.hpp
-          ${SRCROOT}/Win32/Platform.cpp
-          ${SRCROOT}/Win32/Platform.hpp
+          ${SRCROOT}/Win32/SleepImpl.cpp
+          ${SRCROOT}/Win32/SleepImpl.hpp
 -         ${SRCROOT}/Win32/ThreadImpl.cpp
 -         ${SRCROOT}/Win32/ThreadImpl.hpp
           ${SRCROOT}/Win32/ThreadLocalImpl.cpp
           ${SRCROOT}/Win32/ThreadLocalImpl.hpp
       )
---- 43,48 ----
+--- 44,49 ----
 ***************
-*** 53,60 ****
+*** 56,63 ****
           ${SRCROOT}/Unix/MutexImpl.hpp
-          ${SRCROOT}/Unix/Platform.cpp
-          ${SRCROOT}/Unix/Platform.hpp
+          ${SRCROOT}/Unix/SleepImpl.cpp
+          ${SRCROOT}/Unix/SleepImpl.hpp
 -         ${SRCROOT}/Unix/ThreadImpl.cpp
 -         ${SRCROOT}/Unix/ThreadImpl.hpp
           ${SRCROOT}/Unix/ThreadLocalImpl.cpp
           ${SRCROOT}/Unix/ThreadLocalImpl.hpp
       )
---- 53,58 ----
+--- 56,61 ----
 diff -crB SFML.orig/src/SFML/System/Thread.cpp SFML/src/SFML/System/Thread.cpp
-*** SFML.orig/src/SFML/System/Thread.cpp	2011-11-11 21:31:45.028344066 +0100
---- SFML/src/SFML/System/Thread.cpp	2011-11-11 21:32:21.208523478 +0100
+*** SFML.orig/src/SFML/System/Thread.cpp	2011-12-26 12:31:48.558862874 +0100
+--- SFML/src/SFML/System/Thread.cpp	2011-12-26 12:33:36.338857442 +0100
 ***************
 *** 28,38 ****
   #include <SFML/System/Thread.hpp>

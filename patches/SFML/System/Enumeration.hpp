@@ -1,6 +1,6 @@
 namespace sf {
 
-// Ensure that Enumeration have a know size.
+// Ensure that Enumeration have a known size.
 template<class E, class T> struct Enumeration {
 	typedef T type;
 	typedef E enum_type;

@@ -1,6 +1,6 @@
 diff -crB SFML.orig/CMakeLists.txt SFML/CMakeLists.txt
-*** SFML.orig/CMakeLists.txt	2011-11-12 11:43:33.617894061 +0100
---- SFML/CMakeLists.txt	2011-11-12 11:49:30.567664117 +0100
+*** SFML.orig/CMakeLists.txt	2011-12-26 12:42:04.254831844 +0100
+--- SFML/CMakeLists.txt	2011-12-26 12:42:24.742830811 +0100
 ***************
 *** 22,28 ****
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)

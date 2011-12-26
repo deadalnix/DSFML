@@ -10,11 +10,12 @@ set(SRC
     ${SRCROOT}/IpAddress.cpp
     ${SRCROOT}/packet.d
     ${SRCROOT}/Packet.cpp
-    ${INCROOT}/socket.d
-    ${INCROOT}/socketselector.d
+    ${SRCROOT}/socket.d
+    ${SRCROOT}/Socket.cpp
     ${INCROOT}/tcplistener.d
     ${INCROOT}/tcpsocket.d
-    ${INCROOT}/udpsocket.d)
+    ${SRCROOT}/udpsocket.d
+    ${SRCROOT}/UdpSocket.cpp)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-network
