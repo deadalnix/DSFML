@@ -12,8 +12,19 @@ import std.string;
 class RenderWindow : Window {
 	private void[renderWindowSize - windowSize] data = void;
 	
+	// TODO: Go inout for D2.056
+	@property
+	package final sfRenderWindow* renderWindow() {
+		return cast(sfRenderWindow*) &getWindow(this);
+	}
+	
+	@property
+	package final const(sfRenderWindow)* renderWindow() const {
+		return cast(const(sfRenderWindow)*) &getWindow(this);
+	}
+	
 	/*
-	public this(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {
+	public this(VideoMode mode, string title, uint style = Style.Default, const ref sfContextSettings settings = sfContextSettings()) {
 		create(mode, title, style, settings);
 	}
 	
@@ -151,5 +162,20 @@ class RenderWindow : Window {
 	void sfRenderWindow_ConvertCoords(const renderWindow, uint windowX, uint windowY, float* viewX, float* viewY, const sfView* targetView);
 	sfImage* sfRenderWindow_Capture(const renderWindow);
 	*/
+}
+
+package extern(C++) {
+	struct sfRenderWindow {
+		void[renderWindowSize] data = void;
+	}
+	
+	struct sfWindow {
+		void[windowSize] data = void;
+	}
+}
+
+// Dirty hack to get back the SFML window object.
+private ref inout(sfWindow) getWindow(inout Window window) {
+	return *(cast(inout sfWindow*) ((cast(void*) window) + __traits(classInstanceSize, Window) - windowSize));
 }
 

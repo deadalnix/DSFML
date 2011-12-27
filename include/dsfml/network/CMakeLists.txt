@@ -12,8 +12,10 @@ set(SRC
     ${SRCROOT}/Packet.cpp
     ${SRCROOT}/socket.d
     ${SRCROOT}/Socket.cpp
-    ${INCROOT}/tcplistener.d
-    ${INCROOT}/tcpsocket.d
+    ${SRCROOT}/tcplistener.d
+    ${SRCROOT}/TcpListener.cpp
+    ${SRCROOT}/tcpsocket.d
+    ${SRCROOT}/TcpSocket.cpp
     ${SRCROOT}/udpsocket.d
     ${SRCROOT}/UdpSocket.cpp)
 

@@ -1,6 +1,6 @@
-module csfml.graphics.drawable;
+module dsfml.graphics.drawable;
 
-interface Drawable {
-	// public void render(RenderTarget target, Renderer renderer);
+class Drawable {
+	
 }
 

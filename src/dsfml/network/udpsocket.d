@@ -5,7 +5,7 @@ import dsfml.network.packet;
 import dsfml.network.socket;
 import dsfml.sizes;
 
-class UdpSocket : Socket {
+final class UdpSocket : Socket {
 	private void[udpSocketSize - socketSize] data = void;
 	
 	// TODO: Go inout for D2.056
@@ -28,15 +28,15 @@ class UdpSocket : Socket {
 	}
 	
 	@property
-	final ushort localPort() const {
+	ushort localPort() const {
 		return sfUdpSocket_GetLocalPort(udpSocket);
 	}
 	
-	final Status bind(ushort port) {
+	Status bind(ushort port) {
 		return cast(Status) sfUdpSocket_Bind(udpSocket, port);
 	}
 	
-	final void unbind() {
+	void unbind() {
 		sfUdpSocket_Unbind(udpSocket);
 	}
 	
