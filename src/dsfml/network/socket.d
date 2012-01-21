@@ -16,15 +16,9 @@ enum {
 abstract class Socket {
 	private void[socketSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSocket* socket() {
-		return cast(sfSocket*) data.ptr;
-	}
-	
-	@property
-	package final const(sfSocket)* socket() const {
-		return cast(const(sfSocket)*) data.ptr;
+	package final inout(sfSocket)* socket() inout {
+		return cast(inout(sfSocket)*) data.ptr;
 	}
 	
 	protected enum Type {

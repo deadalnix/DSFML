@@ -11,15 +11,9 @@ import std.string;
 final class Font {
 	private void[fontSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfFont* font() {
-		return cast(sfFont*) data.ptr;
-	}
-	
-	@property
-	package final const(sfFont)* font() const {
-		return cast(const(sfFont)*) data.ptr;
+	package final inout(sfFont)* font() inout {
+		return cast(inout(sfFont)*) data.ptr;
 	}
 	
 	this() {

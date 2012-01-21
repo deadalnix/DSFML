@@ -7,15 +7,9 @@ import std.string;
 struct IpAddress {
 	private uint address;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final ref sfIpAddress ipAddress() {
-		return *(cast(sfIpAddress*) &this);
-	}
-	
-	@property
-	package final ref const(sfIpAddress) ipAddress() const {
-		return *(cast(const(sfIpAddress)*) &this);
+	package final ref inout(sfIpAddress) ipAddress() inout {
+		return *(cast(inout(sfIpAddress)*) &this);
 	}
 	
 	this(string address) {
@@ -67,11 +61,9 @@ package extern(C++) {
 	struct sfIpAddress {
 		void[IpAddress.sizeof] data = void;
 		
-		// TODO: Go inout for D2.056
-		// Non const isn't possible due to a compiler mangling bug.
 		@property
-		package final ref const(IpAddress) ipAddress() const {
-			return *(cast(const(IpAddress)*) &this);
+		package final ref inout(IpAddress) ipAddress() inout {
+			return *(cast(inout(IpAddress)*) &this);
 		}
 	}
 	

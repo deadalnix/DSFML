@@ -20,15 +20,9 @@ class SoundSource {
 	// Usefull to get back the SoundSource object from C pointer to data.
 	static private immutable size_t dataOffset = data.offsetof;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSoundSource* soundSource() {
-		return cast(sfSoundSource*) data.ptr;
-	}
-	
-	@property
-	package final const(sfSoundSource)* soundSource() const {
-		return cast(const(sfSoundSource)*) data.ptr;
+	package final inout(sfSoundSource)* soundSource() inout {
+		return cast(inout(sfSoundSource)*) data.ptr;
 	}
 	
 	protected this() {

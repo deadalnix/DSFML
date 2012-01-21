@@ -8,15 +8,9 @@ import dsfml.sizes;
 final class UdpSocket : Socket {
 	private void[udpSocketSize - socketSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfUdpSocket* udpSocket() {
-		return cast(sfUdpSocket*) socket;
-	}
-	
-	@property
-	package final const(sfUdpSocket)* udpSocket() const {
-		return cast(const(sfUdpSocket)*) socket;
+	package final inout(sfUdpSocket)* udpSocket() inout {
+		return cast(inout(sfUdpSocket)*) socket;
 	}
 	
 	this() {

@@ -10,15 +10,9 @@ import std.string;
 final class SoundBuffer {
 	private void[soundBufferSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSoundBuffer* soundBuffer() {
-		return cast(sfSoundBuffer*) data.ptr;
-	}
-	
-	@property
-	package final const(sfSoundBuffer)* soundBuffer() const {
-		return cast(const(sfSoundBuffer)*) data.ptr;
+	package final inout(sfSoundBuffer)* soundBuffer() inout {
+		return cast(inout(sfSoundBuffer)*) data.ptr;
 	}
 	
 	this() {

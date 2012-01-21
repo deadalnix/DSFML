@@ -9,15 +9,9 @@ import std.c.wcharh;
 class Packet {
 	private void[packetSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfPacket* packet() {
-		return cast(sfPacket*) data.ptr;
-	}
-	
-	@property
-	package final const(sfPacket)* packet() const {
-		return cast(const(sfPacket)*) data.ptr;
+	package final inout(sfPacket)* packet() inout {
+		return cast(inout(sfPacket)*) data.ptr;
 	}
 	
 	this() {

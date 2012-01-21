@@ -12,15 +12,9 @@ abstract class SoundRecorder {
 	// Usefull to get back the SoundRecorder object from C pointer to data.
 	static private immutable size_t dataOffset = data.offsetof;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSoundRecorder* soundRecorder() {
-		return cast(sfSoundRecorder*) data.ptr;
-	}
-	
-	@property
-	package final const(sfSoundRecorder)* soundRecorder() const {
-		return cast(const(sfSoundRecorder)*) data.ptr;
+	package final inout(sfSoundRecorder)* soundRecorder() inout {
+		return cast(inout(sfSoundRecorder)*) data.ptr;
 	}
 	
 	protected this() {

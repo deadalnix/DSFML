@@ -89,15 +89,9 @@ struct Event {
 		JoystickConnectEvent	joystickConnect;
 	}
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final ref sfEvent event() {
-		return *(cast(sfEvent*) &this);
-	}
-	
-	@property
-	package final ref const(sfEvent) event() const {
-		return *(cast(const(sfEvent)*) &this);
+	package final ref inout(sfEvent) event() inout {
+		return *(cast(inout(sfEvent)*) &this);
 	}
 }
 
@@ -106,8 +100,8 @@ package extern(C++) {
 		void[Event.sizeof] data = void;
 		
 		@property
-		package final ref const(Event) event() const {
-			return *(cast(Event*) &this);
+		package final ref inout(Event) event() inout {
+			return *(cast(inout(Event)*) &this);
 		}
 	}
 }

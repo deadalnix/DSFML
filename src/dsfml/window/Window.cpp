@@ -28,8 +28,8 @@ void sfWindow_Close(sfWindow* window) {
 	window->Close();
 }
 
-bool sfWindow_IsOpened(const sfWindow* window) {
-	return window->IsOpened();
+bool sfWindow_IsOpen(const sfWindow* window) {
+	return window->IsOpen();
 }
 
 unsigned int sfWindow_GetWidth(const sfWindow* window) {
@@ -98,10 +98,6 @@ void sfWindow_Display(sfWindow* window) {
 
 void sfWindow_SetFramerateLimit(sfWindow* window, unsigned int limit) {
 	window->SetFramerateLimit(limit);
-}
-
-sf::Uint32 sfWindow_GetFrameTime(const sfWindow* window) {
-	return window->GetFrameTime();
 }
 
 void sfWindow_SetJoystickThreshold(sfWindow* window, float threshold) {

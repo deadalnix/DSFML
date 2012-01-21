@@ -1,11 +1,13 @@
 module dsfml.system.sleep;
 
-void sleep(uint duration) {
-	sfSleep(duration);
+import dsfml.system.time;
+
+void sleep(Time duration) {
+	sfSleep(duration.time);
 }
 
 package extern(C++) {
-	void sfSleep(uint duration);
+	void sfSleep(sfTime duration);
 }
 
 unittest {

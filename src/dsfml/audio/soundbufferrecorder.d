@@ -7,15 +7,9 @@ import dsfml.sizes;
 final class SoundBufferRecorder : SoundRecorder {
 	private void[soundBufferRecorderSize - soundRecorderSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSoundBufferRecorder* soundBufferRecorder() {
-		return cast(sfSoundBufferRecorder*) soundRecorder;
-	}
-	
-	@property
-	package final const(sfSoundBufferRecorder)* soundBufferRecorder() const {
-		return cast(const(sfSoundBufferRecorder)*) soundRecorder;
+	package final inout(sfSoundBufferRecorder)* soundBufferRecorder() inout {
+		return cast(inout(sfSoundBufferRecorder)*) soundRecorder;
 	}
 	
 	this() {

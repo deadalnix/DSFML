@@ -1,19 +1,14 @@
 module dsfml.system.clock;
 
+import dsfml.system.time;
 import dsfml.sizes;
 
 final class Clock {
 	private void[clockSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfClock* clock() {
-		return cast(sfClock*) data.ptr;
-	}
-	
-	@property
-	package final const(sfClock)* clock() const {
-		return cast(const(sfClock)*) data.ptr;
+	package final inout(sfClock)* clock() inout {
+		return cast(inout(sfClock)*) data.ptr;
 	}
 	
 	this() {
@@ -25,12 +20,14 @@ final class Clock {
 	}
 	
 	@property
-	uint elapsedTime() const {
-		return sfClock_GetElapsedTime(clock);
+	Time elapsedTime() const {
+		sfTime tmp = sfClock_GetElapsedTime(clock);
+		return tmp.time;
 	}
 	
-	void reset() {
-		sfClock_Reset(clock);
+	Time restart() {
+		sfTime tmp = sfClock_Restart(clock);
+		return tmp.time;
 	}
 }
 
@@ -42,8 +39,8 @@ package extern(C++) {
 	void sfClock_Create(sfClock* clock);
 	void sfClock_Destroy(sfClock* clock);
 	
-	uint sfClock_GetElapsedTime(const sfClock* clock);
-	void sfClock_Reset(sfClock* clock);
+	sfTime sfClock_GetElapsedTime(const sfClock* clock);
+	sfTime sfClock_Restart(sfClock* clock);
 }
 
 unittest {

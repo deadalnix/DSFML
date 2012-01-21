@@ -6,15 +6,9 @@ import dsfml.sizes;
 final class Context {
 	private void[contextSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfContext* context() {
-		return cast(sfContext*) data.ptr;
-	}
-	
-	@property
-	package final const(sfContext)* context() const {
-		return cast(const(sfContext)*) data.ptr;
+	package final inout(sfContext)* context() inout {
+		return cast(inout(sfContext)*) data.ptr;
 	}
 	
 	this() {

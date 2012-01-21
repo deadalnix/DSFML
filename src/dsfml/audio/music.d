@@ -10,15 +10,9 @@ import std.string;
 final class Music : SoundStream {
 	private void[musicSize - soundStreamSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfMusic* music() {
-		return cast(sfMusic*) soundStream;
-	}
-	
-	@property
-	package final const(sfMusic)* music() const {
-		return cast(const(sfMusic)*) soundStream;
+	package final inout(sfMusic)* music() inout {
+		return cast(inout(sfMusic)*) soundStream;
 	}
 	
 	this() {

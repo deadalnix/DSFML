@@ -7,15 +7,9 @@ import dsfml.sizes;
 final class Sound : SoundSource {
 	private void[soundSize - soundSourceSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSound* sound() {
-		return cast(sfSound*) soundSource;
-	}
-	
-	@property
-	package final const(sfSound)* sound() const {
-		return cast(const(sfSound)*) soundSource;
+	package final inout(sfSound)* sound() inout {
+		return cast(inout(sfSound)*) soundSource;
 	}
 	
 	this() {

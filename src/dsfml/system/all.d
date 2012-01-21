@@ -5,4 +5,5 @@ public import dsfml.system.inputstream;
 public import dsfml.system.lock;
 public import dsfml.system.mutex;
 public import dsfml.system.sleep;
+public import dsfml.system.time;
 

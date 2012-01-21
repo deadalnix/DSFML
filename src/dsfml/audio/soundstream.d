@@ -8,15 +8,9 @@ import std.conv;
 abstract class SoundStream : SoundSource {
 	private void[soundStreamSize - soundSourceSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfSoundStream* soundStream() {
-		return cast(sfSoundStream*) soundSource;
-	}
-	
-	@property
-	package final const(sfSoundStream)* soundStream() const {
-		return cast(const(sfSoundStream)*) soundSource;
+	package final inout(sfSoundStream)* soundStream() inout {
+		return cast(inout(sfSoundStream)*) soundSource;
 	}
 	
 	protected this() {

@@ -13,6 +13,8 @@ set(SRC
     ${SRCROOT}/sleep.d
     ${SRCROOT}/Sleep.cpp
     ${SRCROOT}/thread.d
+    ${SRCROOT}/time.d
+    ${SRCROOT}/Time.cpp
     ${SRCROOT}/utils.d)
 
 # define the dsfml-system target

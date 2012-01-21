@@ -10,26 +10,14 @@ struct Rect(T) if(isNumeric!(T)) {
 	T height	= 0;
 	
 	static if(is(T == int)) {
-		// TODO: Go inout for D2.056
 		@property
-		package final ref sfIntRect rect() {
-			return *(cast(sfIntRect*) &this);
-		}
-	
-		@property
-		package final ref const(sfIntRect) rect() const {
-			return *(cast(const(sfIntRect)*) &this);
+		package final ref inout(sfIntRect) rect() inout {
+			return *(cast(inout(sfIntRect)*) &this);
 		}
 	} else static if(is(T == float)) {
-		// TODO: Go inout for D2.056
 		@property
-		package final ref sfFloatRect rect() {
-			return *(cast(sfFloatRect*) &this);
-		}
-	
-		@property
-		package final ref const(sfFloatRect) rect() const {
-			return *(cast(const(sfFloatRect)*) &this);
+		package final ref inout(sfFloatRect) rect() inout {
+			return *(cast(inout(sfFloatRect)*) &this);
 		}
 	}
 	
@@ -85,22 +73,18 @@ package extern(C++) {
 	struct sfIntRect {
 		void[IntRect.sizeof] data = void;
 		
-		// TODO: Go inout for D2.056
-		// Non const isn't possible due to a compiler mangling bug.
 		@property
-		package final ref const(IntRect) rect() const {
-			return *(cast(const(IntRect)*) &this);
+		package final ref inout(IntRect) rect() inout {
+			return *(cast(inout(IntRect)*) &this);
 		}
 	}
 	
 	struct sfFloatRect {
 		void[FloatRect.sizeof] data = void;
 		
-		// TODO: Go inout for D2.056
-		// Non const isn't possible due to a compiler mangling bug.
 		@property
-		package final ref const(FloatRect) rect() const {
-			return *(cast(const(FloatRect)*) &this);
+		package final ref inout(FloatRect) rect() inout {
+			return *(cast(inout(FloatRect)*) &this);
 		}
 	}
 }

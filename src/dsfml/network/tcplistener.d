@@ -7,15 +7,9 @@ import dsfml.sizes;
 final class TcpListener : Socket {
 	private void[tcpListenerSize - socketSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfTcpListener* listener() {
-		return cast(sfTcpListener*) socket;
-	}
-	
-	@property
-	package final const(sfTcpListener)* listener() const {
-		return cast(const(sfTcpListener)*) socket;
+	package final inout(sfTcpListener)* listener() inout {
+		return cast(inout(sfTcpListener)*) socket;
 	}
 	
 	this() {

@@ -13,15 +13,9 @@ import std.string;
 class Window {
 	private void[windowSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfWindow* window() {
-		return cast(sfWindow*) data.ptr;
-	}
-	
-	@property
-	package final const(sfWindow)* window() const {
-		return cast(const(sfWindow)*) data.ptr;
+	package final inout(sfWindow)* window() inout {
+		return cast(inout(sfWindow)*) data.ptr;
 	}
 	
 	this() {
@@ -57,8 +51,8 @@ class Window {
 	}
 	
 	@property
-	final bool opened() const {
-		return sfWindow_IsOpened(window);
+	final bool open() const {
+		return sfWindow_IsOpen(window);
 	}
 	
 	@property
@@ -133,11 +127,6 @@ class Window {
 	}
 	
 	@property
-	final uint frameTime() const {
-		return sfWindow_GetFrameTime(window);
-	}
-	
-	@property
 	final void joystickThreshold(float threshold) {
 		sfWindow_SetJoystickThreshold(window, threshold);
 	}
@@ -161,7 +150,7 @@ package extern(C++) {
 	
 	void sfWindow_Close(sfWindow* window);
 	
-	bool sfWindow_IsOpened(const sfWindow* window);
+	bool sfWindow_IsOpen(const sfWindow* window);
 	uint sfWindow_GetWidth(const sfWindow* window);
 	uint sfWindow_GetHeight(const sfWindow* window);
 	
@@ -184,7 +173,6 @@ package extern(C++) {
 	void sfWindow_Display(sfWindow* window);
 	
 	void sfWindow_SetFramerateLimit(sfWindow* window, uint limit);
-	uint sfWindow_GetFrameTime(const sfWindow* window);
 	void sfWindow_SetJoystickThreshold(sfWindow* window, float threshold);
 	WindowHandle sfWindow_GetSystemHandle(const sfWindow* window);
 }

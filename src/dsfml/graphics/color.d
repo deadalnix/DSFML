@@ -18,15 +18,9 @@ struct Color {
 	ubyte b;
 	ubyte a = 255;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final ref sfColor color() {
-		return *(cast(sfColor*) &this);
-	}
-	
-	@property
-	package final ref const(sfColor) color() const {
-		return *(cast(const(sfColor)*) &this);
+	package final ref inout(sfColor) color() inout {
+		return *(cast(inout(sfColor)*) &this);
 	}
 	
 	this(ubyte red, ubyte green, ubyte blue) {
@@ -182,11 +176,9 @@ package extern(C++) {
 	struct sfColor {
 		void[Color.sizeof] data = void;
 		
-		// TODO: Go inout for D2.056
-		// Non const isn't possible due to a compiler mangling bug.
 		@property
-		package final ref const(Color) color() const {
-			return *(cast(const(Color)*) &this);
+		package final ref inout(Color) color() inout {
+			return *(cast(inout(Color)*) &this);
 		}
 	}
 }

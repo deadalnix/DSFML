@@ -12,15 +12,9 @@ import std.string;
 final class Texture {
 	private void[textureSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfTexture* texture() {
-		return cast(sfTexture*) &this;
-	}
-	
-	@property
-	package final const(sfTexture)* texture() const {
-		return cast(const(sfTexture)*) &this;
+	package final inout(sfTexture)* texture() inout {
+		return cast(inout(sfTexture)*) &this;
 	}
 	
 	this() {

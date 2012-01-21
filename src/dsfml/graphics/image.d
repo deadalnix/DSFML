@@ -11,15 +11,9 @@ import std.string;
 final class Image {
 	private void[imageSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfImage* image() {
-		return cast(sfImage*) data.ptr;
-	}
-	
-	@property
-	package final const(sfImage)* image() const {
-		return cast(const(sfImage)*) data.ptr;
+	package final inout(sfImage)* image() inout {
+		return cast(inout(sfImage)*) data.ptr;
 	}
 	
 	this() {

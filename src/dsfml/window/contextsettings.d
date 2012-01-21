@@ -7,15 +7,9 @@ struct ContextSettings {
 	uint majorVersion = 2;
 	uint minorVersion;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final ref sfContextSettings settings() {
-		return *(cast(sfContextSettings*) &this);
-	}
-	
-	@property
-	package final ref const(sfContextSettings) settings() const {
-		return *(cast(const(sfContextSettings)*) &this);
+	package final ref inout(sfContextSettings) settings() inout {
+		return *(cast(inout(sfContextSettings)*) &this);
 	}
 	
 	this(uint depth = 0, uint stencil = 0, uint antialiasing = 0, uint major = 2, uint minor = 0) {
@@ -32,8 +26,8 @@ package extern(C++) {
 		void[ContextSettings.sizeof] data = void;
 		
 		@property
-		package final ref const(ContextSettings) settings() const {
-			return *(cast(ContextSettings*) &this);
+		package final ref inout(ContextSettings) settings() inout {
+			return *(cast(inout(ContextSettings)*) &this);
 		}
 	}
 }

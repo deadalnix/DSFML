@@ -11,11 +11,13 @@ void sfClock_Destroy(sfClock* clock) {
 	clock->~sfClock();
 }
 
-sf::Uint32 sfClock_GetElapsedTime(const sfClock* clock) {
+typedef sf::Time sfTime;
+
+sfTime sfClock_GetElapsedTime(const sfClock* clock) {
 	return clock->GetElapsedTime();
 }
 
-void sfClock_Reset(sfClock* clock) {
-	clock->Reset();
+sfTime sfClock_Restart(sfClock* clock) {
+	return clock->Restart();
 }
 

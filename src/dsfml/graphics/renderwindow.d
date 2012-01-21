@@ -12,15 +12,9 @@ import std.string;
 class RenderWindow : Window {
 	private void[renderWindowSize - windowSize] data = void;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final sfRenderWindow* renderWindow() {
-		return cast(sfRenderWindow*) &getWindow(this);
-	}
-	
-	@property
-	package final const(sfRenderWindow)* renderWindow() const {
-		return cast(const(sfRenderWindow)*) &getWindow(this);
+	package final inout(sfRenderWindow)* renderWindow() inout {
+		return cast(inout(sfRenderWindow)*) &getWindow(this);
 	}
 	
 	/*
@@ -34,19 +28,6 @@ class RenderWindow : Window {
 	
 	public ~this() {
 		sfRenderWindow_Destroy(renderWindow);
-	}
-	
-	// TODO: use inout as of D2.056
-	public const(sfWindow*) getCWindow() const {
-		throw new Exception("Invalid on this object.");
-	}
-	
-	public immutable(sfWindow*) getCWindow() immutable {
-		throw new Exception("Invalid on this object.");
-	}
-	
-	public sfWindow* getCWindow() {
-		throw new Exception("Invalid on this object.");
 	}
 	
 	public void create(VideoMode mode, string title, uint style = sfDefaultStyle, const ref sfContextSettings settings = sfContextSettings()) {

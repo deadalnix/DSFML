@@ -5,15 +5,9 @@ struct VideoMode {
 	uint height;
 	uint bitsPerPixel;
 	
-	// TODO: Go inout for D2.056
 	@property
-	package final ref sfVideoMode videoMode() {
-		return *(cast(sfVideoMode*) &this);
-	}
-	
-	@property
-	package final ref const(sfVideoMode) videoMode() const {
-		return *(cast(const(sfVideoMode)*) &this);
+	package final ref inout(sfVideoMode) videoMode() inout {
+		return *(cast(inout(sfVideoMode)*) &this);
 	}
 	
 	this(uint width, uint height, uint bitsPerPixel = 32) {
@@ -57,11 +51,9 @@ package extern(C++) {
 	struct sfVideoMode {
 		void[VideoMode.sizeof] data = void;
 		
-		// TODO: Go inout for D2.056
-		// Non const isn't possible due to a compiler mangling bug.
 		@property
-		package final ref const(VideoMode) videoMode() const {
-			return *(cast(const(VideoMode)*) &this);
+		package final ref inout(VideoMode) videoMode() inout {
+			return *(cast(inout(VideoMode)*) &this);
 		}
 	}
 	

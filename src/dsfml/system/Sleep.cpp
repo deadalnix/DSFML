@@ -1,6 +1,8 @@
 #include<SFML/System/Sleep.hpp>
 
-void sfSleep(sf::Uint32 duration) {
+typedef sf::Time sfTime;
+
+void sfSleep(sfTime duration) {
 	sf::Sleep(duration);
 }
 
