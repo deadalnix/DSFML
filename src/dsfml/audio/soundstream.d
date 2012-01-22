@@ -89,7 +89,7 @@ private extern(C++) {
 		uint nbSamples;
 	};
 	
-	bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream) {
+	bool __dsfml_sfSoundStream_getDataCallback(sfSoundStream* soundStream, sfSoundStreamChunk* data) {
 		short[] samples;
 		
 		scope(exit) {
@@ -102,7 +102,7 @@ private extern(C++) {
 		return getSoundSource!(SoundStream)(soundStream).onGetData(samples);
 	}
 	
-	void __dsfml_sfSoundStream_seekCallback(sfTime timeOffset, sfSoundStream* soundStream) {
+	void __dsfml_sfSoundStream_seekCallback(sfSoundStream* soundStream, sfTime timeOffset) {
 		getSoundSource!(SoundStream)(soundStream).onSeek(*(cast(Time*) &timeOffset));
 	}
 	

@@ -6,8 +6,8 @@ typedef sf::Time sfTime;
 class sfSoundStream;
 
 // Function to get back in D.
-bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream);
-void __dsfml_sfSoundStream_seekCallback(sfTime timeOffset, sfSoundStream* soundStream);
+bool __dsfml_sfSoundStream_getDataCallback(sfSoundStream* soundStream, sfSoundStreamChunk* data);
+void __dsfml_sfSoundStream_seekCallback(sfSoundStream* soundStream, sfTime timeOffset);
 
 class sfSoundStream : public sf::SoundStream {
 public:
@@ -19,11 +19,11 @@ public:
 	
 private :
 	bool OnGetData(Chunk& data) {
-		return __dsfml_sfSoundStream_getDataCallback(&data, this);
+		return __dsfml_sfSoundStream_getDataCallback(this, &data);
 	}
 	
 	void OnSeek(sf::Time timeOffset) {
-		__dsfml_sfSoundStream_seekCallback(timeOffset, this);
+		__dsfml_sfSoundStream_seekCallback(this, timeOffset);
 	}
 };
 

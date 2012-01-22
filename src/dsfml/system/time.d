@@ -2,7 +2,6 @@ module dsfml.system.time;
 
 import dsfml.sizes;
 
-// TODO: everything
 struct Time {
 	private void[timeSize] data = void;
 	
