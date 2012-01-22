@@ -3,6 +3,7 @@ module dsfml.network.tcpsocket;
 import dsfml.network.ipaddress;
 import dsfml.network.packet;
 import dsfml.network.socket;
+import dsfml.system.time;
 import dsfml.sizes;
 
 final class TcpSocket : Socket {
@@ -37,8 +38,8 @@ final class TcpSocket : Socket {
 		return sfTcpSocket_GetRemotePort(tcpSocket);
 	}
 	
-	Status connect(ref const IpAddress remoteAddress, ushort remotePort, uint timeout = 0) {
-		return cast(Status) sfTcpSocket_Connect(tcpSocket, remoteAddress.ipAddress, remotePort, timeout);
+	Status connect(ref const IpAddress remoteAddress, ushort remotePort, Time timeout = Time()) {
+		return cast(Status) sfTcpSocket_Connect(tcpSocket, remoteAddress.ipAddress, remotePort, *(cast(sfTime*) &timeout));
 	}
 	
 	void disconnect() {
@@ -60,7 +61,7 @@ package extern(C++) {
 	sfIpAddress sfTcpSocket_GetRemoteAddress(const sfTcpSocket* tcpSocket);
 	ushort sfTcpSocket_GetRemotePort(const sfTcpSocket* tcpSocket);
 	
-	uint sfTcpSocket_Connect(sfTcpSocket* tcpSocket, ref const sfIpAddress remoteAddress, ushort remotePort, uint timeout);
+	uint sfTcpSocket_Connect(sfTcpSocket* tcpSocket, ref const sfIpAddress remoteAddress, ushort remotePort, sfTime timeout);
 	void sfTcpSocket_Disconnect(sfTcpSocket* tcpSocket);
 }
 

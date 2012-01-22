@@ -27,7 +27,9 @@ sfIpAddress sfIpAddress_GetLocalAddress() {
 	return sfIpAddress::GetLocalAddress();
 }
 
-sfIpAddress sfIpAddress_GetPublicAddress(sf::Uint32 timeout) {
+typedef sf::Time sfTime;
+
+sfIpAddress sfIpAddress_GetPublicAddress(sfTime timeout) {
 	return sfIpAddress::GetPublicAddress(timeout);
 }
 

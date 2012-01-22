@@ -26,7 +26,9 @@ unsigned short sfTcpSocket_GetRemotePort(const sfTcpSocket* tcpSocket) {
 	return tcpSocket->GetRemotePort();
 }
 
-unsigned int sfTcpSocket_Connect(sfTcpSocket* tcpSocket, const sfIpAddress& remoteAddress, unsigned short remotePort, sf::Uint32 timeout) {
+typedef sf::Time sfTime;
+
+unsigned int sfTcpSocket_Connect(sfTcpSocket* tcpSocket, const sfIpAddress& remoteAddress, unsigned short remotePort, sfTime timeout) {
 	return tcpSocket->Connect(remoteAddress, remotePort, timeout);
 }
 

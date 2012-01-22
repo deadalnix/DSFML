@@ -1,5 +1,8 @@
 module dsfml.network.ipaddress;
 
+import dsfml.system.time;
+import dsfml.sizes;
+
 import std.c.stdlib;
 import std.c.string;
 import std.string;
@@ -45,8 +48,8 @@ IpAddress localAddress() {
 }
 
 @property
-IpAddress publicAddress(uint timeout = 0) {
-	sfIpAddress tmp = sfIpAddress_GetPublicAddress(timeout);
+IpAddress publicAddress(Time timeout = Time()) {
+	sfIpAddress tmp = sfIpAddress_GetPublicAddress(*(cast(sfTime*) &timeout));
 	return tmp.ipAddress;
 }
 
@@ -75,7 +78,7 @@ package extern(C++) {
 	uint sfIpAddress_ToInteger(ref const sfIpAddress ipAddress);
 	
 	sfIpAddress sfIpAddress_GetLocalAddress();
-	sfIpAddress sfIpAddress_GetPublicAddress(uint timeout);
+	sfIpAddress sfIpAddress_GetPublicAddress(sfTime timeout);
 	sfIpAddress sfIpAddress_LocalHost();
 }
 
