@@ -9,6 +9,11 @@ import dsfml.sizes;
 import std.conv;
 import std.string;
 
+enum CoordinateType {
+	Normalized,
+	Pixels,
+}
+
 final class Texture {
 	private void[textureSize] data = void;
 	
@@ -96,8 +101,8 @@ final class Texture {
 		sfTexture_Update(texture, getWindow(window), x, y);
 	}
 	
-	void bind() const {
-		sfTexture_Bind(texture);
+	void bind(CoordinateType coordinateType = CoordinateType.Normalized) const {
+		sfTexture_Bind(texture, coordinateType);
 	}
 	
 	@property
@@ -110,14 +115,15 @@ final class Texture {
 		return sfTexture_IsSmooth(texture);
 	}
 	
-	public FloatRect getTexCoords(const ref IntRect rectangle) const {
-		return sfTexture_GetTexCoords(texture, rectangle.rect).rect;
+	@property
+	void repeated(bool repeated) {
+		sfTexture_SetRepeated(texture, repeated);
 	}
 	
-	/*
-	// TODO: implement renderWindow
-	void sfTexture_UpdateFromRenderWindow(texture, const sfRenderWindow* renderWindow, uint x, uint y);
-	*/
+	@property
+	bool repeated() const {
+		return sfTexture_IsRepeated(texture);
+	}
 }
 
 immutable uint maximumSize;
@@ -157,11 +163,11 @@ package extern(C++) {
 	void sfTexture_Update(sfTexture* texture, ref const sfWindow window);
 	void sfTexture_Update(sfTexture* texture, ref const sfWindow window, uint x, uint y);
 	
-	void sfTexture_Bind(const sfTexture* texture);
+	void sfTexture_Bind(const sfTexture* texture, uint coordinateType);
 	void sfTexture_SetSmooth(sfTexture* texture, bool smooth);
 	bool sfTexture_IsSmooth(const sfTexture* texture);
-	
-	sfFloatRect sfTexture_GetTexCoords(const sfTexture* texture, ref const sfIntRect rectangle);
+	void sfTexture_SetRepeated(sfTexture* texture, bool repeated);
+	bool sfTexture_IsRepeated(const sfTexture* texture);
 	
 	uint sfTexture_GetMaximumSize();
 }

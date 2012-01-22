@@ -41,19 +41,21 @@ const sf::Int16* sfSoundBuffer_GetSamples(const sfSoundBuffer* soundBuffer) {
 	return soundBuffer->GetSamples();
 }
 
-size_t sfSoundBuffer_GetSamplesCount(const sfSoundBuffer* soundBuffer) {
-	return soundBuffer->GetSamplesCount();
+size_t sfSoundBuffer_GetSampleCount(const sfSoundBuffer* soundBuffer) {
+	return soundBuffer->GetSampleCount();
 }
 
 unsigned int sfSoundBuffer_GetSampleRate(const sfSoundBuffer* soundBuffer) {
 	return soundBuffer->GetSampleRate();
 }
 
-unsigned int sfSoundBuffer_GetChannelsCount(const sfSoundBuffer* soundBuffer) {
-	return soundBuffer->GetChannelsCount();
+unsigned int sfSoundBuffer_GetChannelCount(const sfSoundBuffer* soundBuffer) {
+	return soundBuffer->GetChannelCount();
 }
 
-sf::Uint32 sfSoundBuffer_GetDuration(const sfSoundBuffer* soundBuffer) {
+typedef sf::Time sfTime;
+
+sfTime sfSoundBuffer_GetDuration(const sfSoundBuffer* soundBuffer) {
 	return soundBuffer->GetDuration();
 }
 

@@ -1,6 +1,7 @@
 module dsfml.audio.soundstream;
 
 import dsfml.audio.soundsource;
+import dsfml.system.time;
 import dsfml.sizes;
 
 import std.conv;
@@ -53,13 +54,14 @@ abstract class SoundStream : SoundSource {
 	}
 	
 	@property
-	final void playingOffset(uint timeOffset) {
-		sfSoundStream_SetPlayingOffset(soundStream, timeOffset);
+	final void playingOffset(sfTime timeOffset) {
+		sfSoundStream_SetPlayingOffset(soundStream, *(cast(sfTime*) &timeOffset));
 	}
 	
 	@property
-	final uint playingOffset() const {
-		return sfSoundStream_GetPlayingOffset(soundStream);
+	final Time playingOffset() const {
+		sfTime tmp = sfSoundStream_GetPlayingOffset(soundStream);
+		return *(cast(Time*) &tmp);
 	}
 	
 	@property
@@ -68,12 +70,12 @@ abstract class SoundStream : SoundSource {
 	}
 	
 	@property
-	final void loop() const {
+	final bool loop() const {
 		return sfSoundStream_GetLoop(soundStream);
 	}
 	
 	protected abstract bool onGetData(ref short[] data);
-	protected abstract void onSeek(uint timeOffset);
+	protected abstract void onSeek(Time timeOffset);
 }
 
 private extern(C++) {
@@ -100,8 +102,8 @@ private extern(C++) {
 		return getSoundSource!(SoundStream)(soundStream).onGetData(samples);
 	}
 	
-	void __dsfml_sfSoundStream_seekCallback(uint timeOffset, sfSoundStream* soundStream) {
-		getSoundSource!(SoundStream)(soundStream).onSeek(timeOffset);
+	void __dsfml_sfSoundStream_seekCallback(sfTime timeOffset, sfSoundStream* soundStream) {
+		getSoundSource!(SoundStream)(soundStream).onSeek(*(cast(Time*) &timeOffset));
 	}
 	
 	void sfSoundStream_Create(sfSoundStream* soundStream);
@@ -117,10 +119,10 @@ private extern(C++) {
 	uint sfSoundStream_GetSampleRate(const sfSoundStream* soundStream);
 	Status sfSoundStream_GetStatus(const sfSoundStream* soundStream);
 	
-	void sfSoundStream_SetPlayingOffset(sfSoundStream* soundStream, uint timeOffset);
-	uint sfSoundStream_GetPlayingOffset(const sfSoundStream* soundStream);
+	void sfSoundStream_SetPlayingOffset(sfSoundStream* soundStream, sfTime timeOffset);
+	sfTime sfSoundStream_GetPlayingOffset(const sfSoundStream* soundStream);
 	
 	void sfSoundStream_SetLoop(sfSoundStream* soundStream, bool loop);
-	bool sfSoundStream_GetLoop(const sfSoundStream* soundStream,);
+	bool sfSoundStream_GetLoop(const sfSoundStream* soundStream);
 }
 

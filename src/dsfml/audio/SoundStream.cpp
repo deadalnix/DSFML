@@ -2,11 +2,12 @@
 #include<new>
 
 typedef sf::SoundStream::Chunk sfSoundStreamChunk;
+typedef sf::Time sfTime;
 class sfSoundStream;
 
 // Function to get back in D.
 bool __dsfml_sfSoundStream_getDataCallback(sfSoundStreamChunk* data, sfSoundStream* soundStream);
-void __dsfml_sfSoundStream_seekCallback(sf::Uint32 timeOffset, sfSoundStream* soundStream);
+void __dsfml_sfSoundStream_seekCallback(sfTime timeOffset, sfSoundStream* soundStream);
 
 class sfSoundStream : public sf::SoundStream {
 public:
@@ -17,12 +18,12 @@ public:
 	}
 	
 private :
-	bool OnGetData(Chunk& Data) {
-		return __dsfml_sfSoundStream_getDataCallback(&Data, this);
+	bool OnGetData(Chunk& data) {
+		return __dsfml_sfSoundStream_getDataCallback(&data, this);
 	}
 	
-	void OnSeek(sf::Uint32 TimeOffset) {
-		__dsfml_sfSoundStream_seekCallback(TimeOffset, this);
+	void OnSeek(sf::Time timeOffset) {
+		__dsfml_sfSoundStream_seekCallback(timeOffset, this);
 	}
 };
 
@@ -50,8 +51,8 @@ void sfSoundStream_Stop(sfSoundStream* soundStream) {
 	soundStream->Stop();
 }
 
-sf::Uint32 sfSoundStream_GetChannelsCount(const sfSoundStream* soundStream) {
-	soundStream->GetChannelsCount();
+sf::Uint32 sfSoundStream_GetChannelCount(const sfSoundStream* soundStream) {
+	soundStream->GetChannelCount();
 }
 
 sf::Uint32 sfSoundStream_GetSampleRate(const sfSoundStream* soundStream) {
@@ -62,11 +63,11 @@ sf::SoundSource::Status sfSoundStream_GetStatus(const sfSoundStream* soundStream
 	soundStream->GetStatus();
 }
 
-void sfSoundStream_SetPlayingOffset(sfSoundStream* soundStream, sf::Uint32 timeOffset) {
+void sfSoundStream_SetPlayingOffset(sfSoundStream* soundStream, sfTime timeOffset) {
 	soundStream->SetPlayingOffset(timeOffset);
 }
 
-sf::Uint32 sfSoundStream_GetPlayingOffset(const sfSoundStream* soundStream) {
+sfTime sfSoundStream_GetPlayingOffset(const sfSoundStream* soundStream) {
 	return soundStream->GetPlayingOffset();
 }
 

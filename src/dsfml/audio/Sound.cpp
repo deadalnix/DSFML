@@ -49,11 +49,13 @@ bool sfSound_GetLoop(const sfSound* sound) {
 	return sound->GetLoop();
 }
 
-void sfSound_SetPlayingOffset(sfSound* sound, sf::Uint32 timeOffset) {
+typedef sf::Time sfTime;
+
+void sfSound_SetPlayingOffset(sfSound* sound, sfTime timeOffset) {
 	sound->SetPlayingOffset(timeOffset);
 }
 
-sf::Uint32 sfSound_GetPlayingOffset(const sfSound* sound) {
+sfTime sfSound_GetPlayingOffset(const sfSound* sound) {
 	return sound->GetPlayingOffset();
 }
 

@@ -2,6 +2,7 @@ module dsfml.audio.sound;
 
 import dsfml.audio.soundsource;
 import dsfml.audio.soundbuffer;
+import dsfml.system.time;
 import dsfml.sizes;
 
 final class Sound : SoundSource {
@@ -64,13 +65,14 @@ final class Sound : SoundSource {
 	}
 	
 	@property
-	void playingOffset(uint timeOffset) {
-		sfSound_SetPlayingOffset(sound, timeOffset);
+	void playingOffset(Time timeOffset) {
+		sfSound_SetPlayingOffset(sound, *(cast(sfTime*) &timeOffset));
 	}
 	
 	@property
-	uint playingOffset() const {
-		return sfSound_GetPlayingOffset(sound);
+	Time playingOffset() const {
+		sfTime tmp = sfSound_GetPlayingOffset(sound);
+		return *(cast(Time*) &tmp);
 	}
 	
 	@property
@@ -97,8 +99,8 @@ package extern(C++) {
 	const(sfSoundBuffer)* sfSound_GetBuffer(const sfSound* sound);
 	void sfSound_SetLoop(sfSound* sound, bool loop);
 	bool sfSound_GetLoop(const sfSound* sound);
-	void sfSound_SetPlayingOffset(sfSound* sound, uint timeOffset);
-	uint sfSound_GetPlayingOffset(const sfSound* sound);
+	void sfSound_SetPlayingOffset(sfSound* sound, sfTime timeOffset);
+	sfTime sfSound_GetPlayingOffset(const sfSound* sound);
 	Status sfSound_GetStatus(const sfSound* sound);
 }
 

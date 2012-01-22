@@ -1,6 +1,7 @@
 module dsfml.audio.soundbuffer;
 
 import dsfml.system.inputstream;
+import dsfml.system.time;
 import dsfml.sizes;
 
 import std.conv;
@@ -56,7 +57,7 @@ final class SoundBuffer {
 	
 	@property
 	const(short)[] samples() const {
-		return sfSoundBuffer_GetSamples(soundBuffer)[0 .. sfSoundBuffer_GetSamplesCount(soundBuffer)];
+		return sfSoundBuffer_GetSamples(soundBuffer)[0 .. sfSoundBuffer_GetSampleCount(soundBuffer)];
 	}
 	
 	@property
@@ -65,13 +66,14 @@ final class SoundBuffer {
 	}
 	
 	@property
-	uint channelsCount() const {
-		return sfSoundBuffer_GetChannelsCount(soundBuffer);
+	uint channelCount() const {
+		return sfSoundBuffer_GetChannelCount(soundBuffer);
 	}
 	
 	@property
-	uint duration() const {
-		return sfSoundBuffer_GetDuration(soundBuffer);
+	Time duration() const {
+		sfTime tmp = sfSoundBuffer_GetDuration(soundBuffer);
+		return *(cast(Time*) &tmp);
 	}
 }
 
@@ -93,9 +95,9 @@ package extern(C++) {
 	bool sfSoundBuffer_SaveToFile(const sfSoundBuffer* soundBuffer, const char* filename);
 	
 	const(short)* sfSoundBuffer_GetSamples(const sfSoundBuffer* soundBuffer);
-	size_t sfSoundBuffer_GetSamplesCount(const sfSoundBuffer* soundBuffer);
+	size_t sfSoundBuffer_GetSampleCount(const sfSoundBuffer* soundBuffer);
 	uint sfSoundBuffer_GetSampleRate(const sfSoundBuffer* soundBuffer);
-	uint sfSoundBuffer_GetChannelsCount(const sfSoundBuffer* soundBuffer);
-	uint sfSoundBuffer_GetDuration(const sfSoundBuffer* soundBuffer);
+	uint sfSoundBuffer_GetChannelCount(const sfSoundBuffer* soundBuffer);
+	sfTime sfSoundBuffer_GetDuration(const sfSoundBuffer* soundBuffer);
 }
 

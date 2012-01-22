@@ -25,7 +25,9 @@ bool sfMusic_OpenFromStream(sfMusic* music, sfInputStream* stream) {
 	return music->OpenFromStream(*stream);
 }
 
-sf::Uint32 sfMusic_GetDuration(const sfMusic* music) {
+typedef sf::Time sfTime;
+
+sfTime sfMusic_GetDuration(const sfMusic* music) {
 	return music->GetDuration();
 }
 

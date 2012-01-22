@@ -1,4 +1,5 @@
 #include<SFML/Graphics/Texture.hpp>
+#include<SFML/System/Enumeration.hpp>
 #include<new>
 
 typedef sf::Texture sfTexture;
@@ -73,8 +74,8 @@ void sfTexture_Update(sfTexture* texture, const sfWindow& window, unsigned int x
 	texture->Update(window, x, y);
 }
 
-void sfTexture_Bind(const sfTexture* texture) {
-	texture->Bind();
+void sfTexture_Bind(const sfTexture* texture, unsigned int coordinateType) {
+	texture->Bind(sf::Enumeration<sf::Texture::CoordinateType, unsigned int>(coordinateType));
 }
 
 void sfTexture_SetSmooth(sfTexture* texture, bool smooth) {
@@ -85,11 +86,12 @@ bool sfTexture_IsSmooth(const sfTexture* texture) {
 	return texture->IsSmooth();
 }
 
-typedef sf::FloatRect sfFloatRect;
-typedef sf::IntRect sfIntRect;
+void sfTexture_SetRepeated(sfTexture* texture, bool repeated) {
+	texture->SetRepeated(repeated);
+}
 
-sfFloatRect sfTexture_GetTexCoords(const sfTexture* texture, const sfIntRect& rectangle) {
-	return texture->GetTexCoords(rectangle);
+bool sfTexture_IsRepeated(const sfTexture* texture) {
+	return texture->IsRepeated();
 }
 
 unsigned int sfTexture_GetMaximumSize() {

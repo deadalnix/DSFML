@@ -2,6 +2,7 @@ module dsfml.audio.music;
 
 import dsfml.audio.soundstream;
 import dsfml.system.inputstream;
+import dsfml.system.time;
 import dsfml.sizes;
 
 import std.conv;
@@ -38,8 +39,9 @@ final class Music : SoundStream {
 	}
 	
 	@property
-	uint duration() const {
-		return sfMusic_GetDuration(music);
+	Time duration() const {
+		sfTime tmp = sfMusic_GetDuration(music);
+		return *(cast(Time*) &tmp);
 	}
 	
 	// Dummy function to handle compatibility with soundStream.
@@ -47,7 +49,7 @@ final class Music : SoundStream {
 		return false;
 	}
 	
-	protected override void onSeek(uint timeOffset) {}
+	protected override void onSeek(Time timeOffset) {}
 }
 
 private extern(C++) {
@@ -62,6 +64,6 @@ private extern(C++) {
 	bool sfMusic_OpenFromFile(sfMusic* music, const char* filename);
 	bool sfMusic_OpenFromMemory(sfMusic* music, const void* data, size_t sizeInBytes);
 	bool sfMusic_OpenFromStream(sfMusic* music, InputStream stream);
-	uint sfMusic_GetDuration(const sfMusic* music);
+	sfTime sfMusic_GetDuration(const sfMusic* music);
 }
 
