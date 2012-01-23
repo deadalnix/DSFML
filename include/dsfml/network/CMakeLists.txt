@@ -4,7 +4,8 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/dsfml/network)
 # all source files
 set(SRC
     ${SRCROOT}/all.d
-    ${INCROOT}/ftp.d
+    ${SRCROOT}/ftp.d
+    ${SRCROOT}/Ftp.cpp
     ${INCROOT}/http.d
     ${SRCROOT}/ipaddress.d
     ${SRCROOT}/IpAddress.cpp
