@@ -186,50 +186,52 @@ final class Ftp {
 	Response login(string userName, string password) {
 		return new Response(sfFtp_Login(ftp, userName.ptr, userName.length, password.ptr, password.length));
 	}
-	/*
-	public Response keepAlive() {
+	
+	Response keepAlive() {
 		return new Response(sfFtp_KeepAlive(ftp));
 	}
 	
-	public DirectoryResponse getWorkingDirectory() {
-		return new DirectoryResponse();
+	@property
+	DirectoryResponse workingDirectory() {
+		return new DirectoryResponse(sfFtp_GetWorkingDirectory(ftp));
 	}
 	
-	public ListingResponse getDirectoryListing(string directory = "") {
-		return new ListingResponse(directory);
+	@property
+	ListingResponse directoryListing(string directory = "") {
+		return new ListingResponse(sfFtp_GetDirectoryListing(ftp, directory.ptr, directory.length));
 	}
 	
-	public Response changeDirectory(string directory) {
-		return new Response(sfFtp_ChangeDirectory(ftp, toStringz(directory)));
+	Response changeDirectory(string directory) {
+		return new Response(sfFtp_ChangeDirectory(ftp, directory.ptr, directory.length));
 	}
 	
-	public Response parentDirectory() {
+	Response parentDirectory() {
 		return new Response(sfFtp_ParentDirectory(ftp));
 	}
 	
-	public Response createDirectory(string name) {
-		return new Response(sfFtp_CreateDirectory(ftp, toStringz(name)));
+	Response createDirectory(string name) {
+		return new Response(sfFtp_CreateDirectory(ftp, name.ptr, name.length));
 	}
 	
-	public Response deleteDirectory(string name) {
-		return new Response(sfFtp_DeleteDirectory(ftp, toStringz(name)));
+	Response deleteDirectory(string name) {
+		return new Response(sfFtp_DeleteDirectory(ftp, name.ptr, name.length));
 	}
 	
-	public Response renameFile(string file, string newName) {
-		return new Response(sfFtp_RenameFile(ftp, toStringz(file), toStringz(newName)));
+	Response renameFile(string file, string newName) {
+		return new Response(sfFtp_RenameFile(ftp, file.ptr, file.length, newName.ptr, newName.length));
 	}
 	
-	public Response deleteFile(string name) {
-		return new Response(sfFtp_DeleteFile(ftp, toStringz(name)));
+	Response deleteFile(string name) {
+		return new Response(sfFtp_DeleteFile(ftp, name.ptr, name.length));
 	}
 	
-	public Response download(string remoteFile, string localPath, sfFtpTransferMode mode = sfFtpTransferMode.sfFtpBinary) {
-		return new Response(sfFtp_Download(ftp, toStringz(remoteFile), toStringz(localPath), mode));
+	Response download(string remoteFile, string localPath, TransferMode mode = TransferMode.Binary) {
+		return new Response(sfFtp_Download(ftp, remoteFile.ptr, remoteFile.length, localPath.ptr, localPath.length, mode));
 	}
 	
-	public Response upload(string localFile, string remotePath, sfFtpTransferMode mode = sfFtpTransferMode.sfFtpBinary) {
-		return new Response(sfFtp_Upload(ftp, toStringz(localFile), toStringz(remotePath), mode));
-	}*/
+	Response upload(string localFile, string remotePath, TransferMode mode = TransferMode.Binary) {
+		return new Response(sfFtp_Upload(ftp, localFile.ptr, localFile.length, remotePath.ptr, remotePath.length, mode));
+	}
 }
 
 package extern(C++) {
@@ -266,5 +268,19 @@ package extern(C++) {
 	sfFtpResponse* sfFtp_Disconnect(sfFtp* ftp);
 	sfFtpResponse* sfFtp_Login(sfFtp* ftp);
 	sfFtpResponse* sfFtp_Login(sfFtp* ftp, const char* userName, size_t userNameLength, const char* password, size_t passwordLength);
+	sfFtpResponse* sfFtp_KeepAlive(sfFtp* ftp);
+	
+	sfFtpDirectoryResponse* sfFtp_GetWorkingDirectory(sfFtp* ftp);
+	sfFtpListingResponse* sfFtp_GetDirectoryListing(sfFtp* ftp, const char* directory, size_t directoryLength);
+	
+	sfFtpResponse* sfFtp_ChangeDirectory(sfFtp* ftp, const char* directory, size_t directoryLength);
+	sfFtpResponse* sfFtp_ParentDirectory(sfFtp* ftp);
+	sfFtpResponse* sfFtp_CreateDirectory(sfFtp* ftp, const char* name, size_t nameLength);
+	sfFtpResponse* sfFtp_DeleteDirectory(sfFtp* ftp, const char* name, size_t nameLength);
+	
+	sfFtpResponse* sfFtp_RenameFile(sfFtp* ftp, const char* file, size_t fileLength, const char* newName, size_t newNameLength);
+	sfFtpResponse* sfFtp_DeleteFile(sfFtp* ftp, const char* name, size_t nameLength);
+	sfFtpResponse* sfFtp_Download(sfFtp* ftp, const char* remoteFile, size_t remoteFileLength, const char* localPath, size_t localPathLength, uint mode);
+	sfFtpResponse* sfFtp_Upload(sfFtp* ftp, const char* localFile, size_t localFileLength, const char* remotePath, size_t remotePathLength, uint mode);
 }
 
