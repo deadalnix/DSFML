@@ -156,11 +156,26 @@ final class Ftp {
 		~this() {
 			sfFtpListingResponse_Destroy(listingResponse);
 		}
-		/*
+		
 		@property
 		final string[] filenames() const {
-			// TODO:
-		}*/
+			const char* cfilenames[]	= sfFtpListingResponse_GetFilenames(listingResponse)[0 .. sfFtpListingResponse_GetFilenamesCount(listingResponse)];
+			scope(exit) {
+				foreach(cfilename; cfilenames) {
+					free(cast(char*) cfilename);
+				}
+				
+				free(cast(char**) cfilenames.ptr);
+			}
+			
+			string[] filenames = new string[cfilenames.length];
+			
+			foreach(i, cfilename; cfilenames) {
+				filenames[i] = cfilename[0 .. strlen(cfilename)].idup;
+			}
+			
+			return filenames;
+		}
 	}
 	
 	this() {
@@ -259,6 +274,8 @@ package extern(C++) {
 	struct sfFtpListingResponse {}
 	
 	void sfFtpListingResponse_Destroy(sfFtpListingResponse* listingResponse);
+	const(char*)* sfFtpListingResponse_GetFilenames(const sfFtpListingResponse* listingResponse);
+	size_t sfFtpListingResponse_GetFilenamesCount(const sfFtpListingResponse* listingResponse);
 	
 	// Ftp functions
 	void sfFtp_Create(sfFtp* ftp);

@@ -42,6 +42,22 @@ void sfFtpListingResponse_Destroy(sfFtpListingResponse* listingResponse) {
 	delete listingResponse;
 }
 
+const char** sfFtpListingResponse_GetFilenames(const sfFtpListingResponse* listingResponse) {
+	const std::vector<std::string>& filenames = listingResponse->GetFilenames();
+	const char** cfilenames = new const char*[filenames.size()];
+	
+	size_t i = 0;
+	for(std::vector<std::string>::const_iterator it = filenames.begin(); it != filenames.end(); ++it) {
+		cfilenames[i++] = it->c_str();
+	}
+	
+	return cfilenames;
+}
+
+size_t sfFtpListingResponse_GetFilenamesCount(const sfFtpListingResponse* listingResponse) {
+	return listingResponse->GetFilenames().size();
+}
+
 typedef sf::Ftp sfFtp;
 
 void sfFtp_Create(sfFtp* ftp) {
