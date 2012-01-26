@@ -13,6 +13,27 @@ enum Method {
 	Head,
 }
 
+enum Status {
+	Ok = 200,
+	Created = 201,
+	Accepted = 202,
+	NoContent = 204,
+	MultipleChoices = 300,
+	MovedPermanently = 301,
+	MovedTemporarily = 302,
+	NotModified = 304,
+	BadRequest = 400,
+	Unauthorized = 401,
+	Forbidden = 403,
+	NotFound = 404,
+	InternalServerError = 500,
+	NotImplemented = 501,
+	BadGateway = 502,
+	ServiceNotAvailable = 503,
+	InvalidResponse = 1000,
+	ConnectionFailed = 1001,
+}
+
 final class Http {
 	private void[httpSize] data = void;
 	
@@ -20,6 +41,80 @@ final class Http {
 	package final inout(sfHttp*) http() inout {
 		return cast(inout(sfHttp)*) &this;
 	}
+	
+	static final class Request {
+		private sfHttpRequest* request;
+		
+		this(string uri = "/", Method method = Method.Get, string requestBody = "") {
+			request = sfHttpRequest_Create(uri.ptr, uri.length, method, requestBody.ptr, requestBody.length);
+		}
+		
+		~this() {
+			sfHttpRequest_Destroy(request);
+		}
+		
+		// TODO: setfield
+		
+		@property
+		final void method(Method method) {
+			sfHttpRequest_SetMethod(request, method);
+		}
+		
+		@property
+		final void uri(string uri) {
+			sfHttpRequest_SetUri(request, uri.ptr, uri.length);
+		}
+		
+		// TODO: http version
+		
+		@property
+		final void requestBody(string requestBody) {
+			sfHttpRequest_SetBody(request, requestBody.ptr, requestBody.length);
+		}
+	}
+	
+	static final class Response {
+		private sfHttpResponse* response;
+		
+		this() {
+			response = sfHttpResponse_Create();
+		}
+		
+		~this() {
+			sfHttpResponse_Destroy(response);
+		}
+		
+		final string getField(string field) const {
+			const char* cfield = sfHttpResponse_GetField(response, field.ptr, field.length);
+			scope(exit) free(cast(char*) cfield);
+			
+			return cfield[0 .. strlen(cfield)].idup;
+		}
+		
+		@property
+		final Status status() const {
+			return cast(Status) sfHttpResponse_GetStatus(response);
+		}
+		
+		@property
+		final uint majorHttpVersion() const {
+			return sfHttpResponse_GetMajorHttpVersion(response);
+		}
+		
+		@property
+		final uint minorHttpVersion() const {
+			return sfHttpResponse_GetMinorHttpVersion(response);
+		}
+		
+		@property
+		final string responseBody() const {
+			const char* cbody = sfHttpResponse_GetBody(response);
+			scope(exit) free(cast(char*) cbody);
+			
+			return cbody[0 .. strlen(cbody)].idup;
+		}
+	}
+	
 	/*
 	public this() {
 		http = sfHttp_Create();
@@ -42,83 +137,34 @@ final class Http {
 	public Response sendRequest(const(Request) request, uint timeout = 0) {
 		return new Response(request, timeout);
 	}
-	
-	static class Request {
-		private sfHttpRequest* request;
-		
-		public this(string uri = "/", sfHttpMethod method = sfHttpMethod.sfHttpGet, string requestBody = "") {
-			request = sfHttpRequest_Create();
-			
-			setUri(uri);
-			setMethod(method);
-			setBody(requestBody);
-		}
-		
-		public ~this() {
-			sfHttpRequest_Destroy(request);
-		}
-		
-		public void setField(string field, string value) {
-			sfHttpRequest_SetField(request, toStringz(field), toStringz(value));
-		}
-		
-		public void setMethod(sfHttpMethod method) {
-			sfHttpRequest_SetMethod(request, method);
-		}
-		
-		public void setUri(string uri) {
-			sfHttpRequest_SetUri(request, toStringz(uri));
-		}
-		
-		public void setHttpVersion(uint major, uint minor) {
-			sfHttpRequest_SetHttpVersion(request, major, minor);
-		}
-		
-		public void setBody(string requestBody) {
-			sfHttpRequest_SetBody(request, toStringz(requestBody));
-		}
-	}
-	
-	class Response {
-		private sfHttpResponse* response;
-		
-		private this(const Request request, uint timeout = 0) {
-			response = sfHttp_SendRequest(http, request.request, timeout);
-		}
-		
-		public ~this() {
-			sfHttpResponse_Destroy(response);
-		}
-		
-		public string getField(string field) const {
-			const(char*) cvalue = sfHttpResponse_GetField(response, toStringz(field));
-			
-			return cvalue[0 .. strlen(cvalue)].idup;
-		}
-		
-		public sfHttpStatus getStatus() const {
-			return sfHttpResponse_GetStatus(response);
-		}
-		
-		public uint getMajorVersion() const {
-			return sfHttpResponse_GetMajorVersion(response);
-		}
-		
-		public uint getMinorVersion() const {
-			return sfHttpResponse_GetMinorVersion(response);
-		}
-		
-		public string getBody() const {
-			const(char*) cbody = sfHttpResponse_GetBody(response);
-			
-			return cbody[0 .. strlen(cbody)].idup;
-		}
-	}*/
+	*/
 }
 
 package extern(C++) {
 	struct sfHttp {
 		private void[httpSize] data = void;
 	}
+	
+	struct sfHttpRequest {}
+	
+	sfHttpRequest* sfHttpRequest_Create(const char* uri, size_t uriLength, uint method, const char* requestBody, size_t requestBodyLength);
+	void sfHttpRequest_Destroy(sfHttpRequest* request);
+	
+	void sfHttpRequest_SetField(sfHttpRequest* request, const char* field, size_t fieldLength, const char* value, size_t valueLength);
+	void sfHttpRequest_SetMethod(sfHttpRequest* request, uint method);
+	void sfHttpRequest_SetUri(sfHttpRequest* request, const char* uri, size_t uriLength);
+	void sfHttpRequest_SetHttpVersion(sfHttpRequest* request, uint major, uint minor);
+	void sfHttpRequest_SetBody(sfHttpRequest* request, const char* requestBody, size_t requestBodyLength);
+	
+	struct sfHttpResponse {}
+	
+	sfHttpResponse* sfHttpResponse_Create();
+	void sfHttpResponse_Destroy(sfHttpResponse* response);
+	
+	const(char)* sfHttpResponse_GetField(const sfHttpResponse* response, const char* field, size_t fieldLength);
+	uint sfHttpResponse_GetStatus(const sfHttpResponse* response);
+	uint sfHttpResponse_GetMajorHttpVersion(const sfHttpResponse* response);
+	uint sfHttpResponse_GetMinorHttpVersion(const sfHttpResponse* response);
+	const(char)* sfHttpResponse_GetBody(const sfHttpResponse* response);
 }
 
