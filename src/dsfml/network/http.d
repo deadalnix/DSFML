@@ -1,15 +1,26 @@
 module dsfml.network.http;
 
-import csfml.network.http;
-
 import dsfml.network.ipaddress;
+import dsfml.sizes;
 
-import std.string;
+// TODO: Get rid of this.
 import std.c.string;
+import std.c.stdlib;
 
-class Http {
-	private sfHttp* http;
+enum Method {
+	Get,
+	Post,
+	Head,
+}
+
+final class Http {
+	private void[httpSize] data = void;
 	
+	@property
+	package final inout(sfHttp*) http() inout {
+		return cast(inout(sfHttp)*) &this;
+	}
+	/*
 	public this() {
 		http = sfHttp_Create();
 	}
@@ -102,6 +113,12 @@ class Http {
 			
 			return cbody[0 .. strlen(cbody)].idup;
 		}
+	}*/
+}
+
+package extern(C++) {
+	struct sfHttp {
+		private void[httpSize] data = void;
 	}
 }
 

@@ -1,7 +1,6 @@
 #include<SFML/Network/Ftp.hpp>
 #include<SFML/Network/IpAddress.hpp>
 #include<SFML/System/Enumeration.hpp>
-#include<SFML/System/PointerProvider.hpp>
 #include<new>
 
 typedef sf::Ftp::Response sfFtpResponse;
@@ -72,62 +71,62 @@ typedef sf::Time sfTime;
 typedef sf::IpAddress sfIpAddress;
 
 sfFtpResponse* sfFtp_Connect(sfFtp* ftp, sfIpAddress server, unsigned short port, sfTime timeout) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Connect(server, port, timeout)));
+	return new sfFtpResponse(ftp->Connect(server, port, timeout));
 }
 
 sfFtpResponse* sfFtp_Disconnect(sfFtp* ftp) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Disconnect()));
+	return new sfFtpResponse(ftp->Disconnect());
 }
 	
 sfFtpResponse* sfFtp_Login(sfFtp* ftp) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Login()));
+	return new sfFtpResponse(ftp->Login());
 }
 
 sfFtpResponse* sfFtp_Login(sfFtp* ftp, const char* userName, size_t userNameLength, const char* password, size_t passwordLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Login(std::string(userName, userNameLength), std::string(password, passwordLength))));
+	return new sfFtpResponse(ftp->Login(std::string(userName, userNameLength), std::string(password, passwordLength)));
 }
 
 sfFtpResponse* sfFtp_KeepAlive(sfFtp* ftp) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->KeepAlive()));
+	return new sfFtpResponse(ftp->KeepAlive());
 }
 
 sfFtpResponse* sfFtp_GetWorkingDirectory(sfFtp* ftp) {
-	return reinterpret_cast<sfFtpDirectoryResponse*>(new sf::PointerProvider<sfFtpDirectoryResponse>(ftp->GetWorkingDirectory()));
+	return new sfFtpDirectoryResponse(ftp->GetWorkingDirectory());
 }
 
 sfFtpListingResponse* sfFtp_GetDirectoryListing(sfFtp* ftp, const char* directory, size_t directoryLength) {
-	return reinterpret_cast<sfFtpListingResponse*>(new sf::PointerProvider<sfFtpListingResponse>(ftp->GetDirectoryListing(std::string(directory, directoryLength))));
+	return new sfFtpListingResponse(ftp->GetDirectoryListing(std::string(directory, directoryLength)));
 }
 
 sfFtpResponse* sfFtp_ChangeDirectory(sfFtp* ftp, const char* directory, size_t directoryLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->ChangeDirectory(std::string(directory, directoryLength))));
+	return new sfFtpResponse(ftp->ChangeDirectory(std::string(directory, directoryLength)));
 }
 
 sfFtpResponse* sfFtp_ParentDirectory(sfFtp* ftp) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->ParentDirectory()));
+	return new sfFtpResponse(ftp->ParentDirectory());
 }
 
 sfFtpResponse* sfFtp_CreateDirectory(sfFtp* ftp, const char* name, size_t nameLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->CreateDirectory(std::string(name, nameLength))));
+	return new sfFtpResponse(ftp->CreateDirectory(std::string(name, nameLength)));
 }
 
 sfFtpResponse* sfFtp_DeleteDirectory(sfFtp* ftp, const char* name, size_t nameLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->DeleteDirectory(std::string(name, nameLength))));
+	return new sfFtpResponse(ftp->DeleteDirectory(std::string(name, nameLength)));
 }
 
 sfFtpResponse* sfFtp_RenameFile(sfFtp* ftp, const char* file, size_t fileLength, const char* newName, size_t newNameLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->RenameFile(std::string(file, fileLength), std::string(newName, newNameLength))));
+	return new sfFtpResponse(ftp->RenameFile(std::string(file, fileLength), std::string(newName, newNameLength)));
 }
 
 sfFtpResponse* sfFtp_DeleteFile(sfFtp* ftp, const char* name, size_t nameLength) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->DeleteFile(std::string(name, nameLength))));
+	return new sfFtpResponse(ftp->DeleteFile(std::string(name, nameLength)));
 }
 
 sfFtpResponse* sfFtp_Download(sfFtp* ftp, const char* remoteFile, size_t remoteFileLength, const char* localPath, size_t localPathLength, unsigned int mode) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Download(std::string(remoteFile, remoteFileLength), std::string(localPath, localPathLength), sf::Enumeration<sf::Ftp::TransferMode, unsigned int>(mode))));
+	return new sfFtpResponse(ftp->Download(std::string(remoteFile, remoteFileLength), std::string(localPath, localPathLength), sf::Enumeration<sf::Ftp::TransferMode, unsigned int>(mode)));
 }
 
 sfFtpResponse* sfFtp_Upload(sfFtp* ftp, const char* localFile, size_t localFileLength, const char* remotePath, size_t remotePathLength, unsigned int mode) {
-	return reinterpret_cast<sfFtpResponse*>(new sf::PointerProvider<sfFtpResponse>(ftp->Download(std::string(localFile, localFileLength), std::string(remotePath, remotePathLength), sf::Enumeration<sf::Ftp::TransferMode, unsigned int>(mode))));
+	return new sfFtpResponse(ftp->Download(std::string(localFile, localFileLength), std::string(remotePath, remotePathLength), sf::Enumeration<sf::Ftp::TransferMode, unsigned int>(mode)));
 }
 
