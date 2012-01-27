@@ -1,5 +1,4 @@
 #include<SFML/Network/Http.hpp>
-// #include<SFML/Network/IpAddress.hpp>
 #include<SFML/System/Enumeration.hpp>
 #include<new>
 
@@ -61,5 +60,29 @@ unsigned int sfHttpResponse_GetMinorHttpVersion(const sfHttpResponse* response) 
 
 const char* sfHttpResponse_GetBody(const sfHttpResponse* response) {
 	return response->GetBody().c_str();
+}
+
+typedef sf::Http sfHttp;
+
+void sfHttp_Create(sfHttp* http) {
+	new(http) sfHttp();
+}
+
+void sfHttp_Create(sfHttp* http, const char* host, size_t hostLength, unsigned short port) {
+	new(http) sfHttp(std::string(host, hostLength), port);
+}
+
+void sfHttp_Destroy(sfHttp* http) {
+	http->~sfHttp();
+}
+
+void sfHttp_SetHost(sfHttp* http, const char* host, size_t hostLength, unsigned short port) {
+	http->SetHost(std::string(host, hostLength), port);
+}
+
+typedef sf::Time sfTime;
+
+sfHttpResponse* sfHttp_SendRequest(sfHttp* http, const sfHttpRequest& request, sfTime timeout) {
+	new sfHttpResponse(http->SendRequest(request, timeout));
 }
 

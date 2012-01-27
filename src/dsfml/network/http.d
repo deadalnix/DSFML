@@ -1,6 +1,7 @@
 module dsfml.network.http;
 
 import dsfml.network.ipaddress;
+import dsfml.system.time;
 import dsfml.sizes;
 
 // TODO: Get rid of this.
@@ -80,6 +81,10 @@ final class Http {
 			response = sfHttpResponse_Create();
 		}
 		
+		private this(sfHttpResponse* response) {
+			this.response = response;
+		}
+		
 		~this() {
 			sfHttpResponse_Destroy(response);
 		}
@@ -115,29 +120,25 @@ final class Http {
 		}
 	}
 	
-	/*
-	public this() {
-		http = sfHttp_Create();
+	this() {
+		sfHttp_Create(http);
 	}
 	
-	public this(string host, ushort port = 0) {
-		this();
-		
-		setHost(host, port);
+	this(string host, ushort port = 0) {
+		sfHttp_Create(http, host.ptr, host.length, port);
 	}
 	
-	public ~this() {
+	~this() {
 		sfHttp_Destroy(http);
 	}
 	
-	public void setHost(string host, ushort port = 0) {
-		sfHttp_SetHost(http, toStringz(host), port);
+	void setHost(string host, ushort port = 0) {
+		sfHttp_SetHost(http, host.ptr, host.length, port);
 	}
 	
-	public Response sendRequest(const(Request) request, uint timeout = 0) {
-		return new Response(request, timeout);
+	Response sendRequest(ref const Request request, Time timeout = Time()) {
+		return new Response(sfHttp_SendRequest(http, *request.request, *(cast(sfTime*) &timeout)));
 	}
-	*/
 }
 
 package extern(C++) {
@@ -166,5 +167,12 @@ package extern(C++) {
 	uint sfHttpResponse_GetMajorHttpVersion(const sfHttpResponse* response);
 	uint sfHttpResponse_GetMinorHttpVersion(const sfHttpResponse* response);
 	const(char)* sfHttpResponse_GetBody(const sfHttpResponse* response);
+	
+	void sfHttp_Create(sfHttp* http);
+	void sfHttp_Create(sfHttp* http, const char* host, size_t hostLength, ushort port);
+	void sfHttp_Destroy(sfHttp* http);
+	
+	void sfHttp_SetHost(sfHttp* http, const char* host, size_t hostLength, ushort port);
+	sfHttpResponse* sfHttp_SendRequest(sfHttp* http, ref const sfHttpRequest request, sfTime timeout);
 }
 
