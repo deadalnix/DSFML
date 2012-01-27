@@ -54,7 +54,9 @@ final class Http {
 			sfHttpRequest_Destroy(request);
 		}
 		
-		// TODO: setfield
+		final void setField(string field, string value) {
+			sfHttpRequest_SetField(request, field.ptr, field.length, value.ptr, value.length);
+		}
 		
 		@property
 		final void method(Method method) {
@@ -66,7 +68,9 @@ final class Http {
 			sfHttpRequest_SetUri(request, uri.ptr, uri.length);
 		}
 		
-		// TODO: http version
+		final void setHttpVersion(uint major, uint minor) {
+			sfHttpRequest_SetHttpVersion(request, major, minor);
+		}
 		
 		@property
 		final void requestBody(string requestBody) {
