@@ -21,21 +21,28 @@ struct Rect(T) if(isNumeric!(T)) {
 		}
 	}
 	
-	this(T left, T top, T width, T height) {
+	this()(T left, T top, T width, T height) {
 		this.left	= left;
 		this.top	= top;
 		this.width	= width;
 		this.height	= height;
 	}
 	
-	this(const T[2] position, const T[2] size) {
-		this.left	= position[0];
-		this.top	= position[1];
-		this.width	= size[0];
-		this.height	= size[1];
+	this()(ref const T[2] position, ref const T[2] size) {
+		left	= position[0];
+		top		= position[1];
+		width	= size[0];
+		height	= size[1];
 	}
 	
-	bool contains(const T[2] position) const {
+	this(U)(ref const Rect!U rectangle) {
+		left	= cast(T) rectangle.left;
+		top		= cast(T) rectangle.top;
+		width	= cast(T) rectangle.width;
+		height	= cast(T) rectangle.height;
+	}
+	
+	bool contains(ref const T[2] position) const {
 		return this.contains(position[0], position[1]);
 	}
 	

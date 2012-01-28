@@ -3,7 +3,6 @@ module dsfml.graphics.image;
 import dsfml.graphics.color;
 import dsfml.graphics.rect;
 import dsfml.system.inputstream;
-
 import dsfml.sizes;
 
 import std.string;
