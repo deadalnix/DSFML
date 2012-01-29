@@ -38,4 +38,42 @@ void sfTransformable_SetOrigin(sfTransformable* transformable, float x, float y)
 void sfTransformable_SetOrigin(sfTransformable* transformable, const float* position) {
 	transformable->SetOrigin(*reinterpret_cast<const sf::Vector2f*>(position));
 }
+/*
+const float* sfTransformable_GetPosition(const sfTransformable* transformable) {
+	transformable->GetPosition();
+}
+*/
+
+float sfTransformable_GetRotation(const sfTransformable* transformable) {
+	return transformable->GetRotation();
+}
+/*
+const float* sfTransformable_GetScale(const sfTransformable* transformable) {
+	transformable->GetScale();
+}
+
+const float* sfTransformable_GetOrigin(const sfTransformable* transformable) {
+	transformable->GetOrigin();
+}
+*/
+
+void sfTransformable_Move(sfTransformable* transformable, float offsetX, float offsetY) {
+	transformable->Move(offsetX, offsetY);
+}
+
+void sfTransformable_Move(sfTransformable* transformable, const float* offset) {
+	transformable->Move(*reinterpret_cast<const sf::Vector2f*>(offset));
+}
+
+void sfTransformable_Rotate(sfTransformable* transformable, float angle) {
+	transformable->Rotate(angle);
+}
+
+void sfTransformable_Scale(sfTransformable* transformable, float factorX, float factorY) {
+	transformable->Scale(factorX, factorY);
+}
+
+void sfTransformable_Scale(sfTransformable* transformable, const float* factor) {
+	transformable->Scale(*reinterpret_cast<const sf::Vector2f*>(factor));
+}
 
