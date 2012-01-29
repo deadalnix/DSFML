@@ -43,7 +43,6 @@ const float* sfTransformable_GetPosition(const sfTransformable* transformable) {
 	transformable->GetPosition();
 }
 */
-
 float sfTransformable_GetRotation(const sfTransformable* transformable) {
 	return transformable->GetRotation();
 }
@@ -56,7 +55,6 @@ const float* sfTransformable_GetOrigin(const sfTransformable* transformable) {
 	transformable->GetOrigin();
 }
 */
-
 void sfTransformable_Move(sfTransformable* transformable, float offsetX, float offsetY) {
 	transformable->Move(offsetX, offsetY);
 }
@@ -75,5 +73,15 @@ void sfTransformable_Scale(sfTransformable* transformable, float factorX, float 
 
 void sfTransformable_Scale(sfTransformable* transformable, const float* factor) {
 	transformable->Scale(*reinterpret_cast<const sf::Vector2f*>(factor));
+}
+
+typedef sf::Transform sfTransform;
+
+const sfTransform& sfTransformable_GetTransform(const sfTransformable* transformable) {
+	return transformable->GetTransform();
+}
+
+const sfTransform& sfTransformable_GetInverseTransform(const sfTransformable* transformable) {
+	return transformable->GetInverseTransform();
 }
 

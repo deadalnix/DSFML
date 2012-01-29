@@ -1,5 +1,7 @@
 module dsfml.graphics.transformable;
 
+import dsfml.graphics.transform;
+
 import dsfml.sizes;
 
 class Transformable {
@@ -70,7 +72,17 @@ class Transformable {
 		sfTransformable_Scale(transformable, factor.ptr);
 	}
 	
-	// TODO: transform.
+	@property
+	final ref const(Transform) transform() const {
+		sfTransform tmp = sfTransformable_GetTransform(transformable);
+		return tmp.transform;
+	}
+	
+	@property
+	final ref const(Transform) inverseTransform() const {
+		sfTransform tmp = sfTransformable_GetInverseTransform(transformable);
+		return tmp.transform;
+	}
 }
 
 package extern(C++) {
@@ -100,6 +112,7 @@ package extern(C++) {
 	void sfTransformable_Scale(sfTransformable* transformable, float factorX, float factorY);
 	void sfTransformable_Scale(sfTransformable* transformable, const float* factor);
 	
-	// TODO: transform.
+	ref const(sfTransform) sfTransformable_GetTransform(const sfTransformable* transformable);
+	ref const(sfTransform) sfTransformable_GetInverseTransform(const sfTransformable* transformable);
 }
 

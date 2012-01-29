@@ -28,14 +28,14 @@ struct Transform {
 		// (don't use an epsilon because the determinant may *really* be tiny)
 		if(det != 0.f) {
 			return Transform( (_matrix[15] * _matrix[5] - _matrix[7] * _matrix[13]) / det,
-							-(_matrix[15] * _matrix[4] - _matrix[7] * _matrix[12]) / det,
-							 (_matrix[13] * _matrix[4] - _matrix[5] * _matrix[12]) / det,
-							-(_matrix[15] * _matrix[1] - _matrix[3] * _matrix[13]) / det,
-							 (_matrix[15] * _matrix[0] - _matrix[3] * _matrix[12]) / det,
-							-(_matrix[13] * _matrix[0] - _matrix[1] * _matrix[12]) / det,
-							 (_matrix[7] * _matrix[1] - _matrix[3] * _matrix[5]) / det,
-							-(_matrix[7] * _matrix[0] - _matrix[3] * _matrix[4]) / det,
-							 (_matrix[5] * _matrix[0] - _matrix[1] * _matrix[4]) / det);
+							  -(_matrix[15] * _matrix[4] - _matrix[7] * _matrix[12]) / det,
+							   (_matrix[13] * _matrix[4] - _matrix[5] * _matrix[12]) / det,
+							  -(_matrix[15] * _matrix[1] - _matrix[3] * _matrix[13]) / det,
+							   (_matrix[15] * _matrix[0] - _matrix[3] * _matrix[12]) / det,
+							  -(_matrix[13] * _matrix[0] - _matrix[1] * _matrix[12]) / det,
+							   (_matrix[7] * _matrix[1] - _matrix[3] * _matrix[5]) / det,
+							  -(_matrix[7] * _matrix[0] - _matrix[3] * _matrix[4]) / det,
+							   (_matrix[5] * _matrix[0] - _matrix[1] * _matrix[4]) / det);
 		} else {
 			return identity;
 		}
@@ -175,7 +175,18 @@ struct Transform {
 	}
 }
 
-immutable Transform identity;
+immutable Transform identity = Transform();
 
 // TODO: unittest
+
+package extern(C++) {
+	struct sfTransform {
+		void[Transform.sizeof] data = void;
+		
+		@property
+		ref inout Transform transform() inout {
+			return *(cast(Transform*) &this);
+		}
+	}
+}
 
