@@ -14,4 +14,6 @@ public import dsfml.graphics.renderwindow;
 public import dsfml.graphics.texture;
 public import dsfml.graphics.transform;
 public import dsfml.graphics.transformable;
+public import dsfml.graphics.view;
+public import dsfml.graphics.vertex;
 

@@ -26,6 +26,7 @@ set(SRC
     ${SRCROOT}/transform.d
     ${SRCROOT}/transformable.d
     ${SRCROOT}/Transformable.cpp
+    ${SRCROOT}/vertex.d
     ${SRCROOT}/view.d
     ${SRCROOT}/View.cpp)
 
