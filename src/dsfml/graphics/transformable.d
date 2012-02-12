@@ -28,11 +28,18 @@ class Transformable {
 		sfTransformable_SetPosition(transformable, position.ptr);
 	}
 	
-	final void setRotation(float angle) {
+	@property
+	final ref const(float)[2] position() const {
+		return *(cast(float[2]*) sfTransformable_GetPosition(transformable));
+	}
+	
+	@property
+	final void rotation(float angle) {
 		sfTransformable_SetRotation(transformable, angle);
 	}
 	
-	final float getRotation() {
+	@property
+	final float rotation() {
 		return sfTransformable_GetRotation(transformable);
 	}
 	
@@ -44,12 +51,21 @@ class Transformable {
 		sfTransformable_SetScale(transformable, factors.ptr);
 	}
 	
+	final ref const(float)[2] getScale() const {
+		return *(cast(float[2]*) sfTransformable_GetScale(transformable));
+	}
+	
 	final void setOrigin(float x, float y) {
 		sfTransformable_SetOrigin(transformable, x, y);
 	}
 	
 	final void setOrigin(ref const float[2] position) {
 		sfTransformable_SetOrigin(transformable, position.ptr);
+	}
+	
+	@property
+	final ref const(float)[2] origin() const {
+		return *(cast(float[2]*) sfTransformable_GetOrigin(transformable));
 	}
 	
 	final void move(float offsetX, float offsetY) {
@@ -74,14 +90,12 @@ class Transformable {
 	
 	@property
 	final ref const(Transform) transform() const {
-		sfTransform tmp = sfTransformable_GetTransform(transformable);
-		return tmp.transform;
+		return sfTransformable_GetTransform(transformable).transform;
 	}
 	
 	@property
 	final ref const(Transform) inverseTransform() const {
-		sfTransform tmp = sfTransformable_GetInverseTransform(transformable);
-		return tmp.transform;
+		return sfTransformable_GetInverseTransform(transformable).transform;
 	}
 }
 
@@ -101,10 +115,10 @@ package extern(C++) {
 	void sfTransformable_SetOrigin(sfTransformable* transformable, float x, float y);
 	void sfTransformable_SetOrigin(sfTransformable* transformable, const float* position);
 	
-	// const(float)* sfTransformable_GetPosition(const sfTransformable* transformable);
+	const(float)* sfTransformable_GetPosition(const sfTransformable* transformable);
 	float sfTransformable_GetRotation(const sfTransformable* transformable);
-	// const(float)* sfTransformable_GetScale(const sfTransformable* transformable);
-	// const(float)* sfTransformable_GetOrigin(const sfTransformable* transformable);
+	const(float)* sfTransformable_GetScale(const sfTransformable* transformable);
+	const(float)* sfTransformable_GetOrigin(const sfTransformable* transformable);
 	
 	void sfTransformable_Move(sfTransformable* transformable, float offsetX, float offsetY);
 	void sfTransformable_Move(sfTransformable* transformable, const float* offset);

@@ -25,7 +25,7 @@ float[3] position() {
 }
 
 @property
-void direction(float[3] direction) {
+void direction(ref const float[3] direction) {
 	sfListener_SetDirection(direction.ptr);
 }
 

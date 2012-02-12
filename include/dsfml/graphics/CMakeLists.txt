@@ -25,7 +25,9 @@ set(SRC
     ${SRCROOT}/Texture.cpp
     ${SRCROOT}/transform.d
     ${SRCROOT}/transformable.d
-    ${SRCROOT}/Transformable.cpp)
+    ${SRCROOT}/Transformable.cpp
+    ${SRCROOT}/view.d
+    ${SRCROOT}/View.cpp)
 
 # define the dsfml-system target
 dsfml_add_library(dsfml-graphics

@@ -113,7 +113,8 @@ class Window {
 		sfWindow_SetIcon(window, width, height, pixels.ptr);
 	}
 	
-	final bool setActive(bool active) const {
+	@property
+	final bool active(bool active) const {
 		return sfWindow_SetActive(window, active);
 	}
 	

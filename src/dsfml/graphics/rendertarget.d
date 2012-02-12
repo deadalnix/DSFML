@@ -12,7 +12,15 @@ abstract class RenderTarget {
 		return cast(inout(sfRenderTarget)*) data.ptr;
 	}
 	
-	public abstract void clear(const Color color = black);
+	void clear(ref const Color color = black) {
+		sfRenderTarget_Clear(renderTarget, *(cast(sfColor*) &color));
+	}
+	
+	
+	
+	
+	
+	
 	public abstract void draw(const Drawable object);
 	// TODO: version with shader.
 	public abstract uint getWidth() const;
@@ -24,5 +32,7 @@ package extern(C++) {
 	struct sfRenderTarget {
 		void[renderTargetSize] data = void;
 	}
+	
+	void sfRenderTarget_Clear(sfRenderTarget* renderTarget, ref const sfColor color);
 }
 
